@@ -3,3 +3,7 @@
 *.o
 a.out
 DS_Store
+minishell
+*.a
+/test/venv
+test/__pycache__/
