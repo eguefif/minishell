@@ -28,5 +28,6 @@ jobs:
         make
 
     - name: test
+      working-directory: ./test/
       run: |
-        pytest ./test/test_acceptances.py
+        pytest ./test_acceptances.py
