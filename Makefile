@@ -23,13 +23,11 @@ $(ODIR)%.o: $(SDIR)%.c ./includes/minishell.h
 	$(CC) $(CFLAGS) -c $< $(INC) -o $@
 
 build_test_env:
-	mkdir test
 	python3 -m venv ./test/venv
-	@echo "Type: source ./test/venv/bin/activate"
+	@echo "Type: source ./test/venv/bin/activate && make build_dependences"
 
 build_dependences:
-	python3 -m pip install -- upgrade pip
-	python3 -r ./test/requirements.txt
+	pip install -r ./test/requirements.txt
 
 .PHONY: all clean fclean re build_test_env build_dependences
 
