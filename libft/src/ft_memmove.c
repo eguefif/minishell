@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 13:25:36 by eguefif           #+#    #+#             */
-/*   Updated: 2023/10/18 09:04:41 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/11 19:00:56 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	is_overlapping(unsigned char *to, unsigned char *from, size_t n)
 
 void	copy_from_the_end(unsigned char *to, unsigned char *from, size_t n)
 {
-	size_t	i;
+	int	i;
 
 	i = n - 1;
 	while (i >= 0)
@@ -35,9 +35,7 @@ void	*ft_memmove(void *dest, const void *src, size_t n)
 {
 	unsigned char	*to;
 	unsigned char	*from;
-	size_t			i;
 
-	i = 0;
 	to = (unsigned char *) dest;
 	from = (unsigned char *) src;
 	if (!from || !to || dest == src || n == 0)
