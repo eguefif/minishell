@@ -29,6 +29,9 @@ build_test_env:
 build_dependences:
 	pip install -r ./test/requirements.txt
 
+test_acceptances:
+	pytest
+
 .PHONY: all clean fclean re build_test_env build_dependences
 
 clean:
