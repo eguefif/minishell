@@ -28,6 +28,7 @@ jobs:
       run: |
         python3 -m norminette ./src
         python3 -m norminette ./includes
+        python3 -m norminette ./lib/libft
 
     - name: Make
       run: |
