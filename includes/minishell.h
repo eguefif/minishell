@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 18:13:05 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:53:14 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@
 
 # define PROMPT "Minishell $ "
 
-typedef	struct s_command
+typedef struct s_command
 {
 	char	*arg;
 	int		argc;
