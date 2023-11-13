@@ -26,10 +26,12 @@ def get_acceptance_file_list(path: str) -> list[str]:
     return retval
 
 acc: list[str] = get_acceptance_file_list("./acceptance_scripts/")
+if not acc:
+    exit(1)
 
 @pytest.mark.parametrize("script", acc)
 def test_acceptances(script):
-    bash_output = subprocess.run(script, capture_output=True, text=True, shell=True)
+    bash_output = subprocess.run("bash", input=script, capture_output=True, text=True)
     minishell_output = subprocess.run(MINISHELL, input=script, capture_output=True, text=True, shell=True)
     print (bash_output.returncode, bash_output.stderr)
     assert bash_output.stdout == minishell_output.stdout
