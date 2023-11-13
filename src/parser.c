@@ -1,40 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   minishell.h                                        :+:      :+:    :+:   */
+/*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
+/*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
 /*   Updated: 2023/11/13 13:50:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef MINISHELL_H
-# define MINISHELL_H
-# define DEBUG_MODE 1
-# ifndef READLINE_LIBRARY
-#  define READLINE_LIBRARY
-# endif
-# include <stdio.h>
-# include <sys/wait.h>
-# include <string.h>
+#include "minishell.h"
 
-# include "libft.h"
-# include "rlstdc.h"
-# include "readline.h"
-# include "history.h"
-
-# define PROMPT "Minishell $ "
-
-typedef	struct s_command
+char	**ms_parser(char *line)
 {
-	char	*arg;
-	int		argc;
-}			t_command;	
+	char	**arg;
 
-char	**ms_parser(char *line);
-int		ms_execute(char **commands, char **env);
-void	ms_cleanup(char **commands);
-
-#endif
+	line = ft_strtrim(line, "\n \t");
+	arg = 0;	
+	arg = ft_split(line, ' ');
+	free(line);
+	return (arg);		
+}
