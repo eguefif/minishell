@@ -1,3 +1,4 @@
+from typing import List
 import subprocess
 import pytest
 import os
@@ -15,8 +16,8 @@ def check_path(path: str) -> bool:
         return False
     return True
 
-def get_acceptance_file_list(path: str) -> list[str]:
-    retval: list[str] = []
+def get_acceptance_file_list(path: str) -> List[str]:
+    retval: List[str] = []
     if not check_path(path):
         print("Error: path incorrect: ", path)
         return
@@ -25,7 +26,7 @@ def get_acceptance_file_list(path: str) -> list[str]:
             retval.append(os.path.join(path, file))
     return retval
 
-acc: list[str] = get_acceptance_file_list("./acceptance_scripts/")
+acc: List[str] = get_acceptance_file_list("./acceptance_scripts/")
 if not acc:
     print("Error with getting scripts files")
     exit(1)

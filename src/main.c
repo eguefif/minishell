@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 08:54:29 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/13 10:46:23 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,5 +14,5 @@
 
 int	main(int argc, char **argv, char **env)
 {
-	execve("/bin/cat", argv, env);
+	ft_printf("Hello World\n");
 }
