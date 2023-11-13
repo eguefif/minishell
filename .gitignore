@@ -5,6 +5,7 @@ a.out
 DS_Store
 minishell
 *.a
+readline-8.2
 /test/venv
 test/__pycache__/
 todo
