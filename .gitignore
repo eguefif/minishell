@@ -7,3 +7,5 @@ minishell
 *.a
 /test/venv
 test/__pycache__/
+todo
+

@@ -13,7 +13,7 @@ jobs:
 
     steps:
     - uses: actions/checkout@v3
-    
+
     - name: Set up Python 3.10
       uses: actions/setup-python@v4
       with:
@@ -22,6 +22,12 @@ jobs:
     - name: Install dependencies
       run: |
         pip install pytest
+        pip install norminette
+
+    - name: Norminette
+      run: |
+        python3 -m norminette ./src
+        python3 -m norminette ./includes
 
     - name: Make
       run: |
