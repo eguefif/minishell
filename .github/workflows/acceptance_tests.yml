@@ -26,8 +26,8 @@ jobs:
 
     - name: Norminette
       run: |
-        python3 norminette ./src
-        python3 norminette ./includes
+        python3 -m norminette ./src
+        python3 -m norminette ./includes
 
     - name: Make
       run: |
