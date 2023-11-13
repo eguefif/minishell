@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 13:50:38 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/13 18:35:06 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,6 @@ void	non_interactive_mode(char **env)
 	}
 }
 
-
 void	interactive_mode(char **env)
 {
 	char	*line;
@@ -75,10 +74,9 @@ void	interactive_mode(char **env)
 	}
 }
 
-int		check_valid_line_for_history(char *line)
+int	check_valid_line_for_history(char *line)
 {
 	if (ft_strlen(ft_strtrim(line, " \t")) != 0)
 		return (1);
 	return (0);
 }
-

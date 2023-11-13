@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/13 18:23:28 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:37:29 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,11 +31,11 @@ void	clean_isolated_quotes(char *line)
 		else
 			line++;
 	}
-}	
+}
 
 char	*clean_line(char *line)
 {
-	char *cleaned_line;
+	char	*cleaned_line;
 
 	cleaned_line = ft_strtrim(line, " \t");
 	free(line);
@@ -45,7 +45,7 @@ char	*clean_line(char *line)
 
 char	*jump_quote(char *line)
 {
-	int i;
+	int	i;
 
 	i = 1;
 	while (line[i] != *line)
@@ -80,11 +80,11 @@ size_t	count_tokens(char *line)
 		else if (ft_strchr("\t ", *line))
 			flag = 1;
 		line++;
-	}	
+	}
 	return (count);
 }
 
-char **ms_lexer(char *line)
+char	**ms_lexer(char *line)
 {
 	char	**retval;
 
@@ -92,4 +92,3 @@ char **ms_lexer(char *line)
 	count_tokens(line);
 	return (retval);
 }
-

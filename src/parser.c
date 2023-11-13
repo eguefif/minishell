@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 14:47:40 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/13 18:36:37 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,5 +20,5 @@ char	**ms_parser(char *line)
 	arg = 0;
 	arg = ft_split(line, ' ');
 	free(line);
-	return (arg);		
+	return (arg);
 }
