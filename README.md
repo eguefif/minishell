@@ -1,13 +1,15 @@
 # minishell
 42 minishell project.
 
-# author
+# Author
 Maxime Pelletier
+
 Emmanuel Guefif
 
 # Installation
 git clone https://github.com/eguefif/minishell.git
+
 make
 
-# RUn
+# Run
 ./minishell
