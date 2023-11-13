@@ -6,15 +6,13 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/12 07:15:50 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/13 08:51:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(void)
+int	main(int argc, char **argv, char **env)
 {
-	//test
-	//test
-	ft_printf("Hello World\n");
+	execve("/bin/cat", argv, env);
 }
