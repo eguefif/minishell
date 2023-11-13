@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 13:50:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/13 18:13:05 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,5 +36,7 @@ typedef	struct s_command
 char	**ms_parser(char *line);
 int		ms_execute(char **commands, char **env);
 void	ms_cleanup(char **commands);
+char	*clean_line(char *line);
+size_t	count_tokens(char *line);
 
 #endif
