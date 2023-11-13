@@ -6,12 +6,16 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2023/11/10 19:12:10 by eguefif          ###   ########.fr       */
+=======
+/*   Updated: 2023/11/12 19:48:31 by eguefif          ###   ########.fr       */
+>>>>>>> a5230e7534be50fea4c7b165d4100e772eed5965
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
-#include "libft.h"
+# include "libft.h"
 
 #endif
