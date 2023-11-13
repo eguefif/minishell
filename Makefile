@@ -1,9 +1,9 @@
 NAME = minishell
 CC = gcc
-CFLAG = -g -Wall -Werror -Wextra
+CFLAGS = -g -Wall -Werror -Wextra
 INC = -Iincludes -I$(LIBFT_DIR)/includes -I$(READLINE_DIR)
 
-LIB = -lft -L$(LIBFT_DIR) -L$(READLINE_DIR) -lreadline
+LIB = -lft -L$(LIBFT_DIR) -lncurses -L$(READLINE_DIR) -lreadline
 LIB_DIR = ./lib
 
 LIBFT_DIR = $(LIB_DIR)/libft
@@ -14,7 +14,7 @@ READLINE_URL = https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
 READLINE_SRC = $(LIB_DIR)/readline-8.2.tar.gz
 READLINE = $(READLINE_DIR)/libreadline.a
 
-_SRC = main.c
+_SRC = main.c parser.c executer.c cleaner.c
 _OBJ = $(_SRC:.c=.o)
 ODIR = ./src/
 SDIR = ./src/
@@ -24,6 +24,7 @@ all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ) $(READLINE)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
+	cp ./minishell ./test/
 
 $(LIBFT):
 	make -C $(LIBFT_DIR)
@@ -48,10 +49,11 @@ build_test_env:
 build_dependences:
 	pip install -r ./test/requirements.txt
 
-test_acceptances:
-	pytest
+test:
+	@cd test; \
+	pytest test_acceptances.py -vv
 
-.PHONY: all clean fclean re build_test_env build_dependences
+.PHONY: all clean fclean re build_test_env build_dependences test
 
 clean:
 	rm -rf $(OBJ)

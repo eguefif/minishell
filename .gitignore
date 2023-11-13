@@ -9,4 +9,4 @@ readline-8.2
 /test/venv
 test/__pycache__/
 todo
-
+*.dSYM
