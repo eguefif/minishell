@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/12 19:41:45 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/12 19:43:11 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,5 @@
 
 int	main(void)
 {
-	int	m = 5;
-
-	(void) m;
 	ft_printf("Hello World\n");
 }
