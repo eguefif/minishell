@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/13 18:53:14 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/14 16:11:50 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,31 @@
 # include "history.h"
 
 # define PROMPT "Minishell $ "
+# define TOKENS "<>|\t "
+
+typedef struct s_redirections
+{
+	char	*r_stdin;
+	char	*r_stdout;
+}			t_redirections;
 
 typedef struct s_command
 {
-	char	*arg;
-	int		argc;
+	char			**args;
+	t_redirections files;
 }			t_command;	
 
-char	**ms_parser(char *line);
-int		ms_execute(char **commands, char **env);
-void	ms_cleanup(char **commands);
-char	*clean_line(char *line);
-size_t	count_tokens(char *line);
+t_command	*ms_parser(char *line);
+char		**ms_lexer(char *line);
+char		*clean_line(char *line);
+size_t		count_tokens(char *line);
+char 		**get_tokens(char *line, size_t size);
+char		*jump_quote(char *line);
 
+int			ms_execute(t_command *commnands, char **env);
+
+void		ms_cleanup(char **commands);
+void		ms_clean_tokens(char **tokens);
+
+void		ft_error(char *s, char *name);
 #endif

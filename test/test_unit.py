@@ -5,7 +5,7 @@ import pytest
 CC = "gcc "
 CFLAGS = "-g -Wall -Werror -Wextra "
 INC = "-I../includes -I../lib/libft/includes -I../lib/readline-8.2 "
-LIB = "-L./unit_tests -lminishell -L../lib/libft -lft"
+LIB = "-L./unit_tests -lminishell -L../lib/libft -lft "
 # LIB = "-L../lib/libft -lft -lncurses -L../lib/readline-8.2 -lreadline "
 
 def build_test(path):
@@ -23,8 +23,9 @@ def build_test(path):
             except subprocess.TimeoutExpired:
                 print("Timeout: ", file)
                 continue
-            if retval.returncode != 0:
-               print("Could not compile ", file, retval.stdout + retval.stderr)
+            if retval.returncode != 0 or retval.stdout.find("error") != -1:
+               return 1
+    return 0
 
 def get_binaries(path):
     if not os.path.isdir(path):
@@ -35,7 +36,9 @@ def get_binaries(path):
             retval.append(file)
     return retval
 
-build_test("./unit_tests/")
+if build_test("./unit_tests/") == 1:
+    print("\033Compilation error")
+    exit(1)
 arr = get_binaries("./unit_tests/binary")
 
 @pytest.mark.parametrize("binary", arr)

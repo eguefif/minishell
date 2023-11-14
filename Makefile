@@ -14,8 +14,9 @@ READLINE_URL = https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
 READLINE_SRC = $(LIB_DIR)/readline-8.2.tar.gz
 READLINE = $(READLINE_DIR)/libreadline.a
 
-_SRC = main.c parser.c executer.c cleaner.c lexer.c
-_SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c
+_SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error.c
+#_SRC = main.c parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error.c
+_SRC = main.c $(_SRC_LIB_STATIC)
 _OBJ = $(_SRC:.c=.o)
 _OBJ_LIB_STATIC = $(_SRC_LIB_STATIC:.c=.o)
 ODIR = ./src/obj/
@@ -80,8 +81,8 @@ fclean: clean
 	@if [ -d "$(ODIR)" ] ; then \
 		rm -r $(ODIR) ; \
 	fi
-#	rm -rf ./libft/libft.a
+	#rm -rf ./libft/libft.a
 #	rm -rf $(READLINE_DIR)
 
 re: fclean all
-	make -C ./libft re
+	#make -C ./libft re
