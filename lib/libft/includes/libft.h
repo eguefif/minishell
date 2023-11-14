@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 09:08:11 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/04 08:41:48 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/14 14:58:32 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int				ft_strequ(char const *s1, char const *s2);
 int				ft_strnequ(char const *s1, char const *s2, size_t n);
 char			*ft_strjoin(char const *s1, char const *s2);
 char			*ft_strdup(const char *s);
+char			*ft_strldup(char *line, size_t size);
 char			**ft_strsplit(const char *s, char c);
 void			ft_cleansplits(char **splits);
 char			**ft_split(const char *s, char c);
