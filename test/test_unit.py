@@ -13,7 +13,10 @@ def build_test(path):
         return False
     for file in os.listdir(path):
         if file.find(".c") != -1 and file.find(".swp") == -1:
-            cmd = CC + "-o " + path + file.strip(".c") + " " + path + file + " " + CFLAGS + INC + LIB 
+            if not (os.path.isdir("./unit_tests/binary")):
+                os.mkdir("./unit_tests/binary")
+            target = " ./unit_tests/binary/" + file.strip(".c") + " "
+            cmd = CC + "-o " + target + "./unit_tests/" + file + " "  + CFLAGS + INC + LIB 
             print(cmd)
             try:
                 retval = subprocess.run(cmd.split(), capture_output = True, text = True, timeout = 2)
@@ -33,11 +36,11 @@ def get_binaries(path):
     return retval
 
 build_test("./unit_tests/")
-arr = get_binaries("./unit_tests/")
+arr = get_binaries("./unit_tests/binary")
 
 @pytest.mark.parametrize("binary", arr)
 def test_unit(binary):
-    cmd = "./unit_tests/" + binary
+    cmd = "./unit_tests/binary/" + binary
     try:
         retval = subprocess.run(cmd, capture_output = True, text = True, timeout = 2)
     except subprocess.TimeoutExpired:
