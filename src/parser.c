@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 13:14:07 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/15 13:56:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,7 +90,7 @@ void	populate_commands(t_command *commands, char **tokens, size_t count)
 	while (c_count < count)
 	{
 		argc = get_argc(tokens + i);
-		commands[c_count].args = malloc (sizeof (char *) * argc + 1);
+		commands[c_count].args = ft_calloc(sizeof (char *), argc + 1);
 		commands[c_count].args[argc] = (void *) 0;
 		while (tokens[i] && tokens[i][0] != '|')
 		{
@@ -109,7 +109,7 @@ void	populate_commands(t_command *commands, char **tokens, size_t count)
 				i++;
 			}
 		}
-		if (tokens[i][0] == '|')
+		if (tokens[i] && tokens[i][0] == '|')
 			i++;
 		c_count++;
 	}
