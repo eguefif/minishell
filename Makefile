@@ -81,8 +81,8 @@ fclean: clean
 	@if [ -d "$(ODIR)" ] ; then \
 		rm -r $(ODIR) ; \
 	fi
-	#rm -rf ./libft/libft.a
+	rm -rf ./libft/libft.a
 #	rm -rf $(READLINE_DIR)
 
 re: fclean all
-	#make -C ./libft re
+	make -C $(LIBFT_DIR) re

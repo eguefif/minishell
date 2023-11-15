@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/14 16:19:31 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 11:26:50 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ typedef struct s_redirections
 typedef struct s_command
 {
 	char			**args;
-	t_redirections files;
+	t_redirections	redirections;
 }			t_command;	
 
 t_command	*ms_parser(char *line);
@@ -52,5 +52,5 @@ int			ms_execute(t_command *commnands, char **env);
 void		ms_cleanup(char **commands);
 void		ms_clean_tokens(char **tokens);
 
-void		ft_error(char *s, char *name);
+void		ft_error(void);
 #endif

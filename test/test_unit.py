@@ -24,7 +24,8 @@ def build_test(path):
                 print("Timeout: ", file)
                 continue
             if retval.returncode != 0 or retval.stdout.find("error") != -1:
-               return 1
+                print(retval.stdout + retval.stderr)
+                return 1
     return 0
 
 def get_binaries(path):
@@ -37,7 +38,7 @@ def get_binaries(path):
     return retval
 
 if build_test("./unit_tests/") == 1:
-    print("\033Compilation error")
+    print("\033[0;31mCompilation error")
     exit(1)
 arr = get_binaries("./unit_tests/binary")
 
