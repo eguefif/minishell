@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:50:42 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/14 15:46:46 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 11:27:20 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ char **get_tokens(char *line, size_t size)
 	retval = 0;
 	retval = (char **) malloc(sizeof(char *) * (size + 1));
 	if (retval == 0)
-		ft_error("malloc error", "minishell");
+		ft_error();
 	retval[size] = 0;
 	i = 0;
 	while (i < size)
@@ -37,7 +37,7 @@ char **get_tokens(char *line, size_t size)
 		if (retval[i] == 0)
 		{
 			ms_clean_tokens(retval);
-			ft_error("malloc error", "minishell");
+			ft_error();
 		}
 		line += token_size;
 		i++;

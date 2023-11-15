@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/14 16:19:29 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 10:56:49 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,9 +38,14 @@ void	non_interactive_mode(char **env)
 	line = get_next_line(0);
 	while (line)
 	{
-		commands = ms_parser(line);
-		ms_execute(commands, env);
-		line = get_next_line(0);
+		if (check_valid_line_for_history(line))
+		{
+			commands = ms_parser(line);
+			ms_execute(commands, env);
+			line = get_next_line(0);
+		}
+		if (line)
+			free(line);
 	}
 }
 
@@ -54,18 +59,21 @@ void	interactive_mode(char **env)
 	while (running)
 	{
 		line = readline(PROMPT);
-		if (!line)
-			break ;
 		if (check_valid_line_for_history(line))
+		{
 			add_history(line);
-		commands = ms_parser(line);
-		ms_execute(commands, env);
+			commands = ms_parser(line);
+			if (commands)
+				ms_execute(commands, env);
+		}
+		if (line)
+			free(line);
 	}
 }
 
 int	check_valid_line_for_history(char *line)
 {
-	if (ft_strlen(ft_strtrim(line, " \t")) != 0)
+	if (line && ft_strlen(ft_strtrim(line, " \t")) != 0)
 		return (1);
 	return (0);
 }
