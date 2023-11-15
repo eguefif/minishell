@@ -6,15 +6,14 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/15 12:57:03 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:18:22 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	clean_isolated_quotes(char *line);
-char	*clean_line(char *line);
-size_t	count_tokens(char *line);
+static void		clean_isolated_quotes(char *line);
+static char		*jump_quote(char *line);
 
 char	**ms_lexer(char *line)
 {
@@ -34,12 +33,12 @@ char	*clean_line(char *line)
 {
 	char	*cleaned_line;
 
-	cleaned_line = ft_strtrim(line, " \t");
+	cleaned_line = ft_strtrim(line, " \t\n");
 	clean_isolated_quotes(cleaned_line);
 	return (cleaned_line);
 }
 
-void	clean_isolated_quotes(char *line)
+static void	clean_isolated_quotes(char *line)
 {
 	int	i;
 
@@ -83,7 +82,7 @@ size_t	count_tokens(char *line)
 	return (count);
 }
 
-char	*jump_quote(char *line)
+static char	*jump_quote(char *line)
 {
 	int	i;
 

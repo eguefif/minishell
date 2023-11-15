@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser2.c                                          :+:      :+:    :+:   */
+/*   parser4.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 15:53:59 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 15:53:16 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	main()
 {
 	t_command *test;
 	int i = 0;
-	char *tab = "/bin/ls";
+	char *tab = "    \t   /bin/ls  \' \"";
 
 	char	*args1[] = {"/bin/ls", 0};
 	t_command cmd1 = {  .args = args1, 
-						.redirections = { .r_stdin = 0, .r_stdout = 0}};
+						.redirections = { .r_stdin = "file.txt", .r_stdout = "file3.txt"}};
 	t_command commands[] = {cmd1};
 
 	test = ms_parser(tab); 

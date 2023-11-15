@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser2.c                                          :+:      :+:    :+:   */
+/*   parser6.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 15:53:59 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 16:05:15 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,28 @@ int	main()
 {
 	t_command *test;
 	int i = 0;
-	char *tab = "/bin/ls";
+	char	*tab= "/bin/ls | cat | wc > file2 | ls < file1 | grep";
+
 
 	char	*args1[] = {"/bin/ls", 0};
 	t_command cmd1 = {  .args = args1, 
 						.redirections = { .r_stdin = 0, .r_stdout = 0}};
-	t_command commands[] = {cmd1};
+	char	*args2[] = {"cat", 0};
+	t_command cmd2 = {  .args = args2, 
+						.redirections = { .r_stdin = 0, .r_stdout = 0}};
+	char	*args3[] = {"wc", 0};
+	t_command cmd3 = {  .args = args3, 
+						.redirections = { .r_stdin = 0, .r_stdout = "file2"}};
+	char	*args4[] = {"ls", 0};
+	t_command cmd4 = {  .args = args4, 
+						.redirections = { .r_stdin = "file1", .r_stdout = 0}};
+	char	*args5[] = {"grep", 0};
+	t_command cmd5 = {  .args = args5, 
+						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 
+	t_command commands[] = {cmd1, cmd2, cmd3, cmd4, cmd5};
 	test = ms_parser(tab); 
-	while (i < 1)
+	while (i < 5)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)
 			ft_printf("Error\n");

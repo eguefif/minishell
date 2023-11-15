@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 11:26:50 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:12:21 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@
 # include <stdio.h>
 # include <sys/wait.h>
 # include <string.h>
+# include <sys/errno.h>
 
 # include "libft.h"
 # include "rlstdc.h"
@@ -37,6 +38,7 @@ typedef struct s_redirections
 typedef struct s_command
 {
 	char			**args;
+	int				last;
 	t_redirections	redirections;
 }			t_command;	
 
@@ -45,7 +47,8 @@ char		**ms_lexer(char *line);
 char		*clean_line(char *line);
 size_t		count_tokens(char *line);
 char 		**get_tokens(char *line, size_t size);
-char		*jump_quote(char *line);
+t_command	*get_commands(char **tokens);
+void		ms_clean_commands(t_command *commands);
 
 int			ms_execute(t_command *commnands, char **env);
 
