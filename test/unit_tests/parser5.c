@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 16:05:05 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/15 16:00:14 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,34 +16,17 @@ int	cmp_command(t_command c1, t_command c2);
 
 int	main()
 {
-	/*
-	char *tab[] = {
-		"echo \'salut \"je suis\" un test\'",
-		"echo \"salut \'je suis\' u ntest\"",
-		"echo test test \'salut \"je suis\'",
-		"< file.txt cat -e | tail > output.txt",
-		"cat -e",
-		"<file.txt cat>file.txt",
-		"<file.txt cat>file.txt|tail>output.x",
-		"ls -ls",
-		"/bin/ls",
-		"/bin/ls\t\t\t\t      |        tail > output.txt -c 8",
-		""
-	};
-	*/
-	char *tab = "< file.txt cat -e | tail > output.x -c 8";
-	char	*args1[] = {"cat", "-e", 0};
-	t_command cmd1 = {  .args = args1, 
-						.redirections = { .r_stdin = "file.txt", .r_stdout = 0}};
-	char	*args2[] = {"tail", "-c", "8", 0};
-	t_command cmd2 = {  .args = args2,
-						.redirections = { .r_stdin = 0, .r_stdout = "output.x" }};
-	t_command commands[] = {cmd1, cmd2};
-
-	int i = 0;
 	t_command *test;
+	int i = 0;
+	char *tab = " > file3.txt /bin/ls < file.txt < file2.txt";
+
+	char	*args1[] = {"/bin/ls", 0};
+	t_command cmd1 = {  .args = args1, 
+						.redirections = { .r_stdin = "file2.txt", .r_stdout = "file3.txt"}};
+	t_command commands[] = {cmd1};
+
 	test = ms_parser(tab); 
-	while (i < 2)
+	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)
 			ft_printf("Error\n");
@@ -53,16 +36,9 @@ int	main()
 
 int	cmp_command(t_command c1, t_command c2)
 {
-	int		i;
-
-	i = 0;
-	while (c1.args[i])
-	{
-		printf("c1: %s\nc2: %s\n\n", c1.args[i], c2.args[i]);
-		if (ft_strcmp(c1.args[i], c2.args[i]) != 0)
-			return (1);
-		i++;
-	}
+	printf("c1: %s\nc2: %s\n\n", c1.args[0], c2.args[0]);
+	if (ft_strcmp(c1.args[0], c2.args[0]) != 0)
+		return (1);
 	printf("c1 stdin: %s\nc2 stdin: %s\n\n", c1.redirections.r_stdin, c2.redirections.r_stdin);
 	if (!c1.redirections.r_stdin && !c2.redirections.r_stdin)
 		ft_printf("no stdin\n");

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:50:42 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 11:27:20 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/15 17:18:24 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ char **get_tokens(char *line, size_t size)
 	retval = 0;
 	retval = (char **) malloc(sizeof(char *) * (size + 1));
 	if (retval == 0)
+	{
 		ft_error();
+		return (0);
+	}
 	retval[size] = 0;
 	i = 0;
 	while (i < size)
@@ -38,6 +41,7 @@ char **get_tokens(char *line, size_t size)
 		{
 			ms_clean_tokens(retval);
 			ft_error();
+			return (0);
 		}
 		line += token_size;
 		i++;
