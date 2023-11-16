@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:29:53 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 09:47:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:48:05 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	main(void)
 	char **result;
 	char *check[3];
 
-	result = ms_lexer("echo \'$USER \'");
+	result = ms_lexer("echo " \' $USER machin chose\"truc\" un truc de fou |\" $USERmachin\"");
 
 	char *user = getenv("USER");
 	char *token[] = {"\'", user, " \'", 0};
