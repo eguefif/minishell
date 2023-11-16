@@ -48,6 +48,6 @@ def test_unit(binary):
     try:
         retval = subprocess.run(cmd, capture_output = True, text = True, timeout = 2)
     except subprocess.TimeoutExpired:
-        print("Timeout: ", file)
+        print("Timeout: ", binary)
         retval = 0
     assert retval and retval.stdout.find("Error") == -1 and retval.returncode == 0

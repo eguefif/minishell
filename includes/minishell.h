@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 17:12:21 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 15:42:10 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +49,14 @@ size_t		count_tokens(char *line);
 char 		**get_tokens(char *line, size_t size);
 t_command	*get_commands(char **tokens);
 void		ms_clean_commands(t_command *commands);
+void		parser_clean_commands(t_command *commands);
+size_t		get_count_var_env(char *token);
+char		**get_env_list(char *token);
+size_t		get_new_token_size(char *token, char **var_env);
 
 int			ms_execute(t_command *commnands, char **env);
 
-void		ms_cleanup(char **commands);
-void		ms_clean_tokens(char **tokens);
+void		ms_free_tokens(char **tokens);
 
 void		ft_error(void);
 #endif

@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser6.c                                          :+:      :+:    :+:   */
+/*   parser9.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 16:49:42 by eguefif          ###   ########.fr       */
+/*   Created: 2023/11/16 09:29:53 by maxpelle          #+#    #+#             */
+/*   Updated: 2023/11/16 17:08:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,28 +18,19 @@ int	main()
 {
 	t_command *test;
 	int i = 0;
-	char	*tab= "/bin/ls | e\"cho\" \"y\'ooo\"  | wc > file2 | ls < file1 | grep";
+	char *tab = "echo \" \' $USER machin chose\"truc\" un truc de fou |\"$USERmachin";
+	char *user = getenv("USER");
+	char *tab_arg[] = {" \' ", user, " machin chosetruc un truc de fou |", 0};
+	char *arg2 = ft_strjoin_tab(tab_arg, "");
 
 
-	char	*args1[] = {"/bin/ls", 0};
+	char	*args1[] = {"echo", arg2,  0};
 	t_command cmd1 = {  .args = args1, 
 						.redirections = { .r_stdin = 0, .r_stdout = 0}};
-	char	*args2[] = {"echo", "yooo", 0};
-	t_command cmd2 = {  .args = args2, 
-						.redirections = { .r_stdin = 0, .r_stdout = 0}};
-	char	*args3[] = {"wc", 0};
-	t_command cmd3 = {  .args = args3, 
-						.redirections = { .r_stdin = 0, .r_stdout = "file2"}};
-	char	*args4[] = {"ls", 0};
-	t_command cmd4 = {  .args = args4, 
-						.redirections = { .r_stdin = "file1", .r_stdout = 0}};
-	char	*args5[] = {"grep", 0};
-	t_command cmd5 = {  .args = args5, 
-						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 
-	t_command commands[] = {cmd1, cmd2, cmd3, cmd4, cmd5};
+	t_command commands[] = {cmd1};
 	test = ms_parser(tab); 
-	while (i < 5)
+	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)
 			ft_printf("Error\n");

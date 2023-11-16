@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 13:11:23 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/16 13:43:29 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,6 @@ char	**ms_lexer(char *line)
 	cleaned_line = clean_line(line);
 	size = count_tokens(cleaned_line);
 	retval = get_tokens(cleaned_line, size);
-	ms_clean_tokens(retval);
 	free(cleaned_line);
 	return (retval);
 }

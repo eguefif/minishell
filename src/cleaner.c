@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:08 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 17:14:32 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 14:14:53 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ms_cleanup(char **commands)
 	ft_cleansplits(commands);
 }
 
-void	ms_clean_tokens(char **tokens)
+void		ms_free_tokens(char **tokens)
 {
 	int	j;
 

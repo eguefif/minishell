@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:50:42 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 12:10:29 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/16 14:16:12 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ char **get_tokens(char *line, size_t size)
 		retval[i] = ft_strldup(line, token_size);
 		if (retval[i] == 0)
 		{
-			ms_clean_tokens(retval);
+			ms_free_tokens(retval);
 			ft_error();
 			return (0);
 		}
