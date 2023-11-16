@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 16:05:05 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 16:39:01 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,21 +16,6 @@ int	cmp_command(t_command c1, t_command c2);
 
 int	main()
 {
-	/*
-	char *tab[] = {
-		"echo \'salut \"je suis\" un test\'",
-		"echo \"salut \'je suis\' u ntest\"",
-		"echo test test \'salut \"je suis\'",
-		"< file.txt cat -e | tail > output.txt",
-		"cat -e",
-		"<file.txt cat>file.txt",
-		"<file.txt cat>file.txt|tail>output.x",
-		"ls -ls",
-		"/bin/ls",
-		"/bin/ls\t\t\t\t      |        tail > output.txt -c 8",
-		""
-	};
-	*/
 	char *tab = "< file.txt cat -e | tail > output.x -c 8";
 	char	*args1[] = {"cat", "-e", 0};
 	t_command cmd1 = {  .args = args1, 
