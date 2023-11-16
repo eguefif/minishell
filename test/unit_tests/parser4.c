@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 15:53:16 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:14:40 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	main()
 
 	char	*args1[] = {"/bin/ls", 0};
 	t_command cmd1 = {  .args = args1, 
-						.redirections = { .r_stdin = "file.txt", .r_stdout = "file3.txt"}};
+						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 	t_command commands[] = {cmd1};
 
 	test = ms_parser(tab); 
