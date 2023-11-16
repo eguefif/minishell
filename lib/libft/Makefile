@@ -18,7 +18,7 @@ _SRC = \
 	ft_strchr.c ft_strrchr.c ft_strnstr.c ft_toupper.c ft_tolower.c ft_striter.c ft_striteri.c \
 	ft_strmap.c ft_strmapi.c ft_strequ.c ft_strnequ.c ft_strdup.c ft_atoi.c ft_strjoin.c\
 	ft_isspace.c ft_substr.c ft_split.c ft_strlcpy.c ft_calloc.c ft_lutoa_base.c \
-	get_next_line.c get_next_line_utils.c ft_atoi_base.c ft_strldup.c
+	get_next_line.c get_next_line_utils.c ft_atoi_base.c ft_strldup.c ft_strjoin_tab.c
 _OBJ = $(_SRC:.c=.o)
 ODIR = ./src/
 SDIR = ./src/
