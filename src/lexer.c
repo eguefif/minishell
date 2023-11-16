@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/15 17:18:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 13:11:23 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ char	**ms_lexer(char *line)
 	cleaned_line = clean_line(line);
 	size = count_tokens(cleaned_line);
 	retval = get_tokens(cleaned_line, size);
+	ms_clean_tokens(retval);
 	free(cleaned_line);
 	return (retval);
 }
@@ -68,12 +69,26 @@ size_t	count_tokens(char *line)
 	count = 0;
 	while (*line)
 	{
-		if (!ft_strchr("\t ", *line) && flag == 1)
+		if (ft_strchr("\"\'", *line))
 		{
-			if (ft_strchr("\"\'", *line))
-				line = jump_quote(line);
+			if (flag == 1)
+			{
+				count++;
+				flag = 0;
+			}
+			line = jump_quote(line);
+		}
+		else if (!ft_strchr("\t ", *line) && flag == 1)
+		{
 			count++;
 			flag = 0;
+		}
+		else if (ft_strchr("<>|", *line))
+		{
+			if (*(line + 1) && *(line + 1) == *line && *(line + 1) != '|')
+				line++;
+			count++;
+			flag = 1;
 		}
 		else if (ft_strchr("\t ", *line))
 			flag = 1;

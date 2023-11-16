@@ -1,25 +1,13 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strcpy.c                                        :+:      :+:    :+:   */
+/*   parser_clean_tokens.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/09 08:12:55 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 10:58:30 by maxpelle         ###   ########.fr       */
+/*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
+/*   Updated: 2023/11/16 13:15:12 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
 
-char	*ft_strcpy(char *s1, char *s2)
-{
-	while (*s2)
-	{
-		*s1 = *s2;
-		s1++;
-		s2++;
-	}
-	*s1 = *s2;
-	return (s1);
-}

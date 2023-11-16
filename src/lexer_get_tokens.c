@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:50:42 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/15 17:18:24 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 12:10:29 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ size_t	get_other_size(char *line)
 	   	if (ft_strchr("\'\"", line[retval]))
 		{
 			i = 1;
-			while (line[i] && line[i] != line[retval])
+			while (line[retval + i] && line[retval + i] != line[retval])
 				i++;
 			retval += i;
 		}

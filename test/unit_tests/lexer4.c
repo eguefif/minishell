@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:29:53 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 09:48:05 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 09:54:19 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ int	main(void)
 	char **result;
 	char *check[3];
 
-	result = ms_lexer("echo " \' $USER machin chose\"truc\" un truc de fou |\" $USERmachin\"");
+	result = ms_lexer("echo \" \' $USER machin chose\"truc\" un truc de fou |\"$USERmachin");
 
 	char *user = getenv("USER");
-	char *token[] = {"\'", user, " \'", 0};
+	char *token[] = {" \'", user, " machin chosetruc un truc de fou |", 0};
 	check[0] = "echo";
 	check[1] = ft_strjoin_tab(token, "");
 	check[2] = 0;
