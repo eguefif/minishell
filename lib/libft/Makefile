@@ -1,5 +1,5 @@
 NAME = libft.a
-CC = gcc -Wall -Werror -Wextra
+CC = gcc -Wall -Werror -Wextra -g
 LIB = -lft -L./lib
 IFILE = -I./includes
 AR = /usr/bin/ar rcs

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:41:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 09:46:33 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 11:00:43 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	get_size(char **ar, char *str)
 	{
 		s += ft_strlen(ar[i]);
 		i++;
-		if (ar[i])
-			break;
+		if (!ar[i])
+			break ;
 		if (*str)
-			s+= ft_strlen(str);
+			s += ft_strlen(str);
 	}
-	return (s);
+	return (s + 1);
 }
 
 char	*ft_strjoin_tab(char **strs, char *sep)
@@ -37,17 +37,16 @@ char	*ft_strjoin_tab(char **strs, char *sep)
 	int		i;
 	int		control;
 
-	i = 0;
+	if (!sep)
+		sep = "";
 	control = 0;
-	if (strs[0])
-	{
-		retval = ((char *) malloc(sizeof(char)));
-		retval[0] = '\0';
-		return (retval);
-	}
-	retval = (char *) malloc(get_size(strs, sep));
+	if (!strs || !strs[0])
+		return (0);
+	retval = (char *) malloc(sizeof (char) * get_size(strs, sep));
+	if (!retval)
+		return (0);
 	ft_strcpy(retval, strs[0]);
-	i++;
+	i = 1;
 	while (strs[i])
 	{
 		ft_strcat(retval, sep);

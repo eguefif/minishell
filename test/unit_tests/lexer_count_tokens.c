@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 18:03:39 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/14 14:55:09 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/16 11:50:32 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,8 @@
 int	main(void)
 {
 	char *tab[] = {
+		"ec\"ho\" \'Bonjour \" je m\'\"\'appelle Maxime\"",
+		"echo<file1>>file2||<<file3 test",
 		"echo \'salut \"je suis\" un test\'",
 		"echo \"salut \'je suis\' u ntest\"",
 		"echo \"salut \' je sui\"",
@@ -24,13 +26,15 @@ int	main(void)
 
 	int tab_check[] = {
 		2,
+		10,
 		2,
 		2,
 		2,
-		4
+		2,
+		4,
 	};
 	int i = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		char *line = ft_strdup(tab[i]);
 		int size = count_tokens(line);
