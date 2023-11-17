@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:22:47 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 17:18:59 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 11:58:50 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main()
 	char *tab = "echo  allo \"$\"\"USER\" allo";
 
 
-	char	*args1[] = {"echo", "allo", "$USER", 0};
+	char	*args1[] = {"echo", "allo", "$USER", "allo", 0};
 	t_command cmd1 = {  .args = args1, 
 						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 
@@ -47,6 +47,10 @@ int	cmp_command(t_command c1, t_command c2)
 
 	printf("c1: %s\nc2: %s\n\n", c1.args[2], c2.args[2]);
 	if (ft_strcmp(c1.args[2], c2.args[2]) != 0)
+		return (1);
+
+	printf("c1: %s\nc2: %s\n\n", c1.args[3], c2.args[3]);
+	if (ft_strcmp(c1.args[3], c2.args[3]) != 0)
 		return (1);
 
 	printf("c1 stdin: %s\nc2 stdin: %s\n\n", c1.redirections.r_stdin, c2.redirections.r_stdin);

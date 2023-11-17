@@ -18,7 +18,7 @@ int	main()
 {
 	t_command *test;
 	int i = 0;
-	char *tab = "echo $USER\"True\"";
+	char *tab = "echo $USER\'True\'";
 	char *user = getenv("USER");
 	char *tab_arg[] = {user, "True", 0};
 	char *token = ft_strjoin_tab(tab_arg, "");
