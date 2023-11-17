@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:22:47 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 18:01:48 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 08:45:31 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	main()
 	t_command *test;
 	int i = 0;
 	char *tab = "echo  $salut1 $salut2 $salut3 allo";
-
 
 	char	*args1[] = {"echo", "", "", "", "allo", 0};
 	t_command cmd1 = {  .args = args1, 
