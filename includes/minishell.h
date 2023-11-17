@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 13:11:20 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 15:08:04 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,9 @@ char 		**get_tokens(char *line, size_t size);
 t_command	*get_commands(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		parser_clean_commands(t_command *commands);
+char		*clean_tokens(char *token);
 size_t		get_count_var_env(char *token);
+size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token);
 size_t		get_new_token_size(char *token, char **var_env);
 
