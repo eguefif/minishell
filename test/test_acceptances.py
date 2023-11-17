@@ -23,7 +23,7 @@ def get_acceptance_file_list(path: str) -> List[str]:
         print("Error: path incorrect: ", path)
         return
     for file in os.listdir(path):
-        if file.find(".sh") != -1:
+        if file.find(".sh") != -1 and file.find(".swp") == -1 and file.find(".swo") == -1:
             retval.append(os.path.join(path, file))
     return retval
 
@@ -42,12 +42,13 @@ def test_acceptances(script):
     minishell_output = subprocess.run(MINISHELL, input=content, capture_output=True, text=True)
     assert bash_output.stdout == minishell_output.stdout
 
-
 # Memory check
 def get_kind_of_memory_loss(memory_type: str, report: str) -> str:
     retval = re.search(f"{memory_type}: [0-9]", report)
+    if not retval:
+        return (0)
     retval = re.search("[0-9]", retval.group(0))
-    return (retval.group(0))
+    return (int(retval.group(0)))
 
 def is_memory_lost(report):
     if report is None:
@@ -56,17 +57,22 @@ def is_memory_lost(report):
     indirectly_lost = get_kind_of_memory_loss("indirectly lost", report)
     possibly_lost = get_kind_of_memory_loss("possibly lost", report)
     still_reach = get_kind_of_memory_loss("still reachable", report)
-    if definitely_lost != 0 or indirectly_lost !=  0 or possibly_lost != 0 or  still_reach != 0:
+    if definitely_lost != 0 or indirectly_lost !=  0 or possibly_lost != 0 or still_reach != 0:
+        print("\033[0;31m Memory test failed for:")
         print(report)
-        return 1
-    else :
+        print("\033[0;", end="")
         return 0
+    else:
+        return 1
     
 @pytest.mark.parametrize("script", acc)
-def acceptances(script):
+def test_memory_acceptances(script):
     with open(script, "r") as f:
         content = f.read()
-    exe = "valgrind --tool=memcheck --leak-check=full --track-origins=yes -s --show-leak-kinds=all " + MINISHELL
-    minishell_output = subprocess.run(exe.split(), input=content, capture_output=True, text=True, shell=True)
+    exe = "valgrind --tool=memcheck --leak-check=full --track-origins=yes -s --show-leak-kinds=all --suppressions=supp.txt " + MINISHELL
+    try:
+        minishell_output = subprocess.run(exe.split(), input=content, capture_output=True, text=True, timeout=3)
+    except subprocess.TimeoutExpired:
+        print("Error: timeout")
     
     assert is_memory_lost(minishell_output.stdout + minishell_output.stderr) == 1
