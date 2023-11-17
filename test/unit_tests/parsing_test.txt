@@ -30,12 +30,12 @@ Test
 		cat requirements.txt | tail | wc -l
 	
 	Command with redirection
-		cat requirements.txt > test2 < test1 
-		cat < test2 requirements.txt < test1
-		cat < test2 <test1 requirements.txt
+		cat requirements.txt > test2 < test1 		->parser_redir_outin_simple.c
+		cat < test2 requirements.txt < test1 		->parser_redir_outin_simple_both_side.c
+		cat < test2 >test1 requirements.txt			->parser_redir_outin_simple_just_left.c
 		cat >test1 requirements.txt < test2 							->parser5 to modify to fit
-		cat <test1 requirements.txt >test2
-		cat requirements.txt < file1 >test2 > test1						->parser3
+		cat <test1 requirements.txt >test2			->parser_redir_outin_simple_right_left.c
+		cat requirements.txt < file1 >test2 > test1						->parser_redir_outin_nospace_doubleout.c
 		cat requirements.txt >test2<test1>test2
 		cat requirements.txt >test2 < test1 > test2 > test1 < test3 < test4
 		
