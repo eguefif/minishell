@@ -1,25 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   error.c                                            :+:      :+:    :+:   */
+/*   parsing_error.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 13:11:19 by eguefif          ###   ########.fr       */
+/*   Created: 2023/11/17 12:47:44 by eguefif           #+#    #+#             */
+/*   Updated: 2023/11/17 13:11:18 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_error(void)
+int	main()
 {
-	perror(PROG_NAME);
-}
-
-void	ft_error_message(char *s, int error_type)
-{
-	if (error_type == SYNTAX_ERROR)
-		ft_dprintf(2, "%s: syntax error near unexpected token \'%s\'\n",
-			   PROG_NAME, s);
+	char	*tab[] = 
+	{
+		"| cat",
+		"echo >>>",
+		"echo <<",
+		"cat <",
+		"cat >",
+		">> |",
+		"<< |",
+		"< |",
+		"> |",
+		"cat <\"<\" |",
+		"cat >> |",
+		"cat < <",
+		"cat > >",
+		"cat ||",
+		"cat | |",
+		"cat |",
+		0
+	};
+	
+	int i = 0;
+	while (tab[i])
+	{
+		if (ms_parser(tab[i]))
+			ft_printf("Error %d\n", i + 1);
+		i++;
+	}
 }
