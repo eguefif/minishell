@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 18:19:23 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 08:12:05 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -125,9 +125,9 @@ char	*get_env_var(char *s)
 	char	*var_name;
 
 	size = 1;
-	while (s[size] && !ft_strchr(" \t$", s[size]))
+	while (s[size] && !ft_strchr(" \t$\'\"", s[size]))
 		size++;
-	var_name  = ft_strldup(s + 1, size);
+	var_name  = ft_strldup(s + 1, size - 1);
 	if (!var_name)
 		return (0);
 	retval = getenv(var_name);
@@ -164,10 +164,10 @@ size_t	get_new_token_size(char *token, char **var_env)
 			if (token[i] == '\"')
 				flag *= -1;
 			else if (token[i] == '$' && token[i + 1]
-					&& !ft_strchr(" \t$", token[i + 1]))
+					&& !ft_strchr(" \t$\'\"", token[i + 1]))
 			{
 				i++;
-				while (token[i] && !ft_strchr(" \t$", token[i]))
+				while (token[i] && !ft_strchr(" \t$\'\"", token[i]))
 					i++;
 				i--;
 			}
@@ -210,12 +210,15 @@ char *get_new_token(char *token, size_t size, char **env_var)
 		else
 		{
 			if (token[i] == '\"')
+			{
 				flag *= -1;
+				i++;
+			}
 			else if (token[i] == '$' && token[i + 1]
-					&& !ft_strchr(" \t$", token[i + 1]))
+					&& !ft_strchr(" \t$\'\"", token[i + 1]))
 			{
 				i++;
-				while (token[i] && !ft_strchr(" \t$", token[i]))
+				while (token[i] && !ft_strchr(" \t$\'\"", token[i]))
 					i++;
 				if (env_var[count_env_var])
 				{

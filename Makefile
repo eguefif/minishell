@@ -72,6 +72,7 @@ test:
 
 clean:
 	rm -rf $(OBJ)
+	make -C $(LIBFT_DIR) clean
 #	@if [ -d $(READLINE_DIR) ] ; then \
 #		make -C $(READLINE_DIR) clean ; \
 #	fi
@@ -81,8 +82,7 @@ fclean: clean
 	@if [ -d "$(ODIR)" ] ; then \
 		rm -r $(ODIR) ; \
 	fi
-	rm -rf ./libft/libft.a
+	rm -rf $(LIBFT_DIR)/libft.a
 #	rm -rf $(READLINE_DIR)
 
 re: fclean all
-	make -C $(LIBFT_DIR) re

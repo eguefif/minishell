@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 09:22:47 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 17:16:04 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 08:13:47 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main()
 	char *tab = "echo \'\' \"\"  \"\" allo";
 
 
-	char	*args1[] = {"echo", " ", " "," ", "allo", 0};
+	char	*args1[] = {"echo", "", "","", "allo", 0};
 	t_command cmd1 = {  .args = args1, 
 						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 
