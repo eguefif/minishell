@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 13:11:19 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 14:03:20 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,13 +39,13 @@ int	check_tokens(char **tokens)
 {
 	int		i;
 
-	i = 0;
-	if (tokens[i] && tokens[i][0] == '|')
+	i = -1;
+	if (tokens[0] && tokens[0][0] == '|')
 	{
-		ft_error_message(tokens[i], SYNTAX_ERROR);
+		ft_error_message(tokens[0], SYNTAX_ERROR);
 		return (0);
 	}
-	while (tokens[i])
+	while (tokens[++i])
 	{
 		if (ft_strchr("<>|", tokens[i][0]))
 		{
@@ -60,7 +60,6 @@ int	check_tokens(char **tokens)
 				return (0);
 			}
 		}
-		i++;
 	}
 	return (1);
 }

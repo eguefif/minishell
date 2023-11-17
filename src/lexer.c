@@ -6,14 +6,13 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/17 11:06:57 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/17 14:01:45 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 static void		clean_isolated_quotes(char *line);
-static char		*jump_quote(char *line);
 
 char	**ms_lexer(char *line)
 {
@@ -57,51 +56,4 @@ static void	clean_isolated_quotes(char *line)
 		else
 			line++;
 	}
-}
-
-size_t	count_tokens(char *line)
-{
-	size_t	flag;
-	size_t	count;
-
-	flag = 1;
-	count = 0;
-	while (*line)
-	{
-		if (ft_strchr("\"\'", *line))
-		{
-			if (flag == 1)
-			{
-				count++;
-				flag = 0;
-			}
-			line = jump_quote(line);
-		}
-		else if (!ft_strchr("\t <>|", *line) && flag == 1)
-		{
-			count++;
-			flag = 0;
-		}
-		if (ft_strchr("<>|", *line))
-		{
-			if (*(line + 1) && *(line + 1) == *line && *(line + 1) != '|')
-				line++;
-			count++;
-			flag = 1;
-		}
-		else if (ft_strchr("\t ", *line))
-			flag = 1;
-		line++;
-	}
-	return (count);
-}
-
-static char	*jump_quote(char *line)
-{
-	int	i;
-
-	i = 1;
-	while (line[i] != *line)
-		i++;
-	return (line + i);
 }
