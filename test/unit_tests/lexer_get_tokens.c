@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:35:02 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 12:11:38 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/17 10:36:59 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,8 @@ int	main(void)
 		"ls -ls",
 		"/bin/ls",
 		"/bin/ls\t\t\t\t      |        tail > output.txt -c 8",
-		""
+		"",
+		"cat requirements.txt >test2<test1>test2"
 	};
 	char	*cmp1[] = {
 		"ec\"ho\"", "\'Bonjour \" je m\'\"\'appelle Maxime\""
@@ -64,14 +65,18 @@ int	main(void)
 		""
 	};
 
-	char	**cmp[] = {cmp1, cmp2, cmp3, cmp4, cmp5, cmp6, cmp7, cmp8, cmp9, cmp10, cmp11, cmp12};
+	char	*cmp13[] = {
+		"cat", "requirements.txt", ">", "test2", "<", "test1", ">", "test2"
+	};
+
+	char	**cmp[] = {cmp1, cmp2, cmp3, cmp4, cmp5, cmp6, cmp7, cmp8, cmp9, cmp10, cmp11, cmp12, cmp13};
 	char	**retval;
 	int		i = 0;
 	int		j;
 	size_t	size;
 	
 	// Test1
-	while (i < 12)
+	while (i < 13)
 	{
 		size = count_tokens(tab[i]);
 		retval = get_tokens(tab[i], size);

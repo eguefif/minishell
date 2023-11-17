@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 14:49:23 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 13:43:29 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 11:06:57 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,12 +77,12 @@ size_t	count_tokens(char *line)
 			}
 			line = jump_quote(line);
 		}
-		else if (!ft_strchr("\t ", *line) && flag == 1)
+		else if (!ft_strchr("\t <>|", *line) && flag == 1)
 		{
 			count++;
 			flag = 0;
 		}
-		else if (ft_strchr("<>|", *line))
+		if (ft_strchr("<>|", *line))
 		{
 			if (*(line + 1) && *(line + 1) == *line && *(line + 1) != '|')
 				line++;
