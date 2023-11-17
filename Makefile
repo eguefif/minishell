@@ -65,6 +65,7 @@ libminishell.a: $(OBJ_LIB_STATIC)
 	mv libminishell.a test/unit_tests/libminishell.a
 
 test:
+	@cp ./minishell ./test
 	@cd test; \
 	pytest test_acceptances.py -vv
 

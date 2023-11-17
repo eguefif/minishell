@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 15:08:04 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/17 15:19:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,13 +43,13 @@ typedef struct s_command
 	char			**args;
 	int				last;
 	t_redirections	redirections;
-}			t_command;	
+}					t_command;
 
 t_command	*ms_parser(char *line);
 char		**ms_lexer(char *line);
 char		*clean_line(char *line);
 size_t		count_tokens(char *line);
-char 		**get_tokens(char *line, size_t size);
+char		**get_tokens(char *line, size_t size);
 t_command	*get_commands(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		parser_clean_commands(t_command *commands);
