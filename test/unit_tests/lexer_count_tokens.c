@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 18:03:39 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/16 11:50:32 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/17 10:37:29 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	main(void)
 		"echo \"salut \'je suis\' u ntest\"",
 		"echo \"salut \' je sui\"",
 		"echo \'salut \"je suis\'",
-		"echo test test \'salut \"je suis\'"
+		"echo test test \'salut \"je suis\'",
+		"cat requirements.txt >test2<test1>test2"
 	};
 
 	int tab_check[] = {
@@ -32,9 +33,10 @@ int	main(void)
 		2,
 		2,
 		4,
+		8
 	};
 	int i = 0;
-	while (i < 6)
+	while (i < 8)
 	{
 		char *line = ft_strdup(tab[i]);
 		int size = count_tokens(line);

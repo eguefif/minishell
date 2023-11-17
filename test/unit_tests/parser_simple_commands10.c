@@ -1,29 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser.c                                           :+:      :+:    :+:   */
+/*   parser_simple_commands1.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 11:56:06 by maxpelle         ###   ########.fr       */
+/*   Created: 2023/11/17 11:24:14 by maxpelle          #+#    #+#             */
+/*   Updated: 2023/11/17 11:56:49 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_command	*ms_parser(char *line)
-{
-	char		**tokens;
-	t_command	*commands;
+int	cmp_command(t_command c1, t_command c2);
 
-	if (!line)
-		return (0);
-	tokens = ms_lexer(line);
-	if (!tokens)
-		return (0);
-	commands = get_commands(tokens);
-	parser_clean_commands(commands);
-	ms_free_tokens(tokens);
-	return (commands);
+int	main()
+{
+	t_command *test;
+	char *tab = 0;
+
+	test = ms_parser(tab); 
+	if (test)
+		printf("Error: Did not return void pointer");
 }
