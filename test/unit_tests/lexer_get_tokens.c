@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 14:35:02 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 10:36:59 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/17 12:44:06 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@ int	main(void)
 		"/bin/ls",
 		"/bin/ls\t\t\t\t      |        tail > output.txt -c 8",
 		"",
-		"cat requirements.txt >test2<test1>test2"
+		"cat requirements.txt >test2<test1>test2",
+		"cat ||",
+		"cat | | ",
+		"cat <\"<\""
 	};
 	char	*cmp1[] = {
 		"ec\"ho\"", "\'Bonjour \" je m\'\"\'appelle Maxime\""
@@ -64,19 +67,27 @@ int	main(void)
 	char	*cmp12[] = {
 		""
 	};
-
 	char	*cmp13[] = {
 		"cat", "requirements.txt", ">", "test2", "<", "test1", ">", "test2"
 	};
+	char	*cmp14[] = {
+		"cat", "|", "|"
+	};
+	char	*cmp15[] = {
+		"cat", "|", "|"
+	};
+	char	*cmp16[] = {
+		"cat", "<", "\"<\""
+	};
 
-	char	**cmp[] = {cmp1, cmp2, cmp3, cmp4, cmp5, cmp6, cmp7, cmp8, cmp9, cmp10, cmp11, cmp12, cmp13};
+	char	**cmp[] = {cmp1, cmp2, cmp3, cmp4, cmp5, cmp6, cmp7, cmp8, cmp9, cmp10, cmp11, cmp12, cmp13, cmp14, cmp15, cmp16};
 	char	**retval;
 	int		i = 0;
 	int		j;
 	size_t	size;
 	
 	// Test1
-	while (i < 13)
+	while (i < 16)
 	{
 		size = count_tokens(tab[i]);
 		retval = get_tokens(tab[i], size);

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 15:42:10 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/17 13:11:20 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,10 @@
 # include "history.h"
 
 # define PROMPT "Minishell $ "
+# define PROG_NAME "minishell"
 # define TOKENS "<>|\t "
+
+# define SYNTAX_ERROR 1 
 
 typedef struct s_redirections
 {
@@ -59,4 +62,5 @@ int			ms_execute(t_command *commnands, char **env);
 void		ms_free_tokens(char **tokens);
 
 void		ft_error(void);
+void		ft_error_message(char *s, int error_type);
 #endif
