@@ -1,0 +1,64 @@
+./parser.c:		char *tab = "< file.txt cat -e | tail > output.x -c 8";
+./parser2.c:	char *tab = "/bin/ls";
+./parser3.c:	char *tab = "/bin/ls < file.txt > file2.txt > file3.txt";
+./parser4.c:	char *tab = "    \t   /bin/ls  \' \"";
+./parser5.c:	char *tab = " > file3.txt /bin/ls < file.txt < file2.txt";
+char    *tab= "/bin/ls | cat | wc > file2 | ls < file1 | grep";
+./parser9.c:	char *tab = "echo \" \' $USER machin chose\"truc\" un truc de fou |\"$USERmachin";
+./parser10.c:	char *tab = "echo \'$USER \'";
+./parser11.c:	char *tab = "echo $USER\"True\"";
+./parser12.c:	char *tab = "echo \'\' \"\"  \"\" allo";
+./parser13.c:	char *tab = "echo  $salut1 $salut2 $salut3 allo";
+./parser14.c:	char *tab = "echo  allo \"$\"\"USER\" allo";
+
+Test
+	Simple command:
+		/bin/echo 					-> parser2
+		     \t   /bin/ls    \'\"	->parser4
+		/bin/echo salu				t
+		/bin/echo -n salut
+		echo -n salut
+		echo salut
+		/bin/cat -en requirements.txt
+		cat -e -n requirements.txt
+		/bin/echo -nnnnnnn salut toi
+		echo -nnnnnnn salut toi
+		Nothing
+	
+	Command with pipe:
+		/bin/echo salut | wc -l 
+		cat requirements.txt | tail | wc -l
+	
+	Command with redirection
+		cat requirements.txt > test2 < test1 
+		cat < test2 requirements.txt < test1
+		cat < test2 <test1 requirements.txt
+		cat >test1 requirements.txt < test2 							->parser5 to modify to fit
+		cat <test1 requirements.txt >test2
+		cat requirements.txt < file1 >test2 > test1						->parser3
+		cat requirements.txt >test2<test1>test2
+		cat requirements.txt >test2 < test1 > test2 > test1 < test3 < test4
+		
+
+	Command with pipe and redirection
+		ls -l | cat > test 												----> parser.c
+		cat < requirements.txt | grep "2" | grep "=" | wc -l > outfile  ----> parser6.c
+
+	Quotes:
+		quotes inside a word 						->parser6.c
+		double quotes with single quotes inside. 	->parser;
+		Single quotes with double quotes inside		
+		single and double qotes with nothing inside	->parser12
+	
+	Environment variable
+		varenv alone
+		varenv with a simple command								->parser8
+		varenv inside single quotes 								->parser10
+		varenv inside double quotes
+		varenv at the end of a string.
+		varenv at the beginning
+		varenv in the middle
+		varenv just before doublequotes 							->parser11
+		varenv just before singlequotes
+		varen that does not exist									-> parser13
+		varenv that is sourounded by doublequtes and close to "$"	->parser14
