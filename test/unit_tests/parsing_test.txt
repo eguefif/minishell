@@ -15,15 +15,15 @@ Test
 	Simple command:
 		/bin/echo 					-> parser2
 		     \t   /bin/ls    \'\"	->parser4
-		/bin/echo salu				t
-		/bin/echo -n salut
-		echo -n salut
-		echo salut
-		/bin/cat -en requirements.txt
-		cat -e -n requirements.txt
-		/bin/echo -nnnnnnn salut toi
-		echo -nnnnnnn salut toi
-		Nothing
+		/bin/echo salut				->parser_simple_commands1.c
+		/bin/echo -n salut			->parser_simple_commands2.c	
+		echo -n salut				->parser_simple_commands3.c	
+		echo salut					->parser_simple_commands4.c
+		/bin/cat -en requirements.txt ->parser_simple_commands5.c
+		cat -e -n requirements.txt	->parser_simple_commands6.c
+		/bin/echo -nnnnnnn salut toi	->parser_simple_commands7.c
+		echo -nnnnnnn salut toi		->parser_simple_commands8.c
+		Nothing						->parser_simple_commands9.c
 	
 	Command with pipe:
 		/bin/echo salut | wc -l 
@@ -35,10 +35,9 @@ Test
 		cat < test2 >test1 requirements.txt			->parser_redir_outin_simple_just_left.c
 		cat >test1 requirements.txt < test2 							->parser5 to modify to fit
 		cat <test1 requirements.txt >test2			->parser_redir_outin_simple_right_left.c
-		cat requirements.txt < file1 >test2 > test1						->parser_redir_outin_nospace_doubleout.c
-		cat requirements.txt >test2<test1>test2
-		cat requirements.txt >test2 < test1 > test2 > test1 < test3 < test4
-		
+		cat requirements.txt < file1 >test2 > test1						->parser_redir_outin_nospace_doubleout3.c
+		cat requirements.txt >test2<test1>test2 			->parser_redir_outin_nospace_doubleout2.c
+		cat requirements.txt >test2 < test1 > test2 > test1 < test3 < test4  ---> parser_redir_outin_nospace_doubleout2.c
 
 	Command with pipe and redirection
 		ls -l | cat > test 												----> parser.c
@@ -51,14 +50,14 @@ Test
 		single and double qotes with nothing inside	->parser12
 	
 	Environment variable
-		varenv alone
+		varenv alone						->parser_varenv_alone.c
 		varenv with a simple command								->parser8
 		varenv inside single quotes 								->parser10
-		varenv inside double quotes
-		varenv at the end of a string.
-		varenv at the beginning
-		varenv in the middle
+		varenv inside double quotes				->varenv_inside_single_quotes.c
+		varenv at the end of a string			->varenv_end_of_string
+		varenv at the beginning					->varenv_beginning_string.c
+		varenv in the middle					->varenv_middle_string.c
 		varenv just before doublequotes 							->parser11
-		varenv just before singlequotes
+		varenv just before singlequote						->varenv_just_beforesingle_quote.c
 		varen that does not exist									-> parser13
 		varenv that is sourounded by doublequtes and close to "$"	->parser14
