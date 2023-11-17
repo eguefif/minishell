@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser5.c                                          :+:      :+:    :+:   */
+/*   parser_redir_outin_simple.c                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/14 15:40:57 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 09:47:45 by eguefif          ###   ########.fr       */
+/*   Created: 2023/11/17 09:47:23 by eguefif           #+#    #+#             */
+/*   Updated: 2023/11/17 09:48:54 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	main()
 {
 	t_command *test;
 	int i = 0;
-	char *tab = " > file3.txt /bin/ls < file.txt < file2.txt";
+	char *tab = "cat < test2 > test1";
 
-	char	*args1[] = {"/bin/ls", 0};
+	char	*args1[] = {"cat", 0};
 	t_command cmd1 = {  .args = args1, 
-						.redirections = { .r_stdin = "file2.txt", .r_stdout = "file3.txt"}};
+						.redirections = { .r_stdin = "test2", .r_stdout = "test1"}};
 	t_command commands[] = {cmd1};
 
 	test = ms_parser(tab); 
