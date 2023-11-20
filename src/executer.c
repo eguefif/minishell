@@ -12,56 +12,88 @@
 
 #include "minishell.h"
 
-static void handle_pipes(t_command *commands, char **env);
+static int run(t_command *commands, char **env);
+static int	handle_child(t_command *commands, char **env, int pipe_fd[]);
+static int	get_exit_code(int status);
 
 int	ms_execute(t_command *commands, char **env)
 {
+	int	stdin_save;
+	int	stdout_save;
 	int	retval;
 
-	retval = fork();
-	if (!retval)
-		handle_pipes(commands, env);
-	return (0);
+	stdin_save = dup(0);
+	stdout_save = dup(1);
+	retval = run(commands, env);
+	dup2(stdin_save, 0);
+	dup2(stdout_save, 1);
+	ft_printf("Return code : %d\n", retval);
+	return (retval);
 }
 
-static void handle_pipes(t_command *commands, char **env)
+static int run(t_command *commands, char **env)
 {
 	int	pipe_fd[2];
 	int	retval;
 	int	stat_loc;
 	int	i;
-	int	stdin_save;
-	int	stdout_save;
 
-	i = 0;
-	stdin_save = dup(0);
-	stdout_save = dup(1);
-	while (!commands[i].last)
+	i = -1;
+	while (!commands[++i].last)
 	{
-		pipe(pipe_fd);
+		if (pipe(pipe_fd) == -1)
+			return (1);
 		retval = fork();
-		if (!retval)
+		if (retval < 0)
 		{
-			if (!commands[i + 1].last)
-				dup2(pipe_fd[1], 1);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			if (execve(commands[i].args[0], commands[i].args, env) == -1)
-			{
-				ft_dprintf(2, "command %d\n", i);
-				ft_exit(commands);
-			}
+			ft_error();
+			return (1);
 		}
-		else
+		else if (!retval)
 		{
-			dup2(pipe_fd[0], 0);
-			close(pipe_fd[0]);
-			close(pipe_fd[1]);
-			i++;
+			ft_exit_nb(commands, handle_child(&commands[i], env, pipe_fd));
 		}
+		if (dup2(pipe_fd[0], 0) == -1)
+			return (1);
+		close(pipe_fd[0]);
+		close(pipe_fd[1]);
 	}
+	waitpid(retval, &stat_loc, 0);
+	retval = get_exit_code(stat_loc);
 	while (waitpid(-1, &stat_loc, 0) > 0)
 		;
-	dup2(stdin_save, 0);
-	dup2(stdout_save, 1);
+	return (retval);
+}
+
+static int	handle_child(t_command *commands, char **env, int pipe_fd[])
+{
+	char	*path;
+
+	path = get_command_path(commands[0].args[0], env);
+	if (!path)
+	{
+		ft_error_message(commands[0].args[0], NO_FILE);
+		return (127);
+	}
+	if (access(path, X_OK) != 0)
+	{
+		ft_error_message(commands[0].args[0], NO_RIGHT);
+		return (126);
+	}
+	if (!commands[1].last)
+		if (dup2(pipe_fd[1], 1) == -1)
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	if (execve(path, commands[0].args, env) == -1)
+		ft_dprintf(2, "command %s\n", commands[0].args[0]);
+	return (0);
+}
+
+static int	get_exit_code(int status)
+{
+	if (WIFEXITED(status))
+		return (WEXITSTATUS(status));
+	else if (WIFSIGNALED(status))
+		return (WTERMSIG(status));
+	return (1);
 }
