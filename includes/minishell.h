@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 13:18:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:43:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <string.h>
 # include <sys/errno.h>
 # include <signal.h>
+# include <sys/stat.h>
 
 # include "libft.h"
 # include "rlstdc.h"
@@ -34,6 +35,7 @@
 # define SYNTAX_ERROR 1 
 # define NO_FILE 2
 # define NO_RIGHT 3
+# define IS_DIR 4
  
 typedef struct s_redirections
 {
@@ -48,18 +50,18 @@ typedef struct s_command
 	t_redirections	redirections;
 }					t_command;
 
-t_command	*ms_parser(char *line);
+t_command	*ms_parser(char *line, char **env);
 char		**ms_lexer(char *line);
 char		*clean_line(char *line);
 size_t		count_tokens(char *line);
 char		**get_tokens(char *line, size_t size);
 t_command	*get_commands(char **tokens);
 void		ms_clean_commands(t_command *commands);
-void		parser_clean_commands(t_command *commands);
-char		*clean_tokens(char *token);
+void		parser_clean_commands(t_command *commands, char **env);
+char		*clean_tokens(char *token, char **env);
 size_t		get_count_var_env(char *token);
 size_t		get_env_var_len(char **env_var);
-char		**get_env_list(char *token);
+char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
 
 int			ms_execute(t_command *commnands, char **env);
@@ -72,6 +74,7 @@ void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
 void		ft_exit_nb(t_command *commands, int retval);
+int			is_dir(char *path);
 
 void		ft_error(void);
 void		ft_error_message(char *s, int error_type);

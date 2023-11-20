@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/20 09:15:30 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:43:16 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ void	get_new_token_part(t_get_new_token *data, char *token, char **env_var);
 size_t	get_new_token_size(char *token, char **var_env);
 void	get_new_token_size_part(char *token, size_t *retval, int *i, int *flag);
 
-void	parser_clean_commands(t_command *commands)
+void	parser_clean_commands(t_command *commands, char **env)
 {
 	int		i;
 	int		j;
@@ -38,14 +38,14 @@ void	parser_clean_commands(t_command *commands)
 		{
 			j = -1;
 			while (commands[i].args[++j])
-				commands[i].args[j] = clean_tokens(commands[i].args[j]);
+				commands[i].args[j] = clean_tokens(commands[i].args[j], env);
 		}
 		if (commands[i].redirections.r_stdin)
 			commands[i].redirections.r_stdin
-				= clean_tokens(commands[i].redirections.r_stdin);
+				= clean_tokens(commands[i].redirections.r_stdin, env);
 		if (commands[i].redirections.r_stdout)
 			commands[i].redirections.r_stdout
-				= clean_tokens(commands[i].redirections.r_stdout);
+				= clean_tokens(commands[i].redirections.r_stdout, env);
 		i++;
 	}
 }

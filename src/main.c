@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 14:09:40 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:42:01 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	non_interactive_mode(char **env)
 	{
 		if (check_valid_line_for_history(line))
 		{
-			commands = ms_parser(line);
+			commands = ms_parser(line, env);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -65,7 +65,7 @@ void	interactive_mode(char **env)
 		if (check_valid_line_for_history(line))
 		{
 			add_history(line);
-			commands = ms_parser(line);
+			commands = ms_parser(line, env);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
