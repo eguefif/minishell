@@ -22,4 +22,8 @@ void	ft_error_message(char *s, int error_type)
 	if (error_type == SYNTAX_ERROR)
 		ft_dprintf(2, "%s: syntax error near unexpected token \'%s\'\n",
 			PROG_NAME, s);
+	if (error_type == NO_FILE)
+		ft_dprintf(2, "%s: %s: no such file or directory%n", PROG_NAME, s);
+	if (error_type == NO_RIGHT)
+		ft_dprintf(2, "%s: %s: Permission denied\n", PROG_NAME, s);
 }
