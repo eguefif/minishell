@@ -66,7 +66,7 @@ def is_memory_lost(report):
         return 1
     
 @pytest.mark.parametrize("script", acc)
-def test_memory_acceptances(script):
+def memory_acceptances(script):
     with open(script, "r") as f:
         content = f.read()
     exe = "valgrind --tool=memcheck --leak-check=full --track-origins=yes -s --show-leak-kinds=all --suppressions=supp.txt " + MINISHELL

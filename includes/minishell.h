@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 15:41:56 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 13:18:55 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@
 # include <sys/wait.h>
 # include <string.h>
 # include <sys/errno.h>
+# include <signal.h>
 
 # include "libft.h"
 # include "rlstdc.h"
@@ -62,6 +63,8 @@ size_t		get_new_token_size(char *token, char **var_env);
 int			ms_execute(t_command *commnands, char **env);
 
 void		ms_free_tokens(char **tokens);
+void		ms_clean_commands(t_command *commands);
+void		ft_exit(t_command *commands);
 
 void		ft_error(void);
 void		ft_error_message(char *s, int error_type);
