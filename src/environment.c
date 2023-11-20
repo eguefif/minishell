@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 13:18:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:36:01 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*ms_getenv(char **env, char *var)
 {
-	int 	i;
+	int		i;
 	size_t	len;
 	char	*retval;
 	char	**split;
@@ -26,7 +26,7 @@ char	*ms_getenv(char **env, char *var)
 		if (ft_strncmp(env[i], var, len) == 0)
 		{
 			split = ft_split(env[i], '=');
-			retval  = ft_strdup(split[1]);
+			retval = ft_strdup(split[1]);
 			ft_cleansplits(split);
 			return (retval);
 		}

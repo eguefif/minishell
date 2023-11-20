@@ -6,24 +6,23 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:59:51 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/20 09:15:28 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:44:15 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 size_t	get_count_var_env(char *token);
-char	**get_env_list(char *token);
-char	*get_env_var(char *s);
+char	*get_env_var(char *s, char **env);
 char	*get_new_token(char *token, size_t size, char **env_var);
 
-char	*clean_tokens(char *token)
+char	*clean_tokens(char *token, char **env)
 {
 	char	**var_env;
 	size_t	size;
 	char	*retval;
 
-	var_env = get_env_list(token);
+	var_env = get_env_list(token, env);
 	size = get_new_token_size(token, var_env);
 	retval = get_new_token(token, size, var_env);
 	if (token)
@@ -33,7 +32,7 @@ char	*clean_tokens(char *token)
 	return (retval);
 }
 
-char	**get_env_list(char *token)
+char	**get_env_list(char *token, char **env)
 {
 	int		i;
 	int		j;
@@ -53,7 +52,7 @@ char	**get_env_list(char *token)
 		else
 			if (token[i] == '$' && token[i + 1]
 				&& !ft_strchr(" \t$", token[i + 1]))
-				retval[j++] = get_env_var((token + i));
+				retval[j++] = get_env_var((token + i), env);
 		if (token[i])
 			i++;
 	}
@@ -84,7 +83,7 @@ size_t	get_count_var_env(char *token)
 	return (size);
 }
 
-char	*get_env_var(char *s)
+char	*get_env_var(char *s, char **env)
 {
 	size_t	size;
 	char	*retval;
@@ -96,7 +95,7 @@ char	*get_env_var(char *s)
 	var_name = ft_strldup(s + 1, size - 1);
 	if (!var_name)
 		return (0);
-	retval = getenv(var_name);
+	retval = ms_getenv(env, var_name);
 	free(var_name);
 	return (retval);
 }

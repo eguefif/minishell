@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 14:45:51 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/20 17:37:49 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,9 +75,12 @@ static int	handle_child(t_command *commands, char **env, int pipe_fd[])
 		ft_error_message(commands[0].args[0], NO_FILE);
 		return (127);
 	}
-	if (access(path, X_OK) != 0)
+	if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
 	{
-		ft_error_message(commands[0].args[0], NO_RIGHT);
+		if (is_dir(path) != 0)
+			ft_error_message(commands[0].args[0], IS_DIR);
+		else
+			ft_error_message(commands[0].args[0], NO_RIGHT);
 		return (126);
 	}
 	if (!commands[1].last)
