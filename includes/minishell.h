@@ -32,7 +32,9 @@
 # define TOKENS "<>|\t "
 
 # define SYNTAX_ERROR 1 
-
+# define NO_FILE 2
+# define NO_RIGHT 3
+ 
 typedef struct s_redirections
 {
 	char	*r_stdin;
@@ -61,10 +63,15 @@ char		**get_env_list(char *token);
 size_t		get_new_token_size(char *token, char **var_env);
 
 int			ms_execute(t_command *commnands, char **env);
+char		*get_command_path(char *command, char **env);
+
+// Environment management
+char		*ms_getenv(char **env, char *var);
 
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
+void		ft_exit_nb(t_command *commands, int retval);
 
 void		ft_error(void);
 void		ft_error_message(char *s, int error_type);

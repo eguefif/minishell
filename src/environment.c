@@ -1,27 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   environment.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/20 10:12:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 10:15:32 by eguefif          ###   ########.fr       */
+/*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
+/*   Updated: 2023/11/20 13:18:55 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_exit(t_command *commands)
+char	*ms_getenv(char **env, char *var)
 {
-	ft_dprintf(2, "error\n");
-	ms_clean_commands(commands);
-	exit(1);
-}
+	int 	i;
+	size_t	len;
+	char	*retval;
+	char	**split;
 
-void	ft_exit_nb(t_command *commands, int retval)
-{
-	ft_dprintf(2, "error\n");
-	ms_clean_commands(commands);
-	exit(retval);
+	i = 0;
+	len = ft_strlen(var);
+	while (env[i])
+	{
+		if (ft_strncmp(env[i], var, len) == 0)
+		{
+			split = ft_split(env[i], '=');
+			retval  = ft_strdup(split[1]);
+			ft_cleansplits(split);
+			return (retval);
+		}
+		i++;
+	}
+	return (0);
 }
