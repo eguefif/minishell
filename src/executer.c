@@ -13,8 +13,9 @@
 #include "minishell.h"
 
 static int run(t_command *commands, char **env);
-static int	handle_child(t_command *commands, char **env, int pipe_fd[]);
+static int	handle_child(t_command *commands, char **env);
 static int	get_exit_code(int status);
+static int	set_redirections(t_command command, int *pipe_fd);
 
 int	ms_execute(t_command *commands, char **env)
 {
@@ -51,7 +52,9 @@ static int run(t_command *commands, char **env)
 		}
 		else if (!retval)
 		{
-			ft_exit_nb(commands, handle_child(&commands[i], env, pipe_fd));
+			if (set_redirections(commands[i], pipe_fd))
+				return (1);
+			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
 		if (dup2(pipe_fd[0], 0) == -1)
 			return (1);
@@ -65,7 +68,45 @@ static int run(t_command *commands, char **env)
 	return (retval);
 }
 
-static int	handle_child(t_command *commands, char **env, int pipe_fd[])
+static int	set_redirections(t_command command, int *pipe_fd)
+{
+	int	fd;
+	int	retval;
+
+	retval = 0;
+	if (command.redirections.r_stdin)
+	{
+		fd = open(command.redirections.r_stdin, O_RDONLY);
+		if (fd < 0)
+			ft_error_message(command.redirections.r_stdin, NO_FILE);
+		else
+		{
+			if (dup2(fd, 0) == -1)
+				retval = 1;
+			close(fd);
+		}
+	}
+	if (command.redirections.r_stdout)
+	{
+		fd = open(command.redirections.r_stdout, O_TRUNC | O_WRONLY | O_CREAT,
+			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		if (fd < 0)
+			ft_error_message(command.redirections.r_stdout, NO_FILE);
+		else
+		{
+			if (dup2(fd, 1) == -1)
+				retval = 1;
+			close(fd);
+		}
+	}
+	else if (dup2(pipe_fd[1], 1) == -1)
+		retval = 1;
+	close(pipe_fd[0]);
+	close(pipe_fd[1]);
+	return (retval);
+}
+
+static int	handle_child(t_command *commands, char **env)
 {
 	char	*path;
 
@@ -83,10 +124,6 @@ static int	handle_child(t_command *commands, char **env, int pipe_fd[])
 			ft_error_message(commands[0].args[0], NO_RIGHT);
 		return (126);
 	}
-	if (!commands[1].last)
-		if (dup2(pipe_fd[1], 1) == -1)
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
 	if (execve(path, commands[0].args, env) == -1)
 		ft_dprintf(2, "command %s\n", commands[0].args[0]);
 	return (0);
