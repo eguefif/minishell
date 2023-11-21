@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 17:29:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:14:54 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,6 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: %s: Permission denied\n", PROG_NAME, s);
 	else if (error_type == IS_DIR)
 		ft_dprintf(2, "%s: %s: is a directory\n", PROG_NAME, s);
-	else if (error_type == OPEN_ERROR)
+	else if (error_type == OPEN_ERROR || error_type == SIGNAL_ERROR)
 		ft_dprintf(2, "%s: %s: %s\n", PROG_NAME, s, strerror(errno));
 }
