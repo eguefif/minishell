@@ -18,7 +18,7 @@ char	*get_command_path(char *command, char **env)
 	char	**paths;
 	int		i;
 	char	*retval;	
-	char	*tab[2];
+	char	*tab[3];
 
 	if (access(command, F_OK) == 0)
 		return (ft_strdup(command));
@@ -29,6 +29,7 @@ char	*get_command_path(char *command, char **env)
 	i = 0;
 	retval = 0;
 	tab[1] = command;
+	tab[2] = 0;
 	while (paths[i])
 	{
 		tab[0] = paths[i];

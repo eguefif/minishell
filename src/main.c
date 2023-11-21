@@ -20,12 +20,15 @@ int	main(int argc, char **argv, char **env)
 {
 	(void )argc;
 	(void )argv;
+	char	**ms_env;
+	ms_env = init_env(env);
 	if (!isatty(0))
-		non_interactive_mode(env);
+		non_interactive_mode(ms_env);
 	else if (isatty(0))
-		interactive_mode(env);
+		interactive_mode(ms_env);
 	else
 		ft_dprintf(2, "error: neither interactive nor non interactive\n");
+	ft_cleansplits(ms_env);
 }
 
 void	non_interactive_mode(char **env)

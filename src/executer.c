@@ -15,7 +15,7 @@
 static int run(t_command *commands, char **env);
 static int	handle_child(t_command *commands, char **env);
 static int	get_exit_code(int status);
-static int	set_redirections(t_command command, int *pipe_fd);
+static int	set_redirections(t_command command, int *pipe_fd, int last);
 
 int	ms_execute(t_command *commands, char **env)
 {
@@ -25,9 +25,13 @@ int	ms_execute(t_command *commands, char **env)
 
 	stdin_save = dup(0);
 	stdout_save = dup(1);
+	if (stdout_save == -1 || stdin_save == -1)
+		return (ft_error());
 	retval = run(commands, env);
-	dup2(stdin_save, 0);
-	dup2(stdout_save, 1);
+	if (dup2(stdin_save, 0) == -1)
+		return (ft_error());
+	if (dup2(stdout_save, 1) == -1)
+		return (ft_error());
 	ft_printf("Return code : %d\n", retval);
 	return (retval);
 }
@@ -43,21 +47,19 @@ static int run(t_command *commands, char **env)
 	while (!commands[++i].last)
 	{
 		if (pipe(pipe_fd) == -1)
-			return (1);
+			return(ft_error());
 		retval = fork();
 		if (retval < 0)
-		{
-			ft_error();
-			return (1);
-		}
+			return(ft_error());
 		else if (!retval)
 		{
-			if (set_redirections(commands[i], pipe_fd))
+			if (set_redirections(commands[i], pipe_fd,
+				commands[i + 1].last))
 				return (1);
 			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
 		if (dup2(pipe_fd[0], 0) == -1)
-			return (1);
+			return(ft_error());
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
@@ -68,7 +70,7 @@ static int run(t_command *commands, char **env)
 	return (retval);
 }
 
-static int	set_redirections(t_command command, int *pipe_fd)
+static int	set_redirections(t_command command, int *pipe_fd, int last)
 {
 	int	fd;
 	int	retval;
@@ -78,29 +80,38 @@ static int	set_redirections(t_command command, int *pipe_fd)
 	{
 		fd = open(command.redirections.r_stdin, O_RDONLY);
 		if (fd < 0)
-			ft_error_message(command.redirections.r_stdin, NO_FILE);
+		{
+			ft_error_message(command.redirections.r_stdin, OPEN_ERROR);
+			retval = 1;
+		}
 		else
 		{
 			if (dup2(fd, 0) == -1)
-				retval = 1;
-			close(fd);
+				retval = ft_error();
 		}
 	}
 	if (command.redirections.r_stdout)
 	{
-		fd = open(command.redirections.r_stdout, O_TRUNC | O_WRONLY | O_CREAT,
+		fd = open(command.redirections.r_stdout,
+			O_TRUNC | O_WRONLY | O_CREAT,
 			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
 		if (fd < 0)
-			ft_error_message(command.redirections.r_stdout, NO_FILE);
+		{
+			ft_error_message(command.redirections.r_stdout, OPEN_ERROR);
+			retval = 1;
+		}
 		else
 		{
 			if (dup2(fd, 1) == -1)
-				retval = 1;
+				retval = ft_error();
 			close(fd);
 		}
 	}
-	else if (dup2(pipe_fd[1], 1) == -1)
-		retval = 1;
+	else if (last != 1)
+	{
+		if (dup2(pipe_fd[1], 1) == -1)
+			retval = ft_error();
+	}
 	close(pipe_fd[0]);
 	close(pipe_fd[1]);
 	return (retval);
