@@ -36,6 +36,7 @@
 # define NO_FILE 2
 # define NO_RIGHT 3
 # define IS_DIR 4
+# define OPEN_ERROR 5
  
 typedef struct s_redirections
 {
@@ -64,18 +65,23 @@ size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
 
-int			ms_execute(t_command *commnands, char **env);
+int		ms_execute(t_command *commnands, char **env);
 char		*get_command_path(char *command, char **env);
 
 // Environment management
 char		*ms_getenv(char **env, char *var);
+char		**init_env(char **env);
+char		**add_var(char **env);
+char		**remove_var(char **env);
+char		**update_var(char **env);
+int		is_var(char **env);
 
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
 void		ft_exit_nb(t_command *commands, int retval);
-int			is_dir(char *path);
+int		is_dir(char *path);
 
-void		ft_error(void);
+int		ft_error(void);
 void		ft_error_message(char *s, int error_type);
 #endif

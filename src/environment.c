@@ -34,3 +34,23 @@ char	*ms_getenv(char **env, char *var)
 	}
 	return (0);
 }
+
+char	**init_env(char **env)
+{
+	char	**retval;
+	size_t	size;
+	int	i;
+
+	size = 0;
+	while (env[size])
+		size++;
+	retval = (char **) malloc(sizeof(char **) * (size + 1));
+	retval[size] = 0;
+	i = 0;
+	while (env[i])
+	{
+		retval[i] = ft_strdup(env[i]);
+		i++;
+	}
+	return (retval);
+}

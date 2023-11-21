@@ -12,9 +12,10 @@
 
 #include "minishell.h"
 
-void	ft_error(void)
+int	ft_error(void)
 {
 	perror(PROG_NAME);
+	return (1);
 }
 
 void	ft_error_message(char *s, int error_type)
@@ -28,4 +29,6 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: %s: Permission denied\n", PROG_NAME, s);
 	else if (error_type == IS_DIR)
 		ft_dprintf(2, "%s: %s: is a directory\n", PROG_NAME, s);
+	else if (error_type == OPEN_ERROR)
+		ft_dprintf(2, "%s: %s: %s\n", PROG_NAME, s, strerror(errno));
 }
