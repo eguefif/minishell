@@ -12,8 +12,10 @@
 
 #include "minishell.h"
 
-int	main()
+int	main(int argc, char ** argv, char **env)
 {
+	(void) argc;
+	(void) argv;
 	char	*tab[] = 
 	{
 		"| cat",
@@ -38,7 +40,7 @@ int	main()
 	int i = 0;
 	while (tab[i])
 	{
-		if (ms_parser(tab[i]))
+		if (ms_parser(tab[i], env))
 			ft_printf("Error %d\n", i + 1);
 		i++;
 	}

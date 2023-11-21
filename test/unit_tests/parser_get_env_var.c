@@ -12,8 +12,10 @@
 
 #include "minishell.h"
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argc;
+	(void) argv;
 	char *str1 = "salut \'$USER fadf a\' $PATH";
 	char *str2 = "salut \"$USER fadf a\" $SHELL";
 	char *str3 = "salut \"fadf a\" \' \' fsadfdas ";
@@ -29,14 +31,14 @@ int	main()
 	char *cmp1[] = {path, 0};
 	char *cmp2[] = {user, shell, 0};
 
-	char **retval1 = get_env_list(str1);
+	char **retval1 = get_env_list(str1, env);
 	if (ft_strcmp(cmp1[0], retval1[0]) != 0)
 		ft_printf("Error |%s|\n|%s|\n", retval1[0], cmp1[0]);
 
 	if (retval1[1] !=  0)
 		ft_printf("Error\n");
 
-	char **retval2 = get_env_list(str2);
+	char **retval2 = get_env_list(str2, env);
 	if (ft_strcmp(cmp2[0], retval2[0]) != 0)
 		ft_printf("Error 2\n");
 
@@ -46,11 +48,11 @@ int	main()
 	if (retval2[3] !=  0)
 		ft_printf("Error 2\n");
 
-	char **retval3 = get_env_list(str3);
+	char **retval3 = get_env_list(str3, env);
 	if (retval3[0] !=  0)
 		ft_printf("Error 3\n");
 
-	char **retval4 = get_env_list(str4);
+	char **retval4 = get_env_list(str4, env);
 	if (ft_strcmp(user, retval4[0]) != 0)
 		ft_printf("Error |%s|\n|%s|\n", retval4[0], user);
 	if (ft_strcmp(user, retval4[1]) != 0)
@@ -60,17 +62,17 @@ int	main()
 	if (retval4[3] !=  0)
 		ft_printf("Error\n");
 
-	char **retval5 = get_env_list(str5);
+	char **retval5 = get_env_list(str5, env);
 	if (ft_strcmp(user, retval5[0]) != 0)
 		ft_printf("Error 5\n");
 	if (retval5[1] !=  0)
 		ft_printf("Error 5\n");
 
-	char **retval6 = get_env_list(str6);
+	char **retval6 = get_env_list(str6, env);
 	if (retval6[0] !=  0)
 		ft_printf("Error 6\n");
 
-	char **retval7 = get_env_list(str7);
+	char **retval7 = get_env_list(str7, env);
 	if (retval7[0] !=  0)
 		ft_printf("Error 7\n");
 }

@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   parser2.c                                          :+:      :+:    :+:   */
+/*   parser3.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -14,8 +14,12 @@
 
 int	cmp_command(t_command c1, t_command c2);
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argc;
+	(void) argv;
+	(void) argc;
+	(void) argv;
 	t_command *test;
 	int i = 0;
 	char *tab = "/bin/ls < file.txt > file2.txt > file3.txt";
@@ -25,7 +29,7 @@ int	main()
 						.redirections = { .r_stdin = "file.txt", .r_stdout = "file3.txt"}};
 	t_command commands[] = {cmd1};
 
-	test = ms_parser(tab); 
+	test = ms_parser(tab,env); 
 	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)

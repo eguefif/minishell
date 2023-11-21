@@ -32,7 +32,6 @@ int	ms_execute(t_command *commands, char **env)
 		return (ft_error());
 	if (dup2(stdout_save, 1) == -1)
 		return (ft_error());
-	ft_printf("Return code : %d\n", retval);
 	return (retval);
 }
 
