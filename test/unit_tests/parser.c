@@ -14,8 +14,10 @@
 
 int	cmp_command(t_command c1, t_command c2);
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argc;
+	(void) argv;
 	char *tab = "< file.txt cat -e | tail > output.x -c 8";
 	char	*args1[] = {"cat", "-e", 0};
 	t_command cmd1 = {  .args = args1, 
@@ -27,7 +29,7 @@ int	main()
 
 	int i = 0;
 	t_command *test;
-	test = ms_parser(tab); 
+	test = ms_parser(tab, env); 
 	while (i < 2)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)

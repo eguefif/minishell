@@ -71,10 +71,10 @@ char		*get_command_path(char *command, char **env);
 // Environment management
 char		*ms_getenv(char **env, char *var);
 char		**init_env(char **env);
-char		**add_var(char **env);
-char		**remove_var(char **env);
-char		**update_var(char **env);
-int		is_var(char **env);
+char		**add_var(char **env, char *name, char *content);
+char		**remove_var(char **env, char *var);
+char		**update_var(char **env, char *var, char *new_content);
+int		is_var(char **env, char *var);
 
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);

@@ -14,8 +14,10 @@
 
 int	cmp_command(t_command c1, t_command c2);
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argc;
+	(void) argv;
 	t_command *test;
 	int i = 0;
 	char *tab = "cat requirements.txt >test2 < test1 > test2 > test1 < test3 > test4";
@@ -25,7 +27,7 @@ int	main()
 						.redirections = { .r_stdin = "test3", .r_stdout = "test4"}};
 	t_command commands[] = {cmd1};
 
-	test = ms_parser(tab); 
+	test = ms_parser(tab,env); 
 	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)

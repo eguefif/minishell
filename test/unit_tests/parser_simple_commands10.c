@@ -14,12 +14,14 @@
 
 int	cmp_command(t_command c1, t_command c2);
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argv;
+	(void) argc;
 	t_command *test;
 	char *tab = 0;
 
-	test = ms_parser(tab); 
+	test = ms_parser(tab,env); 
 	if (test)
 		printf("Error: Did not return void pointer");
 }

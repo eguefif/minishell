@@ -29,7 +29,7 @@ int	main(int argc, char **argv, char **env)
 						.redirections = { .r_stdin = 0, .r_stdout = 0}};
 
 	t_command commands[] = {cmd1};
-	test = ms_parser(tab); 
+	test = ms_parser(tab,env); 
 	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)

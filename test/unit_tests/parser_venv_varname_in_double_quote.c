@@ -14,8 +14,10 @@
 
 int	cmp_command(t_command c1, t_command c2);
 
-int	main()
+int	main(int argc, char **argv, char **env)
 {
+	(void) argc;
+	(void) argv;
 	char *tab = "echo $\"USER\"";
 	char	*args1[] = {"echo", "$USER", 0};
 	t_command cmd1 = {  .args = args1, 
@@ -24,7 +26,7 @@ int	main()
 	t_command commands[] = {cmd1};
 	int i = 0;
 	t_command *test;
-	test = ms_parser(tab); 
+	test = ms_parser(tab,env); 
 	while (i < 1)
 	{
 		if (cmp_command(test[i], commands[i]) == 1)

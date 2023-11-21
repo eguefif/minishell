@@ -15,6 +15,7 @@
 void	non_interactive_mode(char **env);
 void	interactive_mode(char **env);
 int		check_valid_line_for_history(char *line);
+char	**handle_exit_code(char **env, int retval);		
 
 int	main(int argc, char **argv, char **env)
 {
@@ -58,8 +59,9 @@ void	non_interactive_mode(char **env)
 void	interactive_mode(char **env)
 {
 	char		*line;
-	int			running;
+	int		running;
 	t_command	*commands;
+	int		retval;
 
 	running = 1;
 	while (running)
@@ -72,7 +74,10 @@ void	interactive_mode(char **env)
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
-				ms_execute(commands, env);
+			{
+				retval = ms_execute(commands, env);
+				env = handle_exit_code(env, retval);		
+			}
 			ms_clean_commands(commands);
 		}
 		if (line)
@@ -84,5 +89,15 @@ int	check_valid_line_for_history(char *line)
 {
 	if (line && ft_strlen(ft_strtrim(line, " \t")) != 0)
 		return (1);
+
 	return (0);
+}
+
+char	**handle_exit_code(char **env, int retval)
+{
+	if (is_var(env, "?"))
+		env = update_var(env, "?", ft_itoa(retval));
+	else 
+		env = add_var(env, "?", ft_itoa(retval));
+	return (env);
 }
