@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 17:43:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/21 14:22:23 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@
 # define NO_RIGHT 3
 # define IS_DIR 4
 # define OPEN_ERROR 5
+# define SIGNAL_ERROR 6
  
 typedef struct s_redirections
 {
@@ -76,6 +77,10 @@ char		**remove_var(char **env);
 char		**update_var(char **env);
 int		is_var(char **env);
 
+// Signal management
+int			ms_init_signals(void);
+
+// Memory management
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
