@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/21 15:26:28 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:21:41 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,18 @@
 
 char	**non_interactive_mode(char **env);
 char	**interactive_mode(char **env);
-int	check_valid_line_for_history(char *line);
+int		check_valid_line_for_history(char *line);
 char	**handle_exit_code(char **env, int retval);		
 
 int	main(int argc, char **argv, char **env)
 {
-	(void )argc;
-	(void )argv;
 	char	**ms_env;
+
+	(void)argc;
+	(void)argv;
 	ms_env = init_env(env);
-	ms_init_signals();
+	if (ms_init_signals() != 0)
+		return (1);
 	if (!isatty(0))
 		ms_env = non_interactive_mode(ms_env);
 	else if (isatty(0))
@@ -35,12 +37,10 @@ int	main(int argc, char **argv, char **env)
 
 char	**non_interactive_mode(char **env)
 {
-	int			i;
 	t_command	*commands;
 	char		*line;
-	int		retval;
+	int			retval;
 
-	i = 0;
 	line = get_next_line(0);
 	while (line)
 	{
@@ -52,7 +52,7 @@ char	**non_interactive_mode(char **env)
 			if (commands)
 			{
 				retval = ms_execute(commands, env);
-				env = handle_exit_code(env, retval);		
+				env = handle_exit_code(env, retval);
 			}
 			line = get_next_line(0);
 			if (line)
@@ -67,9 +67,9 @@ char	**non_interactive_mode(char **env)
 char	**interactive_mode(char **env)
 {
 	char		*line;
-	int		running;
+	int			running;
 	t_command	*commands;
-	int		retval;
+	int			retval;
 
 	running = 1;
 	while (running)

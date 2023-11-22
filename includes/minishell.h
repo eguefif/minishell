@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/21 14:22:23 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:22:37 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,13 +38,13 @@
 # define IS_DIR 4
 # define OPEN_ERROR 5
 # define SIGNAL_ERROR 6
- 
+
 typedef struct s_redirections
 {
 	char	*r_stdin;
 	char	*r_stdout;
-	int	heredoc;
-	int	append;
+	int		heredoc;
+	int		append;
 }		t_redirections;
 
 typedef struct s_command
@@ -68,7 +68,7 @@ size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
 
-int		ms_execute(t_command *commnands, char **env);
+int			ms_execute(t_command *commnands, char **env);
 char		*get_command_path(char *command, char **env);
 
 // Environment management
@@ -77,18 +77,19 @@ char		**init_env(char **env);
 char		**add_var(char **env, char *name, char *content);
 char		**remove_var(char **env, char *var);
 char		**update_var(char **env, char *var, char *new_content);
-int		is_var(char **env, char *var);
+int			is_var(char **env, char *var);
 
 // Signal management
 int			ms_init_signals(void);
+int			ms_reset_signals(void);
 
 // Memory management
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
 void		ft_exit_nb(t_command *commands, int retval);
-int		is_dir(char *path);
+int			is_dir(char *path);
 
-int		ft_error(void);
+int			ft_error(void);
 void		ft_error_message(char *s, int error_type);
 #endif
