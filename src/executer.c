@@ -156,8 +156,9 @@ static int	handle_child(t_command *commands, char **env)
 			ft_error_message(commands[0].args[0], NO_RIGHT);
 		return (126);
 	}
-	if (execve(path, commands[0].args, env) == -1)
-		ft_dprintf(2, "command %s\n", commands[0].args[0]);
+	if (!is_echo_or_env(path, env))
+		if (execve(path, commands[0].args, env) == -1)
+			ft_dprintf(2, "command %s\n", commands[0].args[0]);
 	return (0);
 }
 

@@ -17,6 +17,7 @@ static int	builtin_export(t_command cmd, char ***env);
 static int	is_valid_identifier(char *id);
 static int	builtin_cd(char *cmd, char ***env);
 static int	builtin_pwd(void);
+static int	builtin_env(char **env);
 
 int	exec_builtin(t_command cmd, char ***env)
 {
@@ -118,5 +119,34 @@ static int	builtin_pwd(void)
 		ft_printf("%s\n",  cwd);
 	else 
 		return (1);
+	return (0);
+}
+
+int	is_echo_or_env(char *cmd, char **env)
+{
+	int	retval;
+
+	retval = 0;
+	if (ft_strcmp(cmd, "env") == 0)
+	{
+		builtin_env(env);
+		retval = 1;
+	}
+	else if (ft_strcmp(cmd, "echo") == 0)
+	  {
+		retval = 1;
+		ft_printf("ECHO\n");
+	  }
+	return (retval);
+}
+
+static int	builtin_env(char **env)
+{
+	int	i;
+
+	i = 0;
+	while (env[i])
+		ft_printf("%s\n", env[i++]);
+	ft_printf("test\n");
 	return (0);
 }
