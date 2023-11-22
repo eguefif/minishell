@@ -1,27 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   echo.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 12:36:39 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/22 16:00:08 by maxpelle         ###   ########.fr       */
+/*   Created: 2023/11/22 15:58:35 by maxpelle          #+#    #+#             */
+/*   Updated: 2023/11/22 15:59:15 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "heredoc.h"
+#include "echo.h"
 
 int	main(int argc, char *argv[])
 {
-	char	*filename;
-	char	*env;
-	char	*end_line;
-
 	(void) argc;
-	filename = argv[1];
-	end_line = argv[2];
-	env = argv[3];
-
+	(void) argv;
+	
 	return (0);
 }

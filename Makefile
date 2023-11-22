@@ -26,7 +26,7 @@ OBJ = $(addprefix $(ODIR), $(_OBJ))
 OBJ_LIB_STATIC = $(addprefix $(ODIR), $(_OBJ_LIB_STATIC))
 
 BUILTIN_DIR = builtins
-_BUILTINS = heredoc env
+_BUILTINS = heredoc env echo
 BUILTINS = $(addprefix $(BUILTIN_DIR)/, $(_BUILTINS))
 
 all: $(NAME)
