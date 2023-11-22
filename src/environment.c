@@ -140,10 +140,13 @@ char		**update_var(char **env, char *var, char *new_content)
 int	is_var(char **env, char *var)
 {
 	int	i;
+	char	*tmp;
 
 	i = 0;
-	while (env[i] && ft_strstr(env[i], var) == 0)
+	tmp = ft_strjoin(var, "=");
+	while (env[i] && ft_strstr(env[i], tmp) == 0)
 		i++;
+	free(tmp);
 	if (env[i])
 		return (1);
 	return (0);

@@ -68,8 +68,9 @@ size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
 
-int			ms_execute(t_command *commnands, char **env);
+int			ms_execute(t_command *commnands, char ***env);
 char		*get_command_path(char *command, char **env);
+int	set_redirections(t_command command, int *pipe_fd, int last);
 
 // Environment management
 char		*ms_getenv(char **env, char *var);
@@ -78,6 +79,9 @@ char		**add_var(char **env, char *name, char *content);
 char		**remove_var(char **env, char *var);
 char		**update_var(char **env, char *var, char *new_content);
 int			is_var(char **env, char *var);
+
+//Builtin
+int	exec_builtin(t_command cmd, char ***env);
 
 // Signal management
 int			ms_init_signals(void);
