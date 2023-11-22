@@ -55,6 +55,8 @@ static int run(t_command *commands, char **env)
 			if (set_redirections(commands[i], pipe_fd,
 				commands[i + 1].last))
 				return (1);
+			if (!commands[i].args[0])
+				return (0);
 			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
 		if (dup2(pipe_fd[0], 0) == -1)
@@ -91,9 +93,18 @@ static int	set_redirections(t_command command, int *pipe_fd, int last)
 	}
 	if (command.redirections.r_stdout)
 	{
-		fd = open(command.redirections.r_stdout,
-			O_TRUNC | O_WRONLY | O_CREAT,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		if (!command.redirections.append)
+		{
+			fd = open(command.redirections.r_stdout,
+				O_TRUNC | O_WRONLY | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		}
+		else
+		{
+			fd = open(command.redirections.r_stdout,
+				O_APPEND | O_WRONLY | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		}
 		if (fd < 0)
 		{
 			ft_error_message(command.redirections.r_stdout, OPEN_ERROR);
@@ -128,7 +139,7 @@ static int	handle_child(t_command *commands, char **env)
 	}
 	if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
 	{
-		if (is_dir(path) != 0)
+		if (is_dir(path) > 0)
 			ft_error_message(commands[0].args[0], IS_DIR);
 		else
 			ft_error_message(commands[0].args[0], NO_RIGHT);

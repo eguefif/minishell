@@ -63,6 +63,8 @@ static t_command	*init_commands(size_t count)
 		commands[i].args = 0;
 		commands[i].redirections.r_stdin = 0;
 		commands[i].redirections.r_stdout = 0;
+		commands[i].redirections.heredoc = 0;
+		commands[i].redirections.append = 0;
 		commands[i].last = 0;
 		i++;
 	}
