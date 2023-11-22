@@ -15,6 +15,8 @@
 static char	**builtin_unset(t_command cmd, char **env);
 static int	builtin_export(t_command cmd, char ***env);
 static int	is_valid_identifier(char *id);
+static int	builtin_cd(char *cmd, char ***env);
+static int	builtin_pwd(void);
 
 int	exec_builtin(t_command cmd, char ***env)
 {
@@ -25,6 +27,10 @@ int	exec_builtin(t_command cmd, char ***env)
 		*env = builtin_unset(cmd, *env);
 		return (0);
 	}
+	else if (ft_strcmp(cmd.args[0], "cd") == 0)
+		return (builtin_cd(cmd.args[1], env));
+	else if (ft_strcmp(cmd.args[0], "pwd") == 0)
+		return(builtin_pwd());
 	return (-1);
 }
 
@@ -88,4 +94,29 @@ static int	is_valid_identifier(char *id)
 		i++;
 	}
 	return (1);
+}
+
+static int	builtin_cd(char *path, char ***env)
+{
+	char cwd[257];
+
+	chdir(path);
+	if (getcwd(cwd, 257) == 0)
+		return (1);
+	if (is_var(*env, "PWD"))
+		*env = update_var(*env, "PWD", cwd);
+	else
+		*env = add_var(*env, "PWD", cwd);
+	return (0);
+}
+
+static int	builtin_pwd(void)
+{
+	char cwd[257];
+
+	if (getcwd(cwd, 257))
+		ft_printf("%s\n",  cwd);
+	else 
+		return (1);
+	return (0);
 }

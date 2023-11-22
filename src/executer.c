@@ -70,7 +70,6 @@ static int	run(t_command *commands, char ***env)
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
 		}
-		i++;
 	}
 	if (pid >= 0)
 	{
