@@ -6,26 +6,34 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:54:24 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/22 09:39:26 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 10:19:29 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	signals_init(void);
 static void	signals_exec(int signal);
 
-int	ms_init_signals(void)
+int	ms_reset_signals(void)
 {
-	int	retval;
+	struct sigaction	reset_signal;
 
-	retval = 0;
-	if (!retval)
-		retval = signals_init();
-	return (retval);
+	sigemptyset(&reset_signal.sa_mask);
+	reset_signal.sa_handler = SIG_DFL;
+	if (sigaction(SIGINT, &reset_signal, 0) == -1)
+	{
+		ft_error_message("SIGINT", SIGNAL_ERROR);
+		return (1);
+	}
+	if (sigaction(SIGQUIT, &reset_signal, 0) == -1)
+	{
+		ft_error_message("SIGQUIT", SIGNAL_ERROR);
+		return (1);
+	}
+	return (0);
 }
 
-static int	signals_init(void)
+int	ms_init_signals(void)
 {
 	struct sigaction	init_signal_c;
 	struct sigaction	init_ignore;
@@ -50,7 +58,8 @@ static void	signals_exec(int signal)
 {
 	int	stat_loc;
 
-	if (waitpid(-1, &stat_loc, WNOHANG) != 0 && signal == SIGINT)
+	(void) signal;
+	if (waitpid(-1, &stat_loc, WNOHANG) != 0)
 	{
 		write(1, "\n", 1);
 		rl_replace_line("", 0);
