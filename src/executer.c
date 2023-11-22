@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 10:24:48 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:06:31 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ static int	run(t_command *commands, char **env)
 				return (0);
 			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
+		ms_ignore_signals();
 		if (dup2(pipe_fd[0], 0) == -1)
 			return (ft_error());
 		close(pipe_fd[0]);
