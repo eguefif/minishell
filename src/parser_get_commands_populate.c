@@ -85,6 +85,8 @@ static t_redirections	populate_redirection(t_redirections redir,
 {
 	if (token[0] == '<')
 	{
+		if (token[1] == '<')
+			redir.heredoc = 1;
 		if (redir.r_stdin)
 			free(redir.r_stdin);
 		redir.r_stdin = ft_strdup(file);
@@ -93,6 +95,8 @@ static t_redirections	populate_redirection(t_redirections redir,
 	}
 	else if (token[0] == '>')
 	{
+		if (token[1] == '>')
+			redir.append = 1;
 		if (redir.r_stdout)
 			free(redir.r_stdout);
 		redir.r_stdout = ft_strdup(file);
