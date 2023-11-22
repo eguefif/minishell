@@ -11,3 +11,5 @@ todo
 *.dSYM
 test/unit_tests/binary
 .DS_Store
+heredoc
+env
