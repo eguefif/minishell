@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 12:02:48 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 12:19:12 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 	ms_env = init_env(env);
 	ms_env = handle_mshlvl(ms_env);
-	ms_init_signals();
 	if (!isatty(0))
 		ms_env = non_interactive_mode(ms_env);
 	else if (isatty(0))
