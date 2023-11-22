@@ -16,6 +16,7 @@ READLINE = $(READLINE_DIR)/libreadline.a
 
 _SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error.c parser_get_commands.c parser_clean_commands1.c parser_clean_commands2.c lexer_count_tokens.c lexer_get_token_size.c parser_get_commands_populate.c \
 				  utils.c executer_getpath.c environment.c signals.c
+
 _SRC = main.c $(_SRC_LIB_STATIC)
 _OBJ = $(_SRC:.c=.o)
 _OBJ_LIB_STATIC = $(_SRC_LIB_STATIC:.c=.o)

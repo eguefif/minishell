@@ -12,12 +12,11 @@
 
 #include "minishell.h"
 
-static int	run(t_command *commands, char **env);
+static int	run(t_command *commands, char ***env);
 static int	handle_child(t_command *commands, char **env);
 static int	get_exit_code(int status);
-static int	set_redirections(t_command command, int *pipe_fd, int last);
 
-int	ms_execute(t_command *commands, char **env)
+int	ms_execute(t_command *commands, char ***env)
 {
 	int	stdin_save;
 	int	stdout_save;
@@ -35,46 +34,56 @@ int	ms_execute(t_command *commands, char **env)
 	return (retval);
 }
 
-static int	run(t_command *commands, char **env)
+static int	run(t_command *commands, char ***env)
 {
 	int	pipe_fd[2];
 	int	retval;
+	int	pid;
 	int	stat_loc;
 	int	i;
 
 	i = -1;
+	pid = -1;
 	while (!commands[++i].last)
 	{
-		if (pipe(pipe_fd) == -1)
-			return (ft_error());
-		retval = fork();
-		if (retval < 0)
-			return (ft_error());
-		else if (!retval)
+		retval = exec_builtin(commands[i], env);
+		if (retval == -1)
 		{
-			if (ms_reset_signals() != 0)
-				return (1);
-			if (set_redirections(commands[i], pipe_fd,
-					commands[i + 1].last))
-				return (1);
-			if (!commands[i].args[0])
-				return (0);
-			ft_exit_nb(commands, handle_child(&commands[i], env));
+			if (pipe(pipe_fd) == -1)
+				return (ft_error());
+			pid = fork();
+			if (pid < 0)
+				return (ft_error());
+			else if (!pid)
+			{
+				if (ms_reset_signals() != 0)
+					return (1);
+				if (set_redirections(commands[i], pipe_fd,
+						commands[i + 1].last))
+					return (1);
+				if (!commands[i].args[0])
+					return (0);
+				ft_exit_nb(commands, handle_child(&commands[i], *env));
+			}
+			if (dup2(pipe_fd[0], 0) == -1)
+				return (ft_error());
+			close(pipe_fd[0]);
+			close(pipe_fd[1]);
 		}
-		ms_ignore_signals();
-		if (dup2(pipe_fd[0], 0) == -1)
-			return (ft_error());
-		close(pipe_fd[0]);
-		close(pipe_fd[1]);
+		i++;
 	}
-	waitpid(retval, &stat_loc, 0);
-	retval = get_exit_code(stat_loc);
-	while (waitpid(-1, &stat_loc, 0) > 0)
-		;
+	if (pid >= 0)
+	{
+		waitpid(pid, &stat_loc, 0);
+		retval = get_exit_code(stat_loc);
+		while (waitpid(-1, &stat_loc, 0) > 0)
+			;
+		ms_ignore_signals();
+	}
 	return (retval);
 }
 
-static int	set_redirections(t_command command, int *pipe_fd, int last)
+int	set_redirections(t_command command, int *pipe_fd, int last)
 {
 	int	fd;
 	int	retval;

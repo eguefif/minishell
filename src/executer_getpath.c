@@ -12,6 +12,8 @@
 
 #include "minishell.h"
 
+static int	is_relative_path(char *command);
+
 char	*get_command_path(char *command, char **env)
 {
 	char 	*path;
@@ -20,8 +22,9 @@ char	*get_command_path(char *command, char **env)
 	char	*retval;	
 	char	*tab[3];
 
-	if (access(command, F_OK) == 0)
-		return (ft_strdup(command));
+	if (is_relative_path(command))
+		if (access(command, F_OK) == 0)
+			return (ft_strdup(command));
 	path = ms_getenv(env, "PATH");
 	if (!path)
 		return (0);
@@ -42,4 +45,11 @@ char	*get_command_path(char *command, char **env)
 	}
 	ft_cleansplits(paths);
 	return (retval);
+}
+
+static int	is_relative_path(char *command)
+{
+	if (command[0]== '.' && command[1] == '/')
+		return (1);
+	return (0);
 }

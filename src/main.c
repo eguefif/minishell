@@ -51,7 +51,7 @@ char	**non_interactive_mode(char **env)
 				break ;
 			if (commands)
 			{
-				retval = ms_execute(commands, env);
+				retval = ms_execute(commands, &env);
 				env = handle_exit_code(env, retval);
 			}
 			line = get_next_line(0);
@@ -80,12 +80,17 @@ char	**interactive_mode(char **env)
 		if (check_valid_line_for_history(line))
 		{
 			add_history(line);
+			if (ft_strcmp(line, "exit") == 0)
+			{
+				free(line);
+				break ;
+			}
 			commands = ms_parser(line, env);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
 			{
-				retval = ms_execute(commands, env);
+				retval = ms_execute(commands, &env);
 				env = handle_exit_code(env, retval);
 			}
 			else 
