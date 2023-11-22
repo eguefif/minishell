@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 11:08:29 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 12:02:48 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ char	**non_interactive_mode(char **env);
 char	**interactive_mode(char **env);
 int		check_valid_line_for_history(char *line);
 char	**handle_exit_code(char **env, int retval);		
+char	**handle_mshlvl(char **env);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -24,6 +25,8 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ms_env = init_env(env);
+	ms_env = handle_mshlvl(ms_env);
+	ms_init_signals();
 	if (!isatty(0))
 		ms_env = non_interactive_mode(ms_env);
 	else if (isatty(0))
@@ -106,6 +109,21 @@ int	check_valid_line_for_history(char *line)
 	if (line && ft_strlen(ft_strtrim(line, " \t")) != 0)
 		return (1);
 	return (0);
+}
+
+char	**handle_mshlvl(char **env)
+{
+	int	mshlvl;
+
+	if (is_var(env, "MSHLVL"))
+	{
+		mshlvl = ft_atoi(ms_getenv(env, "MSHLVL")) + 1;
+		env = update_var(env, "MSHLVL", ft_itoa(mshlvl));
+		return (env);
+	}
+	mshlvl = 1;
+	env = add_var(env, "MSHLVL", ft_itoa(mshlvl));
+	return (env);
 }
 
 char	**handle_exit_code(char **env, int retval)
