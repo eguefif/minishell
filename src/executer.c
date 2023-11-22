@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 10:24:48 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 12:27:30 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static int	run(t_command *commands, char ***env)
 		retval = get_exit_code(stat_loc);
 		while (waitpid(-1, &stat_loc, 0) > 0)
 			;
+		ms_ignore_signals();
 	}
 	return (retval);
 }

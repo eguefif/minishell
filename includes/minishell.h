@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 10:22:37 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:05:45 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,6 +87,7 @@ int	exec_builtin(t_command cmd, char ***env);
 // Signal management
 int			ms_init_signals(void);
 int			ms_reset_signals(void);
+int			ms_ignore_signals(void);
 
 // Memory management
 void		ms_free_tokens(char **tokens);
