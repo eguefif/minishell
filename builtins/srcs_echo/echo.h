@@ -1,27 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   heredoc.c                                          :+:      :+:    :+:   */
+/*   echo.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 12:36:39 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/22 16:00:08 by maxpelle         ###   ########.fr       */
+/*   Created: 2023/11/22 15:58:11 by maxpelle          #+#    #+#             */
+/*   Updated: 2023/11/22 15:58:25 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "heredoc.h"
+#ifndef ECHO_H
+# define ECHO_H
 
-int	main(int argc, char *argv[])
-{
-	char	*filename;
-	char	*env;
-	char	*end_line;
+# include "libft.h"
 
-	(void) argc;
-	filename = argv[1];
-	end_line = argv[2];
-	env = argv[3];
-
-	return (0);
-}
+#endif

@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/21 14:14:54 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 16:32:07 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: syntax error near unexpected token \'%s\'\n",
 			PROG_NAME, s);
 	else if (error_type == NO_FILE)
-		ft_dprintf(2, "%s: %s: no such file or directory%n", PROG_NAME, s);
+		ft_dprintf(2, "%s: %s: no such file or directory\n", PROG_NAME, s);
 	else if (error_type == NO_RIGHT)
 		ft_dprintf(2, "%s: %s: Permission denied\n", PROG_NAME, s);
 	else if (error_type == IS_DIR)
