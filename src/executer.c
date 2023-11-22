@@ -38,20 +38,23 @@ static int	run(t_command *commands, char ***env)
 {
 	int	pipe_fd[2];
 	int	retval;
+	int	pid;
 	int	stat_loc;
 	int	i;
 
 	i = -1;
+	pid = -1;
 	while (!commands[++i].last)
 	{
-		if (!exec_builtin(commands[i], env))
+		retval = exec_builtin(commands[i], env);
+		if (retval == -1)
 		{
 			if (pipe(pipe_fd) == -1)
 				return (ft_error());
-			retval = fork();
-			if (retval < 0)
+			pid = fork();
+			if (pid < 0)
 				return (ft_error());
-			else if (!retval)
+			else if (!pid)
 			{
 				if (ms_reset_signals() != 0)
 					return (1);
@@ -67,11 +70,15 @@ static int	run(t_command *commands, char ***env)
 			close(pipe_fd[0]);
 			close(pipe_fd[1]);
 		}
+		i++;
 	}
-	waitpid(retval, &stat_loc, 0);
-	retval = get_exit_code(stat_loc);
-	while (waitpid(-1, &stat_loc, 0) > 0)
-		;
+	if (pid >= 0)
+	{
+		waitpid(pid, &stat_loc, 0);
+		retval = get_exit_code(stat_loc);
+		while (waitpid(-1, &stat_loc, 0) > 0)
+			;
+	}
 	return (retval);
 }
 

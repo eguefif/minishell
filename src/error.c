@@ -31,4 +31,6 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: %s: is a directory\n", PROG_NAME, s);
 	else if (error_type == OPEN_ERROR || error_type == SIGNAL_ERROR)
 		ft_dprintf(2, "%s: %s: %s\n", PROG_NAME, s, strerror(errno));
+	else if (error_type == EXPORT_ERROR)
+		ft_dprintf(2, "%s: export: \'%s\': not a valid identifier\n", PROG_NAME, s);
 }

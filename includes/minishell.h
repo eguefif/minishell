@@ -38,6 +38,7 @@
 # define IS_DIR 4
 # define OPEN_ERROR 5
 # define SIGNAL_ERROR 6
+# define EXPORT_ERROR 7
 
 typedef struct s_redirections
 {
