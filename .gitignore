@@ -2,7 +2,6 @@
 *.swo
 *.o
 a.out
-DS_Store
 minishell
 *.a
 readline-8.2
@@ -11,3 +10,4 @@ test/__pycache__/
 todo
 *.dSYM
 test/unit_tests/binary
+.DS_Store

@@ -6,13 +6,13 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/21 16:12:45 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/22 11:06:31 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int run(t_command *commands, char **env);
+static int	run(t_command *commands, char **env);
 static int	handle_child(t_command *commands, char **env);
 static int	get_exit_code(int status);
 static int	set_redirections(t_command command, int *pipe_fd, int last);
@@ -35,7 +35,7 @@ int	ms_execute(t_command *commands, char **env)
 	return (retval);
 }
 
-static int run(t_command *commands, char **env)
+static int	run(t_command *commands, char **env)
 {
 	int	pipe_fd[2];
 	int	retval;
@@ -46,21 +46,24 @@ static int run(t_command *commands, char **env)
 	while (!commands[++i].last)
 	{
 		if (pipe(pipe_fd) == -1)
-			return(ft_error());
+			return (ft_error());
 		retval = fork();
 		if (retval < 0)
-			return(ft_error());
+			return (ft_error());
 		else if (!retval)
 		{
+			if (ms_reset_signals() != 0)
+				return (1);
 			if (set_redirections(commands[i], pipe_fd,
-				commands[i + 1].last))
+					commands[i + 1].last))
 				return (1);
 			if (!commands[i].args[0])
 				return (0);
 			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
+		ms_ignore_signals();
 		if (dup2(pipe_fd[0], 0) == -1)
-			return(ft_error());
+			return (ft_error());
 		close(pipe_fd[0]);
 		close(pipe_fd[1]);
 	}
@@ -96,14 +99,14 @@ static int	set_redirections(t_command command, int *pipe_fd, int last)
 		if (!command.redirections.append)
 		{
 			fd = open(command.redirections.r_stdout,
-				O_TRUNC | O_WRONLY | O_CREAT,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+					O_TRUNC | O_WRONLY | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		}
 		else
 		{
 			fd = open(command.redirections.r_stdout,
-				O_APPEND | O_WRONLY | O_CREAT,
-				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+					O_APPEND | O_WRONLY | O_CREAT,
+					S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH);
 		}
 		if (fd < 0)
 		{
