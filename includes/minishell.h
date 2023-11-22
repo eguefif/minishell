@@ -43,7 +43,9 @@ typedef struct s_redirections
 {
 	char	*r_stdin;
 	char	*r_stdout;
-}			t_redirections;
+	int	heredoc;
+	int	append;
+}		t_redirections;
 
 typedef struct s_command
 {

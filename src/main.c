@@ -55,9 +55,11 @@ void	non_interactive_mode(char **env)
 				env = handle_exit_code(env, retval);		
 			}
 			line = get_next_line(0);
+			if (line)
+				free(line);
 		}
-		if (line)
-			free(line);
+		else if (!line)
+			return ;
 	}
 }
 
@@ -86,9 +88,14 @@ void	interactive_mode(char **env)
 			else 
 				env = handle_exit_code(env, 258);
 			ms_clean_commands(commands);
+			if (line)
+				free(line);
 		}
-		if (line)
-			free(line);
+		else if (!line)
+		{
+			ft_printf("exit\n");
+			return ;
+		}
 	}
 }
 
@@ -96,7 +103,6 @@ int	check_valid_line_for_history(char *line)
 {
 	if (line && ft_strlen(ft_strtrim(line, " \t")) != 0)
 		return (1);
-
 	return (0);
 }
 

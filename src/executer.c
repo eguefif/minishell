@@ -93,9 +93,18 @@ static int	set_redirections(t_command command, int *pipe_fd, int last)
 	}
 	if (command.redirections.r_stdout)
 	{
-		fd = open(command.redirections.r_stdout,
-			O_TRUNC | O_WRONLY | O_CREAT,
-			S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		if (!command.redirections.append)
+		{
+			fd = open(command.redirections.r_stdout,
+				O_TRUNC | O_WRONLY | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		}
+		else
+		{
+			fd = open(command.redirections.r_stdout,
+				O_APPEND | O_WRONLY | O_CREAT,
+				S_IRUSR | S_IWUSR | S_IRGRP | S_IROTH );
+		}
 		if (fd < 0)
 		{
 			ft_error_message(command.redirections.r_stdout, OPEN_ERROR);
