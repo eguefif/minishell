@@ -12,9 +12,9 @@
 
 #include "minishell.h"
 
-void	non_interactive_mode(char **env);
-void	interactive_mode(char **env);
-int		check_valid_line_for_history(char *line);
+char	**non_interactive_mode(char **env);
+char	**interactive_mode(char **env);
+int	check_valid_line_for_history(char *line);
 char	**handle_exit_code(char **env, int retval);		
 
 int	main(int argc, char **argv, char **env)
@@ -25,15 +25,15 @@ int	main(int argc, char **argv, char **env)
 	ms_env = init_env(env);
 	ms_init_signals();
 	if (!isatty(0))
-		non_interactive_mode(ms_env);
+		ms_env = non_interactive_mode(ms_env);
 	else if (isatty(0))
-		interactive_mode(ms_env);
+		ms_env = interactive_mode(ms_env);
 	else
 		ft_dprintf(2, "error: neither interactive nor non interactive\n");
 	ft_cleansplits(ms_env);
 }
 
-void	non_interactive_mode(char **env)
+char	**non_interactive_mode(char **env)
 {
 	int			i;
 	t_command	*commands;
@@ -59,11 +59,12 @@ void	non_interactive_mode(char **env)
 				free(line);
 		}
 		else if (!line)
-			return ;
+			break ;
 	}
+	return (env);
 }
 
-void	interactive_mode(char **env)
+char	**interactive_mode(char **env)
 {
 	char		*line;
 	int		running;
@@ -94,9 +95,10 @@ void	interactive_mode(char **env)
 		else if (!line)
 		{
 			ft_printf("exit\n");
-			return ;
+			break ;
 		}
 	}
+	return (env);
 }
 
 int	check_valid_line_for_history(char *line)
