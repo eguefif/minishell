@@ -81,6 +81,10 @@ test:
 clean:
 	rm -rf $(OBJ)
 	make -C $(LIBFT_DIR) clean
+	@for builtin in $(_BUILTINS); do \
+		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
+		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
+	done
 #	@if [ -d $(READLINE_DIR) ] ; then \
 #		make -C $(READLINE_DIR) clean ; \
 #	fi
@@ -91,6 +95,10 @@ fclean: clean
 		rm -r $(ODIR) ; \
 	fi
 	rm -rf $(LIBFT_DIR)/libft.a
+	@for builtin in $(_BUILTINS); do \
+		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
+		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
+	done
 #	rm -rf $(READLINE_DIR)
 
 re: fclean all
