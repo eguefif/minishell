@@ -55,6 +55,8 @@ static int run(t_command *commands, char **env)
 			if (set_redirections(commands[i], pipe_fd,
 				commands[i + 1].last))
 				return (1);
+			if (!commands[i].args[0])
+				return (0);
 			ft_exit_nb(commands, handle_child(&commands[i], env));
 		}
 		if (dup2(pipe_fd[0], 0) == -1)
@@ -128,7 +130,7 @@ static int	handle_child(t_command *commands, char **env)
 	}
 	if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
 	{
-		if (is_dir(path) != 0)
+		if (is_dir(path) > 0)
 			ft_error_message(commands[0].args[0], IS_DIR);
 		else
 			ft_error_message(commands[0].args[0], NO_RIGHT);

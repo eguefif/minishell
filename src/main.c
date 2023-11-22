@@ -38,6 +38,7 @@ void	non_interactive_mode(char **env)
 	int			i;
 	t_command	*commands;
 	char		*line;
+	int		retval;
 
 	i = 0;
 	line = get_next_line(0);
@@ -49,7 +50,10 @@ void	non_interactive_mode(char **env)
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
-				ms_execute(commands, env);
+			{
+				retval = ms_execute(commands, env);
+				env = handle_exit_code(env, retval);		
+			}
 			line = get_next_line(0);
 		}
 		if (line)
@@ -77,8 +81,10 @@ void	interactive_mode(char **env)
 			if (commands)
 			{
 				retval = ms_execute(commands, env);
-				env = handle_exit_code(env, retval);		
+				env = handle_exit_code(env, retval);
 			}
+			else 
+				env = handle_exit_code(env, 258);
 			ms_clean_commands(commands);
 		}
 		if (line)
