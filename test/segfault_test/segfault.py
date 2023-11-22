@@ -76,3 +76,18 @@ def memory_acceptances(script):
         print("Error: timeout")
     
     assert is_memory_lost(minishell_output.stdout + minishell_output.stderr) == 1
+
+with open("commands.tsv", "r") as f:
+    content = f.read()
+
+segfault_test = content.split("\n")
+
+@pytest.mark.parametrize("command", segfault_test)
+def test_segfault(command):
+    try:
+        retval = subprocess.run("./minishell", input=command, capture_output=True, text=True, timeout=5)
+    except subprocess.TimeoutExpired:
+        print("Error: timeout")
+
+    print(retval)
+    assert retval.returncode == 0
