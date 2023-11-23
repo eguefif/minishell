@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 08:41:06 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 15:52:00 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:07:03 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ t_command	*builtin_heredoc(t_command *commands, char **env)
 			}
 			if (ft_strcmp("fork", file_name) == 0)
 			{
+				free(file_name);
 				ms_clean_commands(commands);
 				ft_cleansplits(env);
 				exit(0);
@@ -64,7 +65,7 @@ static char	*set_heredoc(char *end_cmd, char **env, int num, int flag)
 		return (0);
 	pid = -1;
 	num_str = ft_itoa(num);
-	file_name = ft_strjoin("/tmp/minishell_heredoc", ft_itoa(num));
+	file_name = ft_strjoin("/tmp/minishell_heredoc", num_str);
 	if (num_str)
 		free(num_str);
 	fd = open(file_name, O_APPEND | O_WRONLY | O_CREAT,
@@ -136,9 +137,8 @@ static char	*expand_env_vars(char *line, char **env)
 	var_env = get_env_list(line, env);
 	size = get_line_size(line, var_env);
 	retval = get_new_line(line, size, var_env);
-	if (!retval)
 	if (var_env)
-		free(var_env);
+		ft_cleansplits(var_env);
 	if (line)
 		free(line);
 	return (retval);
