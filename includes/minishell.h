@@ -98,7 +98,7 @@ int			ms_ignore_signals(void);
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
-void		ft_exit_nb(t_command *commands, int retval);
+void		ft_exit_nb(t_command *commands, int retval, char **env);
 int			is_dir(char *path);
 
 int			ft_error(void);

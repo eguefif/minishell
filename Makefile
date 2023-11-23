@@ -76,7 +76,15 @@ test:
 	@cd test; \
 	pytest test_acceptances.py -vv
 
-.PHONY: all clean fclean re build_test_env build_dependencies test 
+test_memory:
+	@cp ./minishell ./test
+	@cd test; \
+	pytest test_memory.py -vv
+
+val:
+	valgrind --tool=memcheck --leak-check=full --track-origins=yes -s --show-leak-kinds=all --suppressions=./test/supp.txt ./minishell
+
+.PHONY: all clean fclean re build_test_env build_dependencies test val test_memory
 
 clean:
 	rm -rf $(OBJ)
