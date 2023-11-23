@@ -26,7 +26,7 @@ OBJ = $(addprefix $(ODIR), $(_OBJ))
 OBJ_LIB_STATIC = $(addprefix $(ODIR), $(_OBJ_LIB_STATIC))
 
 BUILTIN_DIR = builtins
-_BUILTINS = heredoc env
+_BUILTINS = heredoc env echo
 BUILTINS = $(addprefix $(BUILTIN_DIR)/, $(_BUILTINS))
 
 all: $(NAME)
@@ -82,6 +82,10 @@ test:
 clean:
 	rm -rf $(OBJ)
 	make -C $(LIBFT_DIR) clean
+	@for builtin in $(_BUILTINS); do \
+		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
+		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
+	done
 #	@if [ -d $(READLINE_DIR) ] ; then \
 #		make -C $(READLINE_DIR) clean ; \
 #	fi
@@ -92,6 +96,10 @@ fclean: clean
 		rm -r $(ODIR) ; \
 	fi
 	rm -rf $(LIBFT_DIR)/libft.a
+	@for builtin in $(_BUILTINS); do \
+		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
+		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
+	done
 #	rm -rf $(READLINE_DIR)
 
 re: fclean all
