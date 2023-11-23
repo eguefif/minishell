@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_clean_commands2.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:59:51 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 12:59:52 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:22:49 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_env_list(char *token, char **env)
 				;
 		else
 			if (token[i] == '$' && token[i + 1]
-				&& !ft_strchr(" \t$", token[i + 1]))
+				&& !ft_strchr("\n \t$", token[i + 1]))
 				retval[j++] = get_env_var((token + i), env);
 		if (token[i])
 			i++;
@@ -76,7 +76,7 @@ size_t	get_count_var_env(char *token)
 		}
 		else
 			if (token[i] == '$' && token[i + 1]
-				&& !ft_strchr(" \t$", token[i + 1]))
+				&& !ft_strchr("\n \t$", token[i + 1]))
 				size++;
 		i++;
 	}
@@ -90,7 +90,7 @@ char	*get_env_var(char *s, char **env)
 	char	*var_name;
 
 	size = 1;
-	while (s[size] && !ft_strchr(" \t$\'\"", s[size]))
+	while (s[size] && !ft_strchr("\n \t$\'\"", s[size]))
 		size++;
 	var_name = ft_strldup(s + 1, size - 1);
 	if (!var_name)

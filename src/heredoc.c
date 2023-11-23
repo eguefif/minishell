@@ -6,16 +6,19 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 08:41:06 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 13:55:46 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:52:00 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*set_heredoc(char *end_cmd, int num);
-static void	run_heredoc(int fd, char *end_cmd);
+static char	*set_heredoc(char *end_cmd, char **env, int num, int flag);
+static void	run_heredoc(int fd, char *end_cmd, char **env, int flag);
+static char	*get_new_line(char *line, size_t size, char **var_env);
+static char	*expand_env_vars(char *line, char **env);
+static size_t	get_line_size(char *line, char **var_env);
 
-t_command	*builtin_heredoc(t_command *commands)
+t_command	*builtin_heredoc(t_command *commands, char **env)
 {
 	int		i;
 	char	*file_name;
@@ -26,7 +29,8 @@ t_command	*builtin_heredoc(t_command *commands)
 	{
 		if (commands[i].redirections.heredoc)
 		{
-			file_name = set_heredoc(commands[i].redirections.r_stdin, i);
+			file_name = set_heredoc(commands[i].redirections.r_stdin,
+					env, i, commands[i].redirections.heredoc);
 			if (!file_name)
 			{
 				ft_error_message(commands[i].args[0], HEREDOC_ERROR);
@@ -35,6 +39,7 @@ t_command	*builtin_heredoc(t_command *commands)
 			if (ft_strcmp("fork", file_name) == 0)
 			{
 				ms_clean_commands(commands);
+				ft_cleansplits(env);
 				exit(0);
 			}
 			if (commands[i].redirections.r_stdin) 
@@ -47,7 +52,7 @@ t_command	*builtin_heredoc(t_command *commands)
 	return (commands);
 }
 
-static char	*set_heredoc(char *end_cmd, int num)
+static char	*set_heredoc(char *end_cmd, char **env, int num, int flag)
 {
 	char	*file_name;
 	char	*num_str;
@@ -74,7 +79,7 @@ static char	*set_heredoc(char *end_cmd, int num)
 	}
 	if (!pid)
 	{
-		run_heredoc(fd, end_cmd);
+		run_heredoc(fd, end_cmd, env, flag) ;
 		free(file_name);
 		file_name = ft_strdup("fork");
 	}
@@ -84,7 +89,7 @@ static char	*set_heredoc(char *end_cmd, int num)
 	return (file_name);
 }
 
-static void	run_heredoc(int fd, char *end_cmd)
+static void	run_heredoc(int fd, char *end_cmd, char **env, int flag)
 {
 	char	*line;
 
@@ -99,6 +104,8 @@ static void	run_heredoc(int fd, char *end_cmd)
 			free(end_cmd);
 			break ;
 		}
+		if (flag == 2)
+			line = expand_env_vars(line, env);	
 		ft_dprintf(fd, line);
 		free(line);
 		ft_printf("> ");
@@ -119,3 +126,93 @@ void	builtin_heredoc_delete(t_command *commands)
 		i++;
 	}
 }
+
+static char	*expand_env_vars(char *line, char **env)
+{
+	char	**var_env;
+	size_t	size;
+	char	*retval;
+
+	var_env = get_env_list(line, env);
+	size = get_line_size(line, var_env);
+	retval = get_new_line(line, size, var_env);
+	if (!retval)
+	if (var_env)
+		free(var_env);
+	if (line)
+		free(line);
+	return (retval);
+}
+
+static size_t	get_line_size(char *line, char **var_env)
+{
+	size_t	i;
+	size_t	count;
+	size_t	env_count;
+
+	i = 0;
+	count = 0;
+	env_count = 0;
+	while (line[i])
+	{
+		if (line[i] == '$')
+		{
+			count += ft_strlen(var_env[env_count]);
+			env_count++;
+			i++;
+			while (!ft_strchr("\n \t\'\"$", line[i]))
+				i++;
+		}
+		else
+		{
+			count++;
+			i++;
+		}
+	}
+	return (count);
+}
+
+static char	*get_new_line(char *line, size_t size, char **var_env)
+{
+	char	*retval;
+	size_t	i;
+	size_t	j;
+	size_t	env_count;
+
+	retval = ft_calloc((size + 1), sizeof (char));
+	if (!retval)
+		return (0);
+	i = 0;
+	j = 0;
+	env_count = 0;
+	while (i < size)
+	{
+		if (line[j] == '$')
+		{
+			j++;
+			while (!ft_strchr("\n \t\'\"$", line[j]))
+				j++;
+			if (var_env[env_count])
+				ft_strcpy(retval + i, var_env[env_count]);
+			i += ft_strlen(var_env[env_count]);
+			env_count++;
+		}
+		else
+		{
+			retval[i] = line[j];
+			i++;
+			j++;
+		}
+	}
+	return (retval);
+}
+
+
+
+
+
+
+
+
+
+

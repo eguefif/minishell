@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 13:29:46 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 14:16:19 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	ms_execute(t_command *commands, char ***env)
 	stdout_save = dup(1);
 	if (stdout_save == -1 || stdin_save == -1)
 		return (ft_error());
-	commands = builtin_heredoc(commands);
+	commands = builtin_heredoc(commands, *env);
 	retval = run(commands, env);
 	builtin_heredoc_delete(commands);
 	if (dup2(stdin_save, 0) == -1)
