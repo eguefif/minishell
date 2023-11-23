@@ -142,23 +142,25 @@ static int	handle_child(t_command *commands, char **env)
 {
 	char	*path;
 
-	path = get_command_path(commands[0].args[0], env);
-	if (!path)
+	if (!is_echo_or_env(commands[0].args, env))
 	{
-		ft_error_message(commands[0].args[0], NO_FILE);
-		return (127);
-	}
-	if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
-	{
-		if (is_dir(path) > 0)
-			ft_error_message(commands[0].args[0], IS_DIR);
-		else
-			ft_error_message(commands[0].args[0], NO_RIGHT);
-		return (126);
-	}
-	if (!is_echo_or_env(path, env))
+		path = get_command_path(commands[0].args[0], env);
+		if (!path)
+		{
+			ft_error_message(commands[0].args[0], NO_FILE);
+			return (127);
+		}
+		if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
+		{
+			if (is_dir(path) > 0)
+				ft_error_message(commands[0].args[0], IS_DIR);
+			else
+				ft_error_message(commands[0].args[0], NO_RIGHT);
+			return (126);
+		}
 		if (execve(path, commands[0].args, env) == -1)
 			ft_dprintf(2, "command %s\n", commands[0].args[0]);
+	}
 	return (0);
 }
 
