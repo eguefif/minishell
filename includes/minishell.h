@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 11:05:45 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 13:29:57 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@
 # define OPEN_ERROR 5
 # define SIGNAL_ERROR 6
 # define EXPORT_ERROR 7
+# define HEREDOC_ERROR 8
 
 typedef struct s_redirections
 {
@@ -84,6 +85,8 @@ int			is_var(char **env, char *var);
 //Builtin
 int	exec_builtin(t_command cmd, char ***env);
 int	is_echo_or_env(char *whole_cmd, char **env);
+t_command *builtin_heredoc(t_command *commands);
+void	builtin_heredoc_delete(t_command *commands);
 
 // Signal management
 int			ms_init_signals(void);
