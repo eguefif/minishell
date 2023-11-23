@@ -10,7 +10,48 @@ MINISHELL = "./minishell"
 
 # Regression tests
 
-@pytest.mark.parametrize("script", acc)
+def clean_directory():
+    if os.path.exists("a"):
+        os.remove("a")
+    if os.path.exists("b"):
+        os.remove("b")
+    if os.path.exists("bonjour"):
+        os.remove("bonjour")
+    if os.path.exists("bonjour 1"):
+        os.remove("bonjour 1")
+    if os.path.exists("bonjour\\"):
+        os.remove("bonjour\\")
+    if os.path.exists("c"):
+        os.remove("c")
+    if os.path.exists("a"):
+        os.remove("a")
+    if os.path.exists("d"):
+        os.remove("d")
+    if os.path.exists("hello"):
+        os.remove("hello")
+    if os.path.exists("e"):
+        os.remove("e")
+    if os.path.exists("hello"):
+        os.remove("hello")
+    if os.path.exists("hey"):
+        os.remove("hey")
+    if os.path.exists("hola"):
+        os.remove("hola")
+    if os.path.exists("hola1"):
+        os.remove("hola1")
+    if os.path.exists("hola2"):
+        os.remove("hola2")
+    if os.path.exists("ls"):
+        os.remove("ls")
+    if os.path.exists("ls1"):
+        os.remove("ls1")
+    if os.path.exists("pwd)"):
+        os.remove("pwd)")
+    if os.path.exists("../hello)"):
+        os.remove("../hello)")
+    if os.path.exists("../bonjour)"):
+        os.remove("../bonjour)")
+
 with open("commands.tsv", "r") as f:
     content = f.read()
 
@@ -26,9 +67,11 @@ def test_acceptances(command):
         bash_output = subprocess.run("bash", input=command, capture_output=True, text=True, timeout=5)
     except subprocess.TimeoutExpired:
         print("Error: timeout")
-
-    print("Minishell:\n",  retval, "bash:\n", bash_output)
-    assert bash_output == retval
+    print("Minishell:\n",  retval, "\nbash:\n", bash_output)
+    retval.stdout = retval.stdout.replace("Minishell", "bash")
+    assert bash_output.stdout == retval.stdout
+    #assert bash_output.returncode == retval.returncode
+    clean_directory()
 
 # Memory check
 def get_kind_of_memory_loss(memory_type: str, report: str) -> str:

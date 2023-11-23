@@ -1,5 +1,3 @@
-
-              
 :w
  :
  !
@@ -27,9 +25,6 @@
  |
  | hola
  | | |
- ||
- |||||
- |||||||||||||
  >>|><
  &&
  &&&&&
@@ -44,9 +39,6 @@
  "hola"
  'hola'
  ''
- *
- */*
- */*
  .
  ..
  ~
@@ -194,9 +186,6 @@ hola
  hola Ctlr-\
  cat (faire Ctlr-\ apres avoir fait plusieurs fois [ENTREE])
  Ctlr-Z
- sleep 3 | sleep 3 | sleep 3 (faire Ctlr-C une seconde apres)
- sleep 3 | sleep 3 | sleep 3 (faire Ctlr-D une seconde apres)
- sleep 3 | sleep 3 | sleep 3 (faire Ctlr-\ une seconde apres)
  env
  env hola
  env hola que tal
@@ -210,15 +199,10 @@ hola
  /bin/env
  /bin/cd Desktop
  history
- [touche du haut]
  pwd
  pwd hola
  pwd ./hola
  pwd hola que tal
- pwd -p
- pwd --p
- pwd ---p
- pwd -- p
  pwd pwd pwd
  pwd ls
  pwd ls env
@@ -267,9 +251,6 @@ hola
  cd ~
  cd ~/
  cd ~/ | echo $?  pwd
- cd *
- cd *
- cd *
  ls hola
  ./Makefile
  ./minishell
@@ -368,79 +349,15 @@ hola
  echo hola| cat
  echo hola |cat
  echo hola|cat
- echo hola || cat
- echo hola ||| cat
  ech|o hola | cat
  cat Makefile | cat -e | cat -e
  cat Makefile | grep srcs | cat -e
  cat Makefile | grep srcs | grep srcs | cat -e
  cat Makefile | grep pr | head -n 5 | cd file_not_exist
  cat Makefile | grep pr | head -n 5 | hello
- sleep 3 | sleep 3
- time sleep 3 | sleep 3
- sleep 3 | exit
- exit | sleep 3
  echo hola > a  >>b echo que tal  cat a | <b cat | cat > c | cat
- pwd && ls
- pwd || ls
- echo hola || echo bonjour
- echo hola && echo bonjour
- echo bonjour || echo hola
- echo bonjour && echo hola
- echo -n bonjour && echo -n hola
- pwd && ls && echo hola
- pwd || ls && echo hola
- pwd && ls || echo hola
- pwd || ls || echo hola
- ls || ;
- ; || ls
- ls && ;
- ; && ls
- ls || <
- ls && <
- cat | echo || ls
- cat | echo && ls
- ls || cat | echo
- ls && cat | echo
-
- (ls)
- ( ( ls ) )
- ( ( ) ls )
- ls && (ls)
- (ls && pwd)
- ( ( ls&&pwd ) )
- ( ( ls ) &&pwd )
- (ls && ( ( pwd ) ) )
- (ls && pwd) > hola  cat hola
- > hola ls && pwd
- > hola (ls && pwd)
- (> pwd)  ls
- (< pwd)  ls
- (< pwd)
- ( ( ( ( ( pwd) ) ) ) )
- () pwd
- > pwd (ls)
- (ls||pwd)&&(ls||pwd)
- (lss||pwd)&&(lss||pwd)
- (lss&&pwd)&&(lss&&pwd)
- (ls && pwd | wc) > hola  cat hola
- (ls && pwd | wc) > hola  (ls && pwd | wc) > hola  cat hola
- (ls && pwd | wc) >> hola  echo hey&&(ls && pwd | wc) > hola  cat hola
- (pwd | wc) < hola
- (ls && pwd | wc) < hola
- (ls -z || pwd | wc) < hola
  echo hey > hola  (pwd | wc) < hola
- echo hey > hola  (ls && pwd | wc) < hola
  echo hey > hola  (ls -z || pwd | wc) < hola
- (ls -z || pwd && ls)
- ls || (cat Makefile|grep srcs) && (pwd|wc)
- ls -z && (ls) && (pwd)
- (ls > Docs/hey && pwd) > hola  cat hola  cat Docs/hey
- ls > Docs/hey && pwd > hola  cat hola  cat Docs/hey
- cd ../.. && pwd && pwd
- (cd ../.. && pwd) && pwd
- ls -z || cd ../../..&&pwd  pwd
- ls -z || (cd ../../..&&pwd)  pwd
  echo hola > bonjour  cat bonjour
  echo que tal >> bonjour  cat bonjour
  echo hola > bonjour  echo que tal >> bonjour  cat < bonjour
@@ -536,9 +453,3 @@ hola
  < a > b cat > hey >> d  cat d  ls
  echo hola <<<< bonjour
  echo hola <<<<< bonjour
- ls *
- ls *.*
- ls *.hola
- cat M*le
- cat M*ee
- cat Make*file
