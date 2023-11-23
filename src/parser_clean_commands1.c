@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/20 17:43:16 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 13:24:07 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,14 @@ void	parser_clean_commands(t_command *commands, char **env)
 				commands[i].args[j] = clean_tokens(commands[i].args[j], env);
 		}
 		if (commands[i].redirections.r_stdin)
-			commands[i].redirections.r_stdin
-				= clean_tokens(commands[i].redirections.r_stdin, env);
+		{
+			if (commands[i].redirections.heredoc > 0)
+				commands[i].redirections.r_stdin
+					= clean_tokens_stdin(commands[i].redirections.r_stdin);
+			else
+				commands[i].redirections.r_stdin
+					= clean_tokens(commands[i].redirections.r_stdin, env);
+		}
 		if (commands[i].redirections.r_stdout)
 			commands[i].redirections.r_stdout
 				= clean_tokens(commands[i].redirections.r_stdout, env);

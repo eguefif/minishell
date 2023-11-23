@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 11:30:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 13:28:36 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ size_t		get_count_var_env(char *token);
 size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
+char		*clean_tokens_stdin(char *token);
 
 int			ms_execute(t_command *commnands, char ***env);
 char		*get_command_path(char *command, char **env);

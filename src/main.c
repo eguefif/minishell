@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 11:37:34 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 12:38:41 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,16 +45,28 @@ int	main(int argc, char **argv, char **env)
 
 char	**non_interactive_mode(char **env)
 {
-	t_command	*commands;
 	char		*line;
+	t_command	*commands;
 	int			retval;
 
 	line = get_next_line(0);
 	while (line)
 	{
+		retval = 0;
+		if (ms_init_signals() != 0)
+			break ;
 		if (check_valid_line_for_history(line))
 		{
 			commands = ms_parser(line, env);
+			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
+			{
+				if (commands->args[1])
+					retval = ft_atoi(commands->args[1]);
+				env = handle_exit_code(env, retval);
+				break ;
+			}
+			if (line)
+				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -62,12 +74,16 @@ char	**non_interactive_mode(char **env)
 				retval = ms_execute(commands, &env);
 				env = handle_exit_code(env, retval);
 			}
-			line = get_next_line(0);
-			if (line)
-				free(line);
+			else 
+				env = handle_exit_code(env, 258);
+			ms_clean_commands(commands);
 		}
 		else if (!line)
+		{
+			ft_printf("exit\n");
 			break ;
+		}
+		line = get_next_line(0);
 	}
 	return (env);
 }
