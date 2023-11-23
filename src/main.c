@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 12:19:12 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 10:10:28 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,9 +132,13 @@ char	**handle_mshlvl(char **env)
 
 char	**handle_exit_code(char **env, int retval)
 {
+	char	*tmp_retval;
+
+	tmp_retval = ft_itoa(retval);
 	if (is_var(env, "?"))
-		env = update_var(env, "?", ft_itoa(retval));
+		env = update_var(env, "?", tmp_retval);
 	else 
-		env = add_var(env, "?", ft_itoa(retval));
+		env = add_var(env, "?", tmp_retval);
+	free(tmp_retval);
 	return (env);
 }

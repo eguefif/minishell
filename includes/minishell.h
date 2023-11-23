@@ -83,7 +83,7 @@ int			is_var(char **env, char *var);
 
 //Builtin
 int	exec_builtin(t_command cmd, char ***env);
-int	is_echo_or_env(char *whole_cmd, char **env);
+int	is_echo_or_env(char **cmd, char **env);
 
 // Signal management
 int			ms_init_signals(void);

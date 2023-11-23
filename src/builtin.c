@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 10:24:48 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 10:03:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static int	is_valid_identifier(char *id);
 static int	builtin_cd(char *cmd, char ***env);
 static int	builtin_pwd(void);
 static int	builtin_env(char **env);
+static int	builtin_echo(char **cmd);
 
 int	exec_builtin(t_command cmd, char ***env)
 {
@@ -122,20 +123,20 @@ static int	builtin_pwd(void)
 	return (0);
 }
 
-int	is_echo_or_env(char *cmd, char **env)
+int	is_echo_or_env(char **cmd, char **env)
 {
 	int	retval;
 
 	retval = 0;
-	if (ft_strcmp(cmd, "env") == 0)
+	if (ft_strcmp(cmd[0], "env") == 0)
 	{
 		builtin_env(env);
 		retval = 1;
 	}
-	else if (ft_strcmp(cmd, "echo") == 0)
+	else if (ft_strcmp(cmd[0], "echo") == 0)
 	  {
 		retval = 1;
-		ft_printf("ECHO\n");
+		builtin_echo(cmd);
 	  }
 	return (retval);
 }
@@ -147,6 +148,28 @@ static int	builtin_env(char **env)
 	i = 0;
 	while (env[i])
 		ft_printf("%s\n", env[i++]);
-	ft_printf("test\n");
 	return (0);
+}
+
+static int	builtin_echo(char **cmd)
+{
+	int	i;
+	char	*end;
+
+	end = "\n";
+	i = 1;
+	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] == 'n')
+		i = 2;
+	while (cmd[i])
+	{
+		ft_printf("%s", cmd[i]);
+		if (cmd[i + 1])
+			ft_printf(" ");
+		i++;
+	}
+	if (cmd[1] && cmd[1][0] == '-' && cmd[1][1] == 'n')
+		ft_printf("");
+	else 
+		ft_printf("\n");
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/20 17:36:01 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 10:03:02 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	**init_env(char **env)
 	return (retval);
 }
 
-char		**add_var(char **env, char *name, char *content)
+char	**add_var(char **env, char *name, char *content)
 {
 	char	**retval;
 	size_t	size;
@@ -86,9 +86,11 @@ char		**remove_var(char **env, char *var)
 	char	**retval;
 	size_t	size;
 	size_t	i;
+	size_t	j;
 	char	*cmp;
 
 	i = 0;
+	j = 0;
 	if (!is_var(env, var))
 		return (env);
 	size = 0;
@@ -101,7 +103,10 @@ char		**remove_var(char **env, char *var)
 	while (i < size - 1)
 	{
 		if (ft_strstr(env[i], cmp) != env[i])
-			retval[i] = ft_strdup(env[i]);
+		{
+			retval[j] = ft_strdup(env[i]);
+			j++;
+		}
 		i++;
 	}
 	free(cmp);
