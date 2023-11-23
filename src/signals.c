@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/21 13:54:24 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/22 11:12:04 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 15:22:37 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,9 @@ int	ms_ignore_signals(void)
 {
 	struct sigaction	init_ignore;
 
+	init_ignore.sa_mask = 0;
+	init_ignore.sa_flags = 0;
+	init_ignore.sa_handler = 0;
 	sigemptyset(&init_ignore.sa_mask);
 	init_ignore.sa_handler = SIG_IGN;
 	if (sigaction(SIGINT, &init_ignore, 0) == -1)
@@ -37,6 +40,9 @@ int	ms_reset_signals(void)
 {
 	struct sigaction	reset_signal;
 
+	reset_signal.sa_mask = 0;
+	reset_signal.sa_flags = 0;
+	reset_signal.sa_handler = 0;
 	sigemptyset(&reset_signal.sa_mask);
 	reset_signal.sa_handler = SIG_DFL;
 	if (sigaction(SIGINT, &reset_signal, 0) == -1)
@@ -56,6 +62,13 @@ int	ms_init_signals(void)
 {
 	struct sigaction	init_signal_c;
 	struct sigaction	init_ignore;
+
+	init_signal_c.sa_mask = 0;
+	init_signal_c.sa_flags = 0;
+	init_signal_c.sa_handler = 0;
+	init_ignore.sa_mask = 0;
+	init_ignore.sa_flags = 0;
+	init_ignore.sa_handler = 0;
 
 	sigemptyset(&init_signal_c.sa_mask);
 	init_signal_c.sa_handler = exec_signal_c;
