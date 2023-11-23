@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/16 07:42:29 by eguefif           #+#    #+#             */
-/*   Updated: 2023/10/10 14:57:57 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 16:32:23 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,10 @@ char	*ft_strstr(const char *str, const char *to_find)
 	char	*retval;
 
 	retval = 0;
+	if (!str)
+		return (0);
+	if (!to_find)
+		return (0);
 	if (*to_find == '\0')
 		retval = (char *) str;
 	while (*str != '\0' && *to_find != '\0')

@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -g -Wall -Werror -Wextra# -fsanitize=address
+CFLAGS = -g -Wall -Werror -Wextra # -fsanitize=address
 INC = -Iincludes -I$(LIBFT_DIR)/includes -I$(READLINE_DIR)
 
 LIB = -lft -L$(LIBFT_DIR) -lncurses -L$(READLINE_DIR) -lreadline

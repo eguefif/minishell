@@ -453,3 +453,4 @@ hola
  < a > b cat > hey >> d  cat d  ls
  echo hola <<<< bonjour
  echo hola <<<<< bonjour
+ export
