@@ -13,3 +13,7 @@ test/unit_tests/binary
 .DS_Store
 heredoc
 env
+/test/segfault_test
+hello
+bonjour
+pwd

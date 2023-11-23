@@ -8,70 +8,58 @@ import os
 MINISHELL = "./minishell"
 
 
+def check_path(path: str) -> bool:
+    if path[0] == "." and path.find("/") == -1:
+        return False
+    if len(path) == 0:
+        return False
+    if not os.path.exists(path):
+        return False
+    return True
+
+def get_acceptance_file_list(path: str) -> List[str]:
+    retval: List[str] = []
+    if not check_path(path):
+        print("Error: path incorrect: ", path)
+        return
+    for file in os.listdir(path):
+        if file.find(".sh") != -1 and file.find(".swp") == -1 and file.find(".swo") == -1:
+            retval.append(os.path.join(path, file))
+    return retval
+
+acc: List[str] = get_acceptance_file_list("./acceptance_scripts/")
+if not acc:
+    print("Error with getting scripts files")
+    exit(1)
+
 # Regression tests
 
-def clean_directory():
-    if os.path.exists("a"):
-        os.remove("a")
-    if os.path.exists("b"):
-        os.remove("b")
-    if os.path.exists("bonjour"):
-        os.remove("bonjour")
-    if os.path.exists("bonjour 1"):
-        os.remove("bonjour 1")
-    if os.path.exists("bonjour\\"):
-        os.remove("bonjour\\")
-    if os.path.exists("c"):
-        os.remove("c")
-    if os.path.exists("a"):
-        os.remove("a")
-    if os.path.exists("d"):
-        os.remove("d")
-    if os.path.exists("hello"):
-        os.remove("hello")
-    if os.path.exists("e"):
-        os.remove("e")
-    if os.path.exists("hello"):
-        os.remove("hello")
-    if os.path.exists("hey"):
-        os.remove("hey")
-    if os.path.exists("hola"):
-        os.remove("hola")
-    if os.path.exists("hola1"):
-        os.remove("hola1")
-    if os.path.exists("hola2"):
-        os.remove("hola2")
-    if os.path.exists("ls"):
-        os.remove("ls")
-    if os.path.exists("ls1"):
-        os.remove("ls1")
-    if os.path.exists("pwd)"):
-        os.remove("pwd)")
-    if os.path.exists("../hello)"):
-        os.remove("../hello)")
-    if os.path.exists("../bonjour)"):
-        os.remove("../bonjour)")
+@pytest.mark.parametrize("script", acc)
+def test_acceptances(script):
+    with open(script, "r") as f:
+        content = f.read()
+    bash_output = subprocess.run("bash", input=content, capture_output=True, text=True)
+    minishell_output = subprocess.run(MINISHELL, input=content, capture_output=True, text=True)
+    assert bash_output.stdout == minishell_output.stdout
 
 with open("commands.tsv", "r") as f:
     content = f.read()
 
-commands = content.split("\n")
+segfault_test = content.split("\n")
 
-@pytest.mark.parametrize("command", commands)
+@pytest.mark.parametrize("command", segfault_test)
 def test_acceptances(command):
     try:
         retval = subprocess.run("./minishell", input=command, capture_output=True, text=True, timeout=5)
     except subprocess.TimeoutExpired:
         print("Error: timeout")
     try:
-        bash_output = subprocess.run("bash", input=command, capture_output=True, text=True, timeout=5)
+        bash_output = subprocess.run("bash", input=content, capture_output=True, text=True, timeout=5)
     except subprocess.TimeoutExpired:
         print("Error: timeout")
-    print("Minishell:\n",  retval, "\nbash:\n", bash_output)
-    retval.stdout = retval.stdout.replace("Minishell", "bash")
-    assert bash_output.stdout == retval.stdout
-    #assert bash_output.returncode == retval.returncode
-    clean_directory()
+
+    print("Minishell:\n",  retval, "bash:\n", bash_output)
+    assert bash_output == retval
 
 # Memory check
 def get_kind_of_memory_loss(memory_type: str, report: str) -> str:

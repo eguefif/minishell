@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/22 12:19:12 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 12:38:41 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	**handle_mshlvl(char **env);
 int	main(int argc, char **argv, char **env)
 {
 	char	**ms_env;
+	int		retval;
+	char	*env_retval;
 
 	(void)argc;
 	(void)argv;
@@ -32,21 +34,39 @@ int	main(int argc, char **argv, char **env)
 		ms_env = interactive_mode(ms_env);
 	else
 		ft_dprintf(2, "error: neither interactive nor non interactive\n");
+	env_retval = ms_getenv(ms_env, "?");
+	retval = 0;
+	if (env_retval)
+		retval = ft_atoi(env_retval);
+	free(env_retval);
 	ft_cleansplits(ms_env);
+	return (retval);
 }
 
 char	**non_interactive_mode(char **env)
 {
-	t_command	*commands;
 	char		*line;
+	t_command	*commands;
 	int			retval;
 
 	line = get_next_line(0);
 	while (line)
 	{
+		retval = 0;
+		if (ms_init_signals() != 0)
+			break ;
 		if (check_valid_line_for_history(line))
 		{
 			commands = ms_parser(line, env);
+			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
+			{
+				if (commands->args[1])
+					retval = ft_atoi(commands->args[1]);
+				env = handle_exit_code(env, retval);
+				break ;
+			}
+			if (line)
+				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -54,12 +74,16 @@ char	**non_interactive_mode(char **env)
 				retval = ms_execute(commands, &env);
 				env = handle_exit_code(env, retval);
 			}
-			line = get_next_line(0);
-			if (line)
-				free(line);
+			else 
+				env = handle_exit_code(env, 258);
+			ms_clean_commands(commands);
 		}
 		else if (!line)
+		{
+			ft_printf("exit\n");
 			break ;
+		}
+		line = get_next_line(0);
 	}
 	return (env);
 }
@@ -74,18 +98,23 @@ char	**interactive_mode(char **env)
 	running = 1;
 	while (running)
 	{
+		retval = 0;
 		if (ms_init_signals() != 0)
 			break ;
 		line = readline(PROMPT);
 		if (check_valid_line_for_history(line))
 		{
 			add_history(line);
-			if (ft_strcmp(line, "exit") == 0)
+			commands = ms_parser(line, env);
+			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
-				free(line);
+				if (commands->args[1])
+					retval = ft_atoi(commands->args[1]);
+				env = handle_exit_code(env, retval);
 				break ;
 			}
-			commands = ms_parser(line, env);
+			if (line)
+				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -96,8 +125,6 @@ char	**interactive_mode(char **env)
 			else 
 				env = handle_exit_code(env, 258);
 			ms_clean_commands(commands);
-			if (line)
-				free(line);
 		}
 		else if (!line)
 		{
@@ -132,9 +159,13 @@ char	**handle_mshlvl(char **env)
 
 char	**handle_exit_code(char **env, int retval)
 {
+	char	*tmp_retval;
+
+	tmp_retval = ft_itoa(retval);
 	if (is_var(env, "?"))
-		env = update_var(env, "?", ft_itoa(retval));
+		env = update_var(env, "?", tmp_retval);
 	else 
-		env = add_var(env, "?", ft_itoa(retval));
+		env = add_var(env, "?", tmp_retval);
+	free(tmp_retval);
 	return (env);
 }

@@ -69,6 +69,7 @@ size_t		get_count_var_env(char *token);
 size_t		get_env_var_len(char **env_var);
 char		**get_env_list(char *token, char **env);
 size_t		get_new_token_size(char *token, char **var_env);
+char		*clean_tokens_stdin(char *token);
 
 int			ms_execute(t_command *commnands, char ***env);
 char		*get_command_path(char *command, char **env);
@@ -84,9 +85,9 @@ int			is_var(char **env, char *var);
 
 //Builtin
 int	exec_builtin(t_command cmd, char ***env);
-int	is_echo_or_env(char *whole_cmd, char **env);
+int	is_echo_or_env(char **cmd, char **env);
 t_command *builtin_heredoc(t_command *commands);
-void	builtin_heredoc_delete(t_command *commands);
+void	builtin_heredoc_delete(t_command *commands)
 
 // Signal management
 int			ms_init_signals(void);
