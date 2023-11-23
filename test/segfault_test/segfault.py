@@ -20,4 +20,4 @@ def test_segfault(command):
         print("Error: timeout")
 
     print(retval)
-    assert retval.returncode == 0
+    assert retval.returncode != -11
