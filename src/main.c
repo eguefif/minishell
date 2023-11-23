@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 10:10:28 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 11:37:34 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ char	**handle_mshlvl(char **env);
 int	main(int argc, char **argv, char **env)
 {
 	char	**ms_env;
+	int		retval;
+	char	*env_retval;
 
 	(void)argc;
 	(void)argv;
@@ -32,7 +34,13 @@ int	main(int argc, char **argv, char **env)
 		ms_env = interactive_mode(ms_env);
 	else
 		ft_dprintf(2, "error: neither interactive nor non interactive\n");
+	env_retval = ms_getenv(ms_env, "?");
+	retval = 0;
+	if (env_retval)
+		retval = ft_atoi(env_retval);
+	free(env_retval);
 	ft_cleansplits(ms_env);
+	return (retval);
 }
 
 char	**non_interactive_mode(char **env)
@@ -74,18 +82,23 @@ char	**interactive_mode(char **env)
 	running = 1;
 	while (running)
 	{
+		retval = 0;
 		if (ms_init_signals() != 0)
 			break ;
 		line = readline(PROMPT);
 		if (check_valid_line_for_history(line))
 		{
 			add_history(line);
-			if (ft_strcmp(line, "exit") == 0)
+			commands = ms_parser(line, env);
+			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
-				free(line);
+				if (commands->args[1])
+					retval = ft_atoi(commands->args[1]);
+				env = handle_exit_code(env, retval);
 				break ;
 			}
-			commands = ms_parser(line, env);
+			if (line)
+				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -96,8 +109,6 @@ char	**interactive_mode(char **env)
 			else 
 				env = handle_exit_code(env, 258);
 			ms_clean_commands(commands);
-			if (line)
-				free(line);
 		}
 		else if (!line)
 		{
