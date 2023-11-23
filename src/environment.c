@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 11:37:35 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:33:40 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ char	**init_env(char **env)
 	while (env[size])
 		size++;
 	retval = (char **) malloc(sizeof(char **) * (size + 1));
+	if (!retval)
+		return (env);
 	retval[size] = 0;
 	i = 0;
 	while (env[i])
@@ -59,20 +61,22 @@ char	**add_var(char **env, char *name, char *content)
 {
 	char	**retval;
 	size_t	size;
-	int	i;
+	size_t	i;
 	char	*tab[3];
 
 	size = 0;
 	while (env[size])
 		size++;
 	retval = (char **) malloc(sizeof(char *) * (size + 2));
+	if (!retval)
+		return (env);
 	retval[size + 1] = 0;
 	tab[0] = name;
 	tab[1] = content;
 	tab[2] = 0;
 	retval[size] = ft_strjoin_tab(tab, "=");
 	i = 0;
-	while (env[i])
+	while (i < size)
 	{
 		retval[i] = ft_strdup(env[i]);
 		i++;
@@ -97,6 +101,8 @@ char		**remove_var(char **env, char *var)
 	while (env[size])
 		size++;
 	retval = (char **) malloc(sizeof(char *) * (size));
+	if (!retval)
+		return (env);
 	retval[size - 1] = 0;
 	i = 0;
 	cmp = ft_strjoin(var, "=");

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:12:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 13:28:34 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:36:09 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ void	ft_exit(t_command *commands)
 	exit(1);
 }
 
-void	ft_exit_nb(t_command *commands, int retval)
+void	ft_exit_nb(t_command *commands, int retval, char **env)
 {
 	ms_clean_commands(commands);
+	ft_cleansplits(env);
 	exit(retval);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 12:38:41 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:33:05 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,15 +58,16 @@ char	**non_interactive_mode(char **env)
 		if (check_valid_line_for_history(line))
 		{
 			commands = ms_parser(line, env);
+			if (line)
+				free(line);
 			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
 				if (commands->args[1])
 					retval = ft_atoi(commands->args[1]);
 				env = handle_exit_code(env, retval);
+				ms_clean_commands(commands);
 				break ;
 			}
-			if (line)
-				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -106,15 +107,16 @@ char	**interactive_mode(char **env)
 		{
 			add_history(line);
 			commands = ms_parser(line, env);
+			if (line)
+				free(line);
 			if (commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
 				if (commands->args[1])
 					retval = ft_atoi(commands->args[1]);
 				env = handle_exit_code(env, retval);
+				ms_clean_commands(commands);
 				break ;
 			}
-			if (line)
-				free(line);
 			if (errno == ENOMEM)
 				break ;
 			if (commands)
@@ -137,23 +139,38 @@ char	**interactive_mode(char **env)
 
 int	check_valid_line_for_history(char *line)
 {
-	if (line && ft_strlen(ft_strtrim(line, " \t")) != 0)
+	char *tmp;
+
+	tmp = ft_strtrim(line, "\t ");
+	if (line && tmp!= 0)
+	{
+		free(tmp);
 		return (1);
+	}
+	free(tmp);
 	return (0);
 }
 
 char	**handle_mshlvl(char **env)
 {
-	int	mshlvl;
+	int		mshlvl;
+	char	*tmp;
+	char	*var;
 
 	if (is_var(env, "MSHLVL"))
 	{
-		mshlvl = ft_atoi(ms_getenv(env, "MSHLVL")) + 1;
-		env = update_var(env, "MSHLVL", ft_itoa(mshlvl));
+		var = ms_getenv(env, "MSHLVL");
+		mshlvl = ft_atoi(var) + 1;
+		free(var);
+		tmp = ft_itoa(mshlvl);
+		env = update_var(env, "MSHLVL", tmp);
+		free(tmp);
 		return (env);
 	}
 	mshlvl = 1;
-	env = add_var(env, "MSHLVL", ft_itoa(mshlvl));
+	tmp = ft_itoa(mshlvl);
+	env = add_var(env, "MSHLVL", tmp);
+	free(tmp);
 	return (env);
 }
 

@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:59:51 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 12:59:52 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:12:08 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ char	*clean_tokens(char *token, char **env)
 	if (token)
 		free(token);
 	if (var_env)
-		free(var_env);
+		ft_cleansplits(var_env);
 	return (retval);
 }
 

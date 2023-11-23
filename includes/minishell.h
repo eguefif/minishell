@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 13:34:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:35:20 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int			ms_ignore_signals(void);
 void		ms_free_tokens(char **tokens);
 void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
-void		ft_exit_nb(t_command *commands, int retval);
+void		ft_exit_nb(t_command *commands, int retval, char **env);
 int			is_dir(char *path);
 
 int			ft_error(void);
