@@ -28,7 +28,7 @@ char	*clean_tokens(char *token, char **env)
 	if (token)
 		free(token);
 	if (var_env)
-		free(var_env);
+		ft_cleansplits(var_env);
 	return (retval);
 }
 

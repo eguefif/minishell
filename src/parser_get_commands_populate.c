@@ -29,7 +29,7 @@ void	populate_commands(t_command *commands,
 	while (c_count < count)
 	{
 		argc = get_argc(tokens + i);
-		commands[c_count].args = ft_calloc(sizeof (char *), argc + 1);
+		commands[c_count].args = ft_calloc(sizeof(char *), argc + 1);
 		while (tokens[i] && tokens[i][0] != '|')
 			commands[c_count] = populate(commands[c_count], &i, tokens);
 		if (tokens[i] && tokens[i][0] == '|')
