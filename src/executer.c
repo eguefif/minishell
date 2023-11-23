@@ -26,7 +26,7 @@ int	ms_execute(t_command *commands, char ***env)
 	stdout_save = dup(1);
 	if (stdout_save == -1 || stdin_save == -1)
 		return (ft_error());
-	commands = builtin_heredoc(commands);
+	commands = builtin_heredoc(commands, *env);
 	retval = run(commands, env);
 	builtin_heredoc_delete(commands);
 	if (dup2(stdin_save, 0) == -1)

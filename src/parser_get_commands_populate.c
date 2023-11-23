@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_get_commands_populate.c                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:22:53 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 15:07:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 15:47:28 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ static t_redirections	populate_redirection(t_redirections redir,
 	{
 		if (token[1] && token[1] == '<')
 		{
-			if (ft_strchr(token, '\"') || ft_strchr(token, '\''))
+			if (ft_strchr(file, '\"') || ft_strchr(file, '\''))
 				redir.heredoc = 1;
 			else
 				redir.heredoc = 2;
