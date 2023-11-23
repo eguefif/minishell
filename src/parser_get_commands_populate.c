@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:22:53 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 15:47:28 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:48:30 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,10 +87,13 @@ static t_redirections	populate_redirection(t_redirections redir,
 	{
 		if (token[1] && token[1] == '<')
 		{
-			if (ft_strchr(file, '\"') || ft_strchr(file, '\''))
-				redir.heredoc = 1;
-			else
-				redir.heredoc = 2;
+			if (file)
+			{
+				if (ft_strchr(file, '\"') || ft_strchr(file, '\''))
+					redir.heredoc = 1;
+				else
+					redir.heredoc = 2;
+			}
 		}
 		if (redir.r_stdin)
 			free(redir.r_stdin);
