@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 08:41:06 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 16:02:01 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/23 16:07:03 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,7 +137,6 @@ static char	*expand_env_vars(char *line, char **env)
 	var_env = get_env_list(line, env);
 	size = get_line_size(line, var_env);
 	retval = get_new_line(line, size, var_env);
-	if (!retval)
 	if (var_env)
 		ft_cleansplits(var_env);
 	if (line)
