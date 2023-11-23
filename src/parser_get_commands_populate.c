@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:22:53 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 12:51:53 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/23 13:55:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,7 +85,7 @@ static t_redirections	populate_redirection(t_redirections redir,
 {
 	if (token[0] == '<')
 	{
-		if (token[1] == '<')
+		if (token[1] && token[1] == '<')
 		{
 			if (ft_strchr(token, '\"') || ft_strchr(token, '\''))
 				redir.heredoc = 1;
