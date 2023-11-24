@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 09:37:14 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:44:39 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,7 @@ char	**interactive_mode(char **env)
 	t_command	*commands;
 	int			retval;
 
+	ms_set_terminal_attr();
 	running = 1;
 	while (running)
 	{
