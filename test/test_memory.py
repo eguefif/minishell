@@ -30,7 +30,7 @@ def is_memory_lost(report):
     else:
         return 1
 
-memory_command = ["echo salut | grep m | wc -l", "cat salut"]
+memory_command = ["echo salut | grep m | wc -l", "cat salut", "fsdafs", "./fsdaf", "<", "", "< cat", "cat >"]
     
 @pytest.mark.parametrize("script", memory_command)
 def test_memory_acceptances(script):

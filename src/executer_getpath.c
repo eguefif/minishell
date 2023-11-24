@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 10:42:48 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:45:52 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,7 @@ char	*get_command_path(char *command, char **env)
 	ft_cleansplits(paths);
 	if (retval == 0)
 		handle_error(command);
+	free(path);
 	return (retval);
 }
 

@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 10:32:19 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:49:46 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ char	**init_env(char **env)
 	size = 0;
 	while (env[size])
 		size++;
-	retval = (char **) malloc(sizeof(char **) * (size + 1));
+	retval = (char **) ft_calloc(sizeof(char **), (size + 1));
 	if (!retval)
 		return (env);
 	retval[size] = 0;
@@ -71,7 +71,7 @@ char	**add_var(char **env, char *name, char *content)
 	size = 0;
 	while (env[size])
 		size++;
-	retval = (char **) malloc(sizeof(char *) * (size + 2));
+	retval = (char **) ft_calloc(sizeof(char *), (size + 2));
 	if (!retval)
 		return (env);
 	retval[size + 1] = 0;
