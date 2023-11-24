@@ -4,9 +4,6 @@ import subprocess
 import pytest
 import os
 
-
-MINISHELL = "./minishell"
-
 with open("commands.tsv", "r") as f:
     content = f.read()
 
