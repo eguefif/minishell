@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 11:15:47 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:42:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,4 +35,6 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: export: \'%s\': not a valid identifier\n", PROG_NAME, s);
 	else if (error_type == HEREDOC_ERROR)
 		ft_dprintf(2, "%s: heredoc near \'%s\': %s\n", PROG_NAME, s, strerror(errno));
+	else if (error_type == COMMAND_NOT_FOUND)
+		ft_dprintf(2, "%s: %s: command not found\n", PROG_NAME, s);
 }

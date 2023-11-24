@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:30 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:38:31 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@
 # define SIGNAL_ERROR 6
 # define EXPORT_ERROR 7
 # define HEREDOC_ERROR 8
+# define COMMAND_NOT_FOUND 9
 
 typedef struct s_redirections
 {

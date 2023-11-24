@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 10:35:04 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:42:48 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,10 +154,7 @@ static int	handle_child(t_command *commands, char **env)
 	{
 		path = get_command_path(commands[0].args[0], env);
 		if (!path)
-		{
-			ft_error_message(commands[0].args[0], NO_FILE);
 			return (127);
-		}
 		if ((access(path, X_OK) != 0) || (is_dir(path) != 0))
 		{
 			if (is_dir(path) > 0)
