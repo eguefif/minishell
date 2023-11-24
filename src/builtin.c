@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 14:54:25 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:59:02 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ static int	builtin_export(t_command cmd, char ***env)
 			splits = ft_split(cmd.args[i], '=');
 			if (splits && splits[0] && splits[1])
 			{
-				if (splits[0] && splits[1] && is_var(*env, splits[0])) // is_var(*env, cmd.args[i])) //splits[0]))
-				//if (is_var(*env, cmd.args[i]))
+				if (splits[0] && splits[1] && is_var(*env, splits[0]))
 				{
 					*env = update_var(*env, splits[0], splits[1]);
 				}
