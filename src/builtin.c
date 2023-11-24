@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 14:10:38 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:59:02 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ static int	builtin_export(t_command cmd, char ***env)
 	char	**splits;
 
 	retval = 0;
-	if (!cmd.args[1])
+	 if (cmd.args && !cmd.args[1])
 	{
 		i = 0;
 		while ((*env)[i])
@@ -66,19 +66,26 @@ static int	builtin_export(t_command cmd, char ***env)
 		return (retval);
 	}
 	i = 1;
-	while (cmd.args[i])
+	while (cmd.args && cmd.args[i])
 	{
 		int	error;
 
 		error = is_valid_identifier(cmd.args[i]);
+		if (error == -2)
+			return (0);
 		if (!error)
 		{
 			splits = ft_split(cmd.args[i], '=');
-			if (is_var(*env, splits[0]))
-				*env = update_var(*env, splits[0], splits[1]);
-			else
-				*env = add_var(*env, splits[0], splits[1]);
-			ft_cleansplits(splits);
+			if (splits && splits[0] && splits[1])
+			{
+				if (splits[0] && splits[1] && is_var(*env, splits[0]))
+				{
+					*env = update_var(*env, splits[0], splits[1]);
+				}
+				else
+					*env = add_var(*env, splits[0], splits[1]);
+				ft_cleansplits(splits);
+			}
 		}
 		else 
 		{
@@ -97,6 +104,8 @@ static int	is_valid_identifier(char *id)
 {
 	int	i;
 
+	if (!id)
+		return (-2);
 	if (!ft_strchr(id, '='))
 		return (-1);
 	if (ft_isdigit(id[0]))

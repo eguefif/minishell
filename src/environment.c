@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 11:52:23 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:54:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,12 +131,17 @@ char		**update_var(char **env, char *var, char *new_content)
 	char	*cmp;
 
 	i = 0;
+	if (!var || !new_content)
+		return (env);
 	cmp = ft_strjoin(var, "=");
-	while (env[i] && ft_strstr(env[i], cmp) != env[i])
+	if (!cmp)
+		return (env);
+	while (env[i] && ft_strnstr(env[i], cmp, ft_strlen(cmp)) != env[i])
 		i++;
+	i--;
 	free(cmp);
 	if (!env[i])
-		return (0);
+		return (env);
 	tab[0] = var;
 	tab[1] = new_content;
 	tab[2] = 0;
@@ -151,6 +156,15 @@ char		**update_var(char **env, char *var, char *new_content)
 		return (0);
 	return (env);
 }
+
+/*
+char	**update_var(char **env, char *var, char *new_content)
+{
+	env = remove_var(env, var);
+	env = add_var(env, var, new_content);
+	return (env);
+}
+*/
 
 int	is_var(char **env, char *var)
 {
