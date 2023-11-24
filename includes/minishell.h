@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 10:48:13 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 11:54:21 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@
 # include "readline.h"
 # include "history.h"
 
-# define PROMPT "Minishell $ "
+# define PROMPT "minishell $ "
 # define PROG_NAME "minishell"
 # define TOKENS "<>|\t "
 
