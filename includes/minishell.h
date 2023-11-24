@@ -41,6 +41,7 @@
 # define SIGNAL_ERROR 6
 # define EXPORT_ERROR 7
 # define HEREDOC_ERROR 8
+# define COMMAND_NOT_FOUND 9
 
 typedef struct s_redirections
 {

@@ -142,6 +142,8 @@ int	check_valid_line_for_history(char *line)
 {
 	char *tmp;
 
+	if (!line)
+		return (0);
 	tmp = ft_strtrim(line, "\t ");
 	if (line && tmp!= 0)
 	{

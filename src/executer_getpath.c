@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 15:54:11 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 10:42:48 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	is_relative_path(char *command);
 static int	is_abs_path(char *command);
+static void	handle_error(char *command);
 
 char	*get_command_path(char *command, char **env)
 {
@@ -45,6 +46,8 @@ char	*get_command_path(char *command, char **env)
 		i++;
 	}
 	ft_cleansplits(paths);
+	if (retval == 0)
+		handle_error(command);
 	return (retval);
 }
 
@@ -60,4 +63,12 @@ static int	is_abs_path(char *command)
 	if (command[0]== '/')
 		return (1);
 	return (0);
+}
+
+static void	handle_error(char *command)
+{
+	if (command[0] && command[0] == '.')
+		ft_error_message(command, NO_FILE);
+	else
+		ft_error_message(command, COMMAND_NOT_FOUND);
 }
