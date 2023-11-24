@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:59:51 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 15:22:49 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 13:31:43 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ char	**get_env_list(char *token, char **env)
 	while (token[i])
 	{
 		if (token[i] == '\'')
-			while (token[++i] && token[i] == '\'')
+			while (token[++i] && token[i] != '\'')
 				;
 		else
 			if (token[i] == '$' && token[i + 1]
@@ -71,7 +71,7 @@ size_t	get_count_var_env(char *token)
 		if (token[i] == '\'')
 		{
 			i++;
-			while (token[i] && token[i] == '\'')
+			while (token[i] && token[i] != '\'')
 				i++;
 		}
 		else

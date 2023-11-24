@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 13:55:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:13:55 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,11 +108,8 @@ char	*get_new_token(char *token, size_t size, char **env_var)
 		{
 			(data.i)++;
 			while (token[data.i] && token[data.i] != '\'')
-			{
-				data.retval[data.j] = token[data.i];
-				(data.i)++;
-				(data.j)++;
-			}
+				data.retval[data.j++] = token[data.i++];
+			data.i++;
 		}
 		else
 			get_new_token_part(&data, token, env_var);

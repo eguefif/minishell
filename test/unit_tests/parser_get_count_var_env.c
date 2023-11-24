@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:09:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 15:42:08 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:27:39 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@ int	main()
 	char *str5 = "salut \"$  fadf a\" $USER";
 	char *str6 = "salut \"$  fadf a\" USER$";
 	char *str7 = "salut \"$$$  fadf a\" USER$";
+	char *str8 = "$USER$USER$USER'a'$USER";
+	char *str9 = "\'\'$HOME";
 
 	int	count;
 
@@ -51,4 +53,12 @@ int	main()
 	count = get_count_var_env(str7);
 	if (count != 0)
 		ft_printf("Error test 7\n");
+
+	count = get_count_var_env(str8);
+	if (count != 4)
+		ft_printf("Error test 8\n");
+
+	count = get_count_var_env(str9);
+	if (count != 1)
+		ft_printf("Error test 9\n");
 }
