@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_get_env_var.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:19:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 13:27:40 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 15:30:50 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,8 +88,8 @@ int	main(int argc, char **argv, char **env)
 		ft_printf("Error 8.3\n");
 	if (ft_strcmp(user, retval8[3]) != 0)
 		ft_printf("Error 8.4\n");
-	if (retval5[4] !=  0)
-		ft_printf("Error 8.5\n");
+	if (retval8[4] !=  0)
+		ft_printf("Error 8.5 : %i should be 0\n", retval8[4]);
 
 	char **retval9 = get_env_list(str9, env);
 	if (ft_strcmp(home, retval9[0]) != 0)
