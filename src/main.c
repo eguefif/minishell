@@ -163,8 +163,8 @@ int	check_valid_line_for_history(char *line)
 
 	if (!line)
 		return (0);
-	tmp = ft_strtrim(line, "\t ");
-	if (line && tmp!= 0)
+	tmp = ft_strtrim(line, "\t \n");
+	if (line && tmp && tmp[0])
 	{
 		free(tmp);
 		return (1);
