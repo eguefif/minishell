@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -g -Wall -Werror -Wextra -fsanitize=address
+CFLAGS = -g -Wall -Werror -Wextra #-fsanitize=address
 INC = -Iincludes -I$(LIBFT_DIR)/includes -I$(READLINE_DIR)
 
 LIB = -lft -L$(LIBFT_DIR) -lncurses -L$(READLINE_DIR) -lreadline
@@ -72,7 +72,7 @@ libminishell.a: $(OBJ_LIB_STATIC)
 	ar -rcs $@ $^
 	mv libminishell.a test/unit_tests/libminishell.a
 
-test:
+test: test_memory unit_test test_segfault
 	@cp ./minishell ./test
 	@cd test; \
 	pytest test_acceptances.py -vv
@@ -81,6 +81,11 @@ test_memory:
 	@cp ./minishell ./test
 	@cd test; \
 	pytest test_memory.py -vv
+
+test_segfault:
+	@cp ./minishell ./test/segfault_test
+	cd test/segfault_test; \
+		pytest segfault.py
 
 val:
 	valgrind --tool=memcheck --leak-check=full --track-origins=yes -s --show-leak-kinds=all --suppressions=./test/supp.txt ./minishell

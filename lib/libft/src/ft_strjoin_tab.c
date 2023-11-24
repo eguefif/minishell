@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/20 21:41:48 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/17 15:41:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:57:42 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ char	*ft_strjoin_tab(char **strs, char *sep)
 		sep = "";
 	if (!strs || !strs[0])
 		return (0);
-	retval = (char *) malloc(sizeof (char) * get_size(strs, sep));
+	retval = (char *) ft_calloc(sizeof (char), get_size(strs, sep));
 	if (!retval)
 		return (0);
 	ft_strcpy(retval, strs[0]);

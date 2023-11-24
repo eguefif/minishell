@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 14:11:17 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:16:43 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,8 +37,10 @@ int	main(int argc, char **argv, char **env)
 	env_retval = ms_getenv(ms_env, "?");
 	retval = 0;
 	if (env_retval)
+	{
 		retval = ft_atoi(env_retval);
-	free(env_retval);
+		free(env_retval);
+	}
 	ft_cleansplits(ms_env);
 	return (retval);
 }
