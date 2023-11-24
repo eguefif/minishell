@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 15:24:58 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 16:50:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +65,16 @@ char	**non_interactive_mode(char **env)
 				free(line);
 			if (commands && commands->args && commands->args[0] && commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
-				if (commands->args[1] && commands->args[1])
-					retval = ft_atoi(commands->args[1]);
+				if (commands->args[1])
+				{
+				   	 if (ft_is_strnum(commands->args[1]))
+						retval = ft_atoi(commands->args[1]);
+					 else
+					 {
+						 ft_error_message(commands->args[1], EXIT_NON_NUM);
+						 retval = 255;
+					 }
+				}
 				env = handle_exit_code(env, retval);
 				ms_clean_commands(commands);
 				break ;
@@ -115,8 +123,16 @@ char	**interactive_mode(char **env)
 				free(line);
 			if (commands && commands->args && commands->args[0] && commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
-				if (commands->args[1] && commands->args[1])
-					retval = ft_atoi(commands->args[1]);
+				if (commands->args[1])
+				{
+				   	 if (ft_is_strnum(commands->args[1]))
+						retval = ft_atoi(commands->args[1]);
+					 else
+					 {
+						 ft_error_message(commands->args[1], EXIT_NON_NUM);
+						 retval = 255;
+					 }
+				}
 				env = handle_exit_code(env, retval);
 				ms_clean_commands(commands);
 				break ;

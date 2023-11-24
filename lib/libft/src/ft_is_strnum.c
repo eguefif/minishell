@@ -1,18 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_isdigit.c                                       :+:      :+:    :+:   */
+/*   ft_is_strnum.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
+/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/10 07:43:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 16:48:38 by eguefif          ###   ########.fr       */
+/*   Created: 2023/11/24 16:42:24 by eguefif           #+#    #+#             */
+/*   Updated: 2023/11/24 16:49:03 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_isdigit(int c)
+int	ft_is_strnum(char *str)
 {
-	return (c >= '0' && c <= '9');
+	if (*str == '-')
+		str++;
+	while (*str)
+	{
+		ft_printf("%c\n", str);
+		if (!ft_isdigit(*str))
+			return (0);
+		str++;
+	}
+	return (1);
 }

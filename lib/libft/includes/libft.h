@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/08 09:08:11 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 12:36:50 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:45:00 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
 int				ft_isspace(int c);
+int				ft_is_strnum(char *str);
 
 // get_next_line
 # ifndef BUFFER_SIZE

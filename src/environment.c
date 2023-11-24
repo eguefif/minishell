@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 14:54:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:36:43 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -123,6 +123,7 @@ char		**remove_var(char **env, char *var)
 	ft_cleansplits(env);
 	return (retval);
 }
+/*
 
 char		**update_var(char **env, char *var, char *new_content)
 {
@@ -156,15 +157,14 @@ char		**update_var(char **env, char *var, char *new_content)
 		return (0);
 	return (env);
 }
+*/
 
-/*
 char	**update_var(char **env, char *var, char *new_content)
 {
 	env = remove_var(env, var);
 	env = add_var(env, var, new_content);
 	return (env);
 }
-*/
 
 int	is_var(char **env, char *var)
 {
