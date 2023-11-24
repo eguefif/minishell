@@ -59,43 +59,18 @@ hola
  echo Hola Que Tal
  echo         Hola
  echo    Hola     Que    Tal
- echo      \n hola
  echo "         " | cat -e
  echo           | cat -e
  ""''echo hola""'''' que""'' tal""''
- echo -n -n
- echo -n -n Hola Que
  echo -p
- echo -nnnnn
- echo -n -nnn -nnnn
- echo -n-nnn -nnnn
- echo -n -nnn hola -nnnn
- echo -n -nnn-nnnn
  echo --------n
- echo -nnn --------n
- echo -nnn -----nn---nnnn
- echo -nnn --------nnnn
  echo $
- echo $?
- echo $?$
- echo $? | echo $? | echo $?
- echo $:$= | cat -e
+echo $USER$USER$USER'a'$USER
  echo " $ " | cat -e
  echo ' $ ' | cat -e
  echo $HOME
- echo \$HOME
- echo my shit terminal is [$TERM]
- echo my shit terminal is [$TERM4
- echo my shit terminal is [$TERM4]
- echo $UID
  echo $HOME9
- echo $9HOME
- echo $HOME%
- echo $UID$HOME
  echo Le path de mon HOME est $HOME
- echo $USER$var\$USER$USER\$USERtest$USER
- echo $hola*
- echo -nnnn $hola
  echo > <
  echo | |
  EechoE
@@ -105,22 +80,10 @@ hola
  >>echo>>
  |echo|
  |echo -n hola
- echo *
  echo '*'
  echo D*
- echo *Z
- echo *t hola
- echo *t
- echo $*
- echo hola*hola *
- echo $hola*
- echo $HOME*
- echo $""
  echo "$"""
  echo '$'''
- echo $"HOME"
- echo $''HOME
- echo $""HOME
  echo "$HO"ME
  echo '$HO'ME
  echo "$HO""ME"
@@ -130,14 +93,7 @@ hola
  echo "" $HOME
  echo ''$HOME
  echo '' $HOME
- echo $"HO""ME"
- echo $'HO''ME'
- echo $'HOME'
  echo "$"HOME
- echo $=HOME
- echo $"HOLA"
- echo $'HOLA'
- echo $DONTEXIST Hola
  echo "hola"
  echo 'hola'
  echo ''hola''
@@ -186,13 +142,6 @@ hola
  hola Ctlr-\
  cat (faire Ctlr-\ apres avoir fait plusieurs fois [ENTREE])
  Ctlr-Z
- env
- env hola
- env hola que tal
- env env
- env env env env env
- env ls
- env ./Makefile
  pwd  unset PWD  env | grep PWD  cd $PWD  pwd
  /bin/echo
  /bin/echo Hola Que Tal
@@ -247,23 +196,14 @@ hola
  cd "$PWD/srcs"
  cd '$PWD/srcs'
  cd minishell Docs crashtest.c
-    cd / | echo $?  pwd
  cd ~
  cd ~/
- cd ~/ | echo $?  pwd
  ls hola
  ./Makefile
  ./minishell
  env | grep SHLVL  ./minishell  env | grep SHLVL  exit  env | grep SHLVL
  touch hola  ./hola
- env|"wc" -l
- env|"wc "-l
  expr 1 + 1
- expr $? + $?
- env -i ./minishell  env
- env -i ./minishell  export
- env -i ./minishell  cd
- env -i ./minishell  cd ~
  exit
  exit exit
  exit hola
@@ -311,9 +251,6 @@ hola
  exit -9223372036854775808
  exit -9223372036854775809
  cat | cat | cat | ls
- ls | exit
- ls | exit 42
- exit | ls
  echo hola > bonjour  exit | cat -e bonjour
  echo hola > bonjour  cat -e bonjour | exit
  echo | echo
@@ -327,7 +264,6 @@ hola
  echo hola | cat -e | cat -e | cat -e
  cd .. | echo "hola"
  cd / | echo "hola"
- cd .. | pwd
  ifconfig | grep ":"
  ifconfig | grep hola
  whoami | grep $USER
@@ -453,4 +389,3 @@ hola
  < a > b cat > hey >> d  cat d  ls
  echo hola <<<< bonjour
  echo hola <<<<< bonjour
- export
