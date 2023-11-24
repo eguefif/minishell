@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 14:16:43 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 15:24:58 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -147,8 +147,8 @@ int	check_valid_line_for_history(char *line)
 
 	if (!line)
 		return (0);
-	tmp = ft_strtrim(line, "\t ");
-	if (line && tmp!= 0)
+	tmp = ft_strtrim(line, "\t \n");
+	if (line && tmp && tmp[0])
 	{
 		free(tmp);
 		return (1);
