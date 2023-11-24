@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 14:15:30 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:48:13 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,7 @@
 # include <sys/errno.h>
 # include <signal.h>
 # include <sys/stat.h>
+# include <termios.h>
 
 # include "libft.h"
 # include "rlstdc.h"
@@ -90,9 +91,11 @@ t_command	*builtin_heredoc(t_command *commands, char **env);
 void	builtin_heredoc_delete(t_command *commands);
 
 // Signal management
+void		ms_set_terminal_attr(void);
 int			ms_init_signals(void);
 int			ms_reset_signals(void);
 int			ms_ignore_signals(void);
+int			ms_heredoc_signals(void);
 
 // Memory management
 void		ms_free_tokens(char **tokens);
