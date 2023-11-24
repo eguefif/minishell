@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 13:54:28 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 16:46:27 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,4 +39,6 @@ void	ft_error_message(char *s, int error_type)
 		ft_dprintf(2, "%s: %s: command not found\n", PROG_NAME, s);
 	else if (error_type == NO_EQUAL_IN_EXPORT)
 		ft_dprintf(2, "%s: %s: not a valid format\n", PROG_NAME, s);
+	else if (error_type == EXIT_NON_NUM)
+		ft_dprintf(2, "%s: %s: numeric argument required\n", PROG_NAME, s);
 }
