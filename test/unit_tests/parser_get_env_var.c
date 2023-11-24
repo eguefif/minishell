@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 14:19:49 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/16 15:11:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 13:27:40 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,10 +23,13 @@ int	main(int argc, char **argv, char **env)
 	char *str5 = "salut \"$  fadf a\" $USER";
 	char *str6 = "salut \"$  fadf a\" USER$";
 	char *str7 = "salut \"$$$  fadf a\" USER$";
+	char *str8 = "$USER$USER$USER'a'$USER";
+	char *str9 = "\'\'$HOME";
 
 	char *user = getenv("USER");
 	char *path = getenv("PATH");
 	char *shell = getenv("SHELL");
+	char *home = getenv("HOME");
 
 	char *cmp1[] = {path, 0};
 	char *cmp2[] = {user, shell, 0};
@@ -40,13 +43,13 @@ int	main(int argc, char **argv, char **env)
 
 	char **retval2 = get_env_list(str2, env);
 	if (ft_strcmp(cmp2[0], retval2[0]) != 0)
-		ft_printf("Error 2\n");
+		ft_printf("Error 2: %s should be %s\n", retval2[0], cmp2[0]);
 
 	if (ft_strcmp(cmp2[1], retval2[1]) != 0)
-		ft_printf("Error 2\n");
+		ft_printf("Error 2.1\n");
 
-	if (retval2[3] !=  0)
-		ft_printf("Error 2\n");
+	if (retval2[2] !=  0)
+		ft_printf("Error 2.2\n");
 
 	char **retval3 = get_env_list(str3, env);
 	if (retval3[0] !=  0)
@@ -75,4 +78,22 @@ int	main(int argc, char **argv, char **env)
 	char **retval7 = get_env_list(str7, env);
 	if (retval7[0] !=  0)
 		ft_printf("Error 7\n");
+
+	char **retval8 = get_env_list(str8, env);
+	if (ft_strcmp(user, retval8[0]) != 0)
+		ft_printf("Error 8.1\n");
+	if (ft_strcmp(user, retval8[1]) != 0)
+		ft_printf("Error 8.2\n");
+	if (ft_strcmp(user, retval8[2]) != 0)
+		ft_printf("Error 8.3\n");
+	if (ft_strcmp(user, retval8[3]) != 0)
+		ft_printf("Error 8.4\n");
+	if (retval5[4] !=  0)
+		ft_printf("Error 8.5\n");
+
+	char **retval9 = get_env_list(str9, env);
+	if (ft_strcmp(home, retval9[0]) != 0)
+		ft_printf("Error 9\n");
+	if (retval9[1] != 0)
+		ft_printf("Error 9.2\n");
 }

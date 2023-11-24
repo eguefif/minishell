@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 09:46:20 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/24 14:10:38 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,10 @@ static int	builtin_export(t_command cmd, char ***env)
 	i = 1;
 	while (cmd.args[i])
 	{
-		if (is_valid_identifier(cmd.args[i]))
+		int	error;
+
+		error = is_valid_identifier(cmd.args[i]);
+		if (!error)
 		{
 			splits = ft_split(cmd.args[i], '=');
 			if (is_var(*env, splits[0]))
@@ -79,9 +82,11 @@ static int	builtin_export(t_command cmd, char ***env)
 		}
 		else 
 		{
-			ft_error_message(cmd.args[i], EXPORT_ERROR);
-			if (ft_strchr(cmd.args[i], '='))
-				retval = 1;
+			if (error > 0)
+				ft_error_message(cmd.args[i], EXPORT_ERROR);
+			else
+				ft_error_message(cmd.args[i], NO_EQUAL_IN_EXPORT);
+			retval = 1;
 		}
 		i++;
 	}
@@ -93,17 +98,17 @@ static int	is_valid_identifier(char *id)
 	int	i;
 
 	if (!ft_strchr(id, '='))
-		return (0);
+		return (-1);
 	if (ft_isdigit(id[0]))
-		return (0);
+		return (1);
 	i = 1;
 	while (id[i] != '=')
 	{
 		if (!(ft_isalnum(id[i]) || id[i] == '_'))
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 static int	builtin_cd(char *path, char ***env)
