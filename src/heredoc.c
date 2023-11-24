@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 08:41:06 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/23 16:07:03 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/24 10:49:09 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,12 +80,17 @@ static char	*set_heredoc(char *end_cmd, char **env, int num, int flag)
 	}
 	if (!pid)
 	{
+		ms_heredoc_signals();
 		run_heredoc(fd, end_cmd, env, flag) ;
 		free(file_name);
 		file_name = ft_strdup("fork");
 	}
 	else
+	{
+		ms_ignore_signals();
 		waitpid(pid, &stat_loc, 0);
+		ms_init_signals();
+	}
 	close(fd);
 	return (file_name);
 }
@@ -206,13 +211,3 @@ static char	*get_new_line(char *line, size_t size, char **var_env)
 	}
 	return (retval);
 }
-
-
-
-
-
-
-
-
-
-

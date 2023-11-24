@@ -96,6 +96,7 @@ char	**interactive_mode(char **env)
 	t_command	*commands;
 	int			retval;
 
+	ms_set_terminal_attr();
 	running = 1;
 	while (running)
 	{
