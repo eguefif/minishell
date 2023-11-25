@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:42:06 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 08:37:39 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:39:21 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,13 +27,14 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 	ms_env = init_env(env);
+	ms_env = add_var(ms_env, "?", "0");
 	ms_env = handle_mshlvl(ms_env);
-	//if (!isatty(0))
-	//	ms_env = non_interactive_mode(ms_env);
-	//if (isatty(0))
-	ms_env = interactive_mode(ms_env);
-//	else
-//		ft_dprintf(2, "error: neither interactive nor non interactive\n");
+	if (!isatty(0))
+		ms_env = non_interactive_mode(ms_env);
+	if (isatty(0))
+		ms_env = interactive_mode(ms_env);
+	else
+		ft_dprintf(2, "error: neither interactive nor non interactive\n");
 	env_retval = ms_getenv(ms_env, "?");
 	retval = 0;
 	if (env_retval)
