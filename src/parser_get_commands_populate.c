@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:22:53 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 16:48:30 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:49:43 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,7 @@ static t_redirections	populate_redirection(t_redirections redir,
 {
 	if (token[0] == '<')
 	{
+		redir.heredoc = 0;
 		if (token[1] && token[1] == '<')
 		{
 			if (file)
