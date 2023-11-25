@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:11:21 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/25 12:56:35 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@
 # define NO_EQUAL_IN_EXPORT 10
 # define EXIT_NON_NUM 11
 # define EXIT_TOO_MANY_ARGS 12
+# define CD_NOT_A_DIRECTORY 13
+# define CD_NO_FILE 14
 
 typedef struct s_redirections
 {
@@ -113,6 +115,7 @@ void		ms_clean_commands(t_command *commands);
 void		ft_exit(t_command *commands);
 void		ft_exit_nb(t_command *commands, int retval, char **env);
 int			is_dir(char *path);
+int			is_file(char *path);
 
 int			ft_error(void);
 int			ft_error_message(char *s, int error_type);

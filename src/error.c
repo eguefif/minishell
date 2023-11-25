@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/14 13:56:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:00:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 12:58:26 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,4 +54,9 @@ static void	handle_error_message_sup(char *s, int error_type)
 		ft_dprintf(2, "%s: %s: numeric argument required\n", PROG_NAME, s);
 	else if (error_type == EXIT_TOO_MANY_ARGS)
 		ft_dprintf(2, "%s: %s: too many arguments\n", PROG_NAME, s);
+	else if (error_type == CD_NOT_A_DIRECTORY)
+		ft_dprintf(2, "%s: cd: %s: Not a directory\n", PROG_NAME, s);
+	else if (error_type == CD_NO_FILE)
+		ft_dprintf(2, "%s: cd: %s: No such file or directory\n",
+			PROG_NAME, s);
 }

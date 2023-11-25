@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 11:25:32 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 12:56:26 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,11 @@ static int	builtin_cd(char *path, char ***env)
 	char	cwd[257];
 	char	*tmp;
 
-	if (!path)
+	if (is_dir(path) == -1)
+		ft_error_message(path, CD_NO_FILE);
+	else if (is_file(path))
+		ft_error_message(path, CD_NOT_A_DIRECTORY);
+	else if (!path)
 	{
 		tmp = ms_getenv(*env, "HOME");
 		chdir(tmp);
