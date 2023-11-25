@@ -14,9 +14,12 @@ READLINE_URL = https://ftp.gnu.org/gnu/readline/readline-8.2.tar.gz
 READLINE_SRC = $(LIB_DIR)/readline-8.2.tar.gz
 READLINE = $(READLINE_DIR)/libreadline.a
 
-_SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error.c parser_get_commands.c parser_clean_commands1.c \
-				  parser_clean_commands2.c lexer_count_tokens.c lexer_get_token_size.c parser_get_commands_populate.c \
-				  utils.c executer_getpath.c environment.c signals.c builtin.c heredoc.c heredoc_utils.c parser_clean_commands_stdin.c
+_SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error.c \
+				  parser_get_commands.c parser_clean_commands1.c init.c exit.c \
+				  parser_clean_commands2.c lexer_count_tokens.c \
+				  lexer_get_token_size.c parser_get_commands_populate.c utils.c executer_getpath.c \
+				  environment.c signals.c builtin.c heredoc.c parser_clean_commands_stdin.c heredoc_utils.c
+
 _SRC = main.c $(_SRC_LIB_STATIC)
 _OBJ = $(_SRC:.c=.o)
 _OBJ_LIB_STATIC = $(_SRC_LIB_STATIC:.c=.o)
