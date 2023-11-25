@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_is_strnum.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
+/*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:42:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 16:49:03 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 08:55:12 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ int	ft_is_strnum(char *str)
 		str++;
 	while (*str)
 	{
-		ft_printf("%c\n", str);
 		if (!ft_isdigit(*str))
 			return (0);
 		str++;
