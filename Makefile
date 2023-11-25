@@ -1,6 +1,6 @@
 NAME = minishell
 CC = gcc
-CFLAGS = -g -Wall -Werror -Wextra #-fsanitize=address
+CFLAGS = -g -Wall -Werror -Wextra
 INC = -Iincludes -I$(LIBFT_DIR)/includes -I$(READLINE_DIR)
 
 LIB = -lft -L$(LIBFT_DIR) -lncurses -L$(READLINE_DIR) -lreadline
@@ -32,7 +32,7 @@ OBJ_LIB_STATIC = $(addprefix $(ODIR), $(_OBJ_LIB_STATIC))
 
 all: $(NAME)
 
-$(NAME): $(LIBFT) $(OBJ) $(READLINE) #$(BUILTINS)
+$(NAME): $(LIBFT) $(READLINE) $(OBJ)
 	$(CC) $(CFLAGS) $(OBJ) $(LIB) -o $@
 	cp ./minishell ./test/
 
@@ -97,9 +97,9 @@ clean:
 		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
 		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} clean; \
 	done
-#	@if [ -d $(READLINE_DIR) ] ; then \
-#		make -C $(READLINE_DIR) clean ; \
-#	fi
+	@if [ -d $(READLINE_DIR) ] ; then \
+		make -C $(READLINE_DIR) clean ; \
+	fi
 
 fclean: clean
 	rm -rf $(NAME)
@@ -111,6 +111,6 @@ fclean: clean
 		echo make -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
 		make --silent -C $(BUILTIN_DIR)/srcs_$${builtin} fclean; \
 	done
-#	rm -rf $(READLINE_DIR)
+	rm -rf $(READLINE_DIR)
 
 re: fclean all
