@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 16:45:27 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:55:25 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char		*clean_tokens_stdin(char *token);
 
 int			ms_execute(t_command *commnands, char ***env);
 char		*get_command_path(char *command, char **env);
-int	set_redirections(t_command command, int *pipe_fd, int last);
+int			set_redirections(t_command command, int *pipe_fd, int last);
 
 // Environment management
 char		*ms_getenv(char **env, char *var);
@@ -88,10 +88,10 @@ char		**update_var(char **env, char *var, char *new_content);
 int			is_var(char **env, char *var);
 
 //Builtin
-int	exec_builtin(t_command cmd, char ***env);
-int	is_echo_or_env(char **cmd, char **env);
+int			exec_builtin(t_command cmd, char ***env);
+int			is_echo_or_env(char **cmd, char **env);
 t_command	*builtin_heredoc(t_command *commands, char **env);
-void	builtin_heredoc_delete(t_command *commands);
+void		builtin_heredoc_delete(t_command *commands);
 
 // Signal management
 void		ms_set_terminal_attr(void);
