@@ -70,7 +70,7 @@ def test_acceptances(command):
     print("Minishell:\n",  retval, "\nbash:\n", bash_output)
     retval.stdout = retval.stdout.replace("Minishell", "bash")
     assert bash_output.stdout == retval.stdout
-    #assert bash_output.returncode == retval.returncode
+    assert bash_output.returncode == retval.returncode
     clean_directory()
 
 # Memory check
