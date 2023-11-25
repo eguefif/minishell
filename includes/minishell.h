@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 10:29:22 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:25:38 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,6 +99,7 @@ int			exec_builtin(t_command cmd, char ***env);
 int			is_echo_or_env(char **cmd, char **env);
 t_command	*builtin_heredoc(t_command *commands, char **env);
 void		builtin_heredoc_delete(t_command *commands);
+int			builtin_export(t_command cmd, char ***env);
 
 // Signal management
 void		ms_set_terminal_attr(void);
