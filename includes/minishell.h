@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:00:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 12:11:21 by maxpelle         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ char		*clean_tokens_stdin(char *token);
 
 int			ms_execute(t_command *commnands, char ***env);
 char		*get_command_path(char *command, char **env);
-int			set_redirections(t_command command, int *pipe_fd, int last);
 
 // Environment management
 char		*ms_getenv(char **env, char *var);
