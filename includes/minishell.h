@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/10 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 09:55:25 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 10:29:22 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,7 @@
 # define COMMAND_NOT_FOUND 9
 # define NO_EQUAL_IN_EXPORT 10
 # define EXIT_NON_NUM 11
+# define EXIT_TOO_MANY_ARGS 12
 
 typedef struct s_redirections
 {
@@ -59,6 +60,12 @@ typedef struct s_command
 	int				last;
 	t_redirections	redirections;
 }					t_command;
+
+char		**init(char **env);
+int			terminate(char **ms_env);
+
+void		builtin_exit(t_command *commands, char ***env);
+char		**handle_exit_code(char **env, int retval);
 
 t_command	*ms_parser(char *line, char **env);
 char		**ms_lexer(char *line);
