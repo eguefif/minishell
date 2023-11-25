@@ -72,7 +72,7 @@ libminishell.a: $(OBJ_LIB_STATIC)
 	ar -rcs $@ $^
 	mv libminishell.a test/unit_tests/libminishell.a
 
-test: #test_memory unit_test test_segfault
+test: test_memory unit_test test_segfault
 	@cp ./minishell ./test
 	@cd test; \
 	pytest test_acceptances.py -vv
