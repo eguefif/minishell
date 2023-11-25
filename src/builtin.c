@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:16:43 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 16:33:50 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 08:35:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,9 +79,7 @@ static int	builtin_export(t_command cmd, char ***env)
 			if (splits && splits[0] && splits[1])
 			{
 				if (splits[0] && splits[1] && is_var(*env, splits[0]))
-				{
 					*env = update_var(*env, splits[0], splits[1]);
-				}
 				else
 					*env = add_var(*env, splits[0], splits[1]);
 				ft_cleansplits(splits);
@@ -123,8 +121,16 @@ static int	is_valid_identifier(char *id)
 static int	builtin_cd(char *path, char ***env)
 {
 	char cwd[257];
+	char	*tmp;
 
-	chdir(path);
+	if (!path)
+	{
+		tmp = ms_getenv(*env, "HOME");
+		chdir(tmp);
+		free(tmp);
+	}
+	else
+		chdir(path);
 	if (getcwd(cwd, 257) == 0)
 		return (1);
 	if (is_var(*env, "PWD"))

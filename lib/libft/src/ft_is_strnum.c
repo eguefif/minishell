@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:42:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 08:55:12 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/25 09:39:25 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	ft_is_strnum(char *str)
 {
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		str++;
 	while (*str)
 	{
