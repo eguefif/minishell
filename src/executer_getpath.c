@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:14:13 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 12:58:29 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static int	is_relative_path(char *command);
 static int	is_abs_path(char *command);
 static void	handle_error(char *command);
 static char	*check_paths(char *paths, char *command);
+char		**get_path_splits(char **env, char *command);
 
 char	*get_command_path(char *command, char **env)
 {
-	char	*path;
 	char	**paths;
 	int		i;
 	char	*retval;	
@@ -27,10 +27,9 @@ char	*get_command_path(char *command, char **env)
 	if (is_relative_path(command) || is_abs_path(command))
 		if (access(command, F_OK) == 0)
 			return (ft_strdup(command));
-	path = ms_getenv(env, "PATH");
-	if (!path)
+	paths = get_path_splits(env, command);
+	if (!paths)
 		return (0);
-	paths = ft_split(path, ':');
 	i = -1;
 	while (paths[++i])
 	{
@@ -41,7 +40,6 @@ char	*get_command_path(char *command, char **env)
 	ft_cleansplits(paths);
 	if (retval == 0)
 		handle_error(command);
-	free(path);
 	return (retval);
 }
 
