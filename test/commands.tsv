@@ -389,3 +389,8 @@ echo $USER$USER$USER'a'$USER
  < a > b cat > hey >> d  cat d  ls
  echo hola <<<< bonjour
  echo hola <<<<< bonjour
+ echo "exit_code ->$? user ->$USER home -> $HOME"
+ echo $?
+ export hello
+ cd 1133
+ exit +100

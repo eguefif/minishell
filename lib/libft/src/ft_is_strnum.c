@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/24 16:42:24 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 16:56:49 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 09:39:25 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,11 +14,10 @@
 
 int	ft_is_strnum(char *str)
 {
-	if (*str == '-')
+	if (*str == '-' || *str == '+')
 		str++;
 	while (*str)
 	{
-		ft_printf("%c\n", str);
 		if (!ft_isdigit(*str))
 			return (0);
 		str++;
