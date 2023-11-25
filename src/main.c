@@ -64,7 +64,7 @@ char	**non_interactive_mode(char **env)
 			commands = ms_parser(line, env);
 			if (line)
 				free(line);
-			if (commands && commands->args && commands->args[0] && commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
+			if (commands && commands->args && commands->args[0] && ft_strcmp(commands->args[0], "exit") == 0)
 			{
 				if (commands->args[1])
 				{
@@ -72,8 +72,8 @@ char	**non_interactive_mode(char **env)
 						retval = ft_atoi(commands->args[1]);
 					 else
 					 {
-						 ft_error_message(commands->args[1], EXIT_NON_NUM);
-						 retval = 255;
+						ft_error_message(commands->args[1], EXIT_NON_NUM);
+						retval = 255;
 					 }
 				}
 				env = handle_exit_code(env, retval);

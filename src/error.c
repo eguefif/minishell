@@ -18,7 +18,7 @@ int	ft_error(void)
 	return (1);
 }
 
-void	ft_error_message(char *s, int error_type)
+int	ft_error_message(char *s, int error_type)
 {
 	if (error_type == SYNTAX_ERROR)
 		ft_dprintf(2, "%s: syntax error near unexpected token \'%s\'\n",
@@ -32,13 +32,16 @@ void	ft_error_message(char *s, int error_type)
 	else if (error_type == OPEN_ERROR || error_type == SIGNAL_ERROR)
 		ft_dprintf(2, "%s: %s: %s\n", PROG_NAME, s, strerror(errno));
 	else if (error_type == EXPORT_ERROR)
-		ft_dprintf(2, "%s: export: \'%s\': not a valid identifier\n", PROG_NAME, s);
+		ft_dprintf(2, "%s: export: \'%s\': not a valid identifier\n",
+			PROG_NAME, s);
 	else if (error_type == HEREDOC_ERROR)
-		ft_dprintf(2, "%s: heredoc near \'%s\': %s\n", PROG_NAME, s, strerror(errno));
+		ft_dprintf(2, "%s: heredoc near \'%s\': %s\n",
+			PROG_NAME, s, strerror(errno));
 	else if (error_type == COMMAND_NOT_FOUND)
 		ft_dprintf(2, "%s: %s: command not found\n", PROG_NAME, s);
 	else if (error_type == NO_EQUAL_IN_EXPORT)
 		ft_dprintf(2, "%s: %s: not a valid format\n", PROG_NAME, s);
 	else if (error_type == EXIT_NON_NUM)
 		ft_dprintf(2, "%s: %s: numeric argument required\n", PROG_NAME, s);
+	return (1);
 }
