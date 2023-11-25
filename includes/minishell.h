@@ -115,5 +115,5 @@ void		ft_exit_nb(t_command *commands, int retval, char **env);
 int			is_dir(char *path);
 
 int			ft_error(void);
-void		ft_error_message(char *s, int error_type);
+int			ft_error_message(char *s, int error_type);
 #endif

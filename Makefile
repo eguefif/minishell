@@ -18,7 +18,8 @@ _SRC_LIB_STATIC = parser.c executer.c cleaner.c lexer.c lexer_get_tokens.c error
 				  parser_get_commands.c parser_clean_commands1.c init.c exit.c \
 				  parser_clean_commands2.c lexer_count_tokens.c \
 				  lexer_get_token_size.c parser_get_commands_populate.c utils.c executer_getpath.c \
-				  environment.c signals.c builtin.c heredoc.c parser_clean_commands_stdin.c
+				  environment.c signals.c builtin.c heredoc.c parser_clean_commands_stdin.c heredoc_utils.c
+
 _SRC = main.c $(_SRC_LIB_STATIC)
 _OBJ = $(_SRC:.c=.o)
 _OBJ_LIB_STATIC = $(_SRC_LIB_STATIC:.c=.o)
@@ -26,10 +27,6 @@ ODIR = ./src/obj/
 SDIR = ./src/
 OBJ = $(addprefix $(ODIR), $(_OBJ))
 OBJ_LIB_STATIC = $(addprefix $(ODIR), $(_OBJ_LIB_STATIC))
-
-# BUILTIN_DIR = builtins
-# _BUILTINS = heredoc env echo
-# BUILTINS = $(addprefix $(BUILTIN_DIR)/, $(_BUILTINS))
 
 all: $(NAME)
 
@@ -55,9 +52,6 @@ $(ODIR)%.o: $(SDIR)%.c ./includes/minishell.h
 		mkdir -p $(ODIR); \
 	fi
 	$(CC) $(CFLAGS) -c $< $(INC) -o $@
-
-#$(BUILTIN_DIR)/%:
-#	make -C $(BUILTIN_DIR)/srcs_$(subst $(BUILTIN_DIR)/,,$@)
 
 build_test_env:
 	python3 -m venv ./test/venv
