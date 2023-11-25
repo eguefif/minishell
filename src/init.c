@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 09:56:37 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 11:25:37 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 15:44:13 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,10 @@ char	**init(char **env)
 	char	**ms_env;
 
 	ms_env = init_env(env);
-	ms_env = add_var(ms_env, "?", "0");
+	if (!is_var(env, "?"))
+		ms_env = add_var(ms_env, "?", "0");
+	else
+		ms_env = update_var(ms_env, "?", "0");
 	ms_env = handle_mshlvl(ms_env);
 	return (ms_env);
 }

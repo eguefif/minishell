@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:08:40 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/25 13:37:35 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 14:55:32 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,11 +117,9 @@ static int	handle_child(t_command *commands, char **env)
 {
 	char	*path;
 
+	path = 0;
 	if (!(commands->args[0] && commands->args[0][0]))
-	{
-		ft_error_message(commands->args[0], COMMAND_NOT_FOUND);
-		return (127);
-	}
+		return (127 * ft_error_message(commands->args[0], COMMAND_NOT_FOUND));
 	if (!is_echo_or_env(commands[0].args, env))
 	{
 		path = get_command_path(commands[0].args[0], env);
@@ -133,10 +131,13 @@ static int	handle_child(t_command *commands, char **env)
 				ft_error_message(commands[0].args[0], IS_DIR);
 			else
 				ft_error_message(commands[0].args[0], NO_RIGHT);
+			free(path);
 			return (126);
 		}
 		if (execve(path, commands[0].args, env) == -1)
 			ft_dprintf(2, "command %s\n", commands[0].args[0]);
 	}
+	if (path)
+		free(path);
 	return (0);
 }

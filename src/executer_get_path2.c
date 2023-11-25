@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:43:44 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:58:30 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 14:07:17 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 char	**get_path_splits(char **env, char *command)
 {
 	char	*path;
+	char	**splits;
 
 	path = ms_getenv(env, "PATH");
 	if (!path)
@@ -22,6 +23,7 @@ char	**get_path_splits(char **env, char *command)
 		ft_error_message(command, NO_FILE);
 		return (0);
 	}
+	splits = ft_split(path, ':');
 	free(path);
-	return (ft_split(path, ':'));
+	return (splits);
 }

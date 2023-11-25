@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 08:41:06 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/25 10:37:48 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/25 15:44:16 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,6 @@ static char	*run_heredoc(int fd, char *end_cmd, char **env, int flag)
 		if (ft_strcmp(end_cmd, line) == 0)
 		{
 			free(line);
-			free(end_cmd);
 			break ;
 		}
 		if (flag == 2)
@@ -108,6 +107,7 @@ static char	*run_heredoc(int fd, char *end_cmd, char **env, int flag)
 		ft_printf("> ");
 		line = get_next_line(0);
 	}
+	free(end_cmd);
 	return (ft_strdup("fork"));
 }
 

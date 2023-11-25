@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/25 11:41:47 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 15:44:17 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,9 @@ void	get_new_token_size_part(char *token, size_t *retval, int *i, int *flag)
 	if (token[*i] == '\"')
 		*flag *= -1;
 	else if (token[*i] == '$' && token[*i + 1]
-		&& !ft_strchr(" \t$\'\"", token[*i + 1]))
+		&& !ft_strchr(" \t|$\'\"", token[*i + 1]))
 	{
-		while (token[++(*i)] && !ft_strchr(" \t$\'\"", token[*i]))
+		while (token[++(*i)] && !ft_strchr(" \t|$\'\"", token[*i]))
 			;
 		(*i)--;
 	}
@@ -124,10 +124,10 @@ void	get_new_token_part(t_get_new_token *data, char *token, char **env_var)
 		(data->i)++;
 	}
 	else if (token[data->i] == '$' && token[(data->i) + 1]
-		&& !ft_strchr(" \t$\'\"", token[(data->i) + 1]))
+		&& !ft_strchr(" \t|$\'\"", token[(data->i) + 1]))
 	{
 		(data->i)++;
-		while (token[(data->i)] && !ft_strchr(" \t$\'\"", token[(data->i)]))
+		while (token[(data->i)] && !ft_strchr(" \t|$\'\"", token[(data->i)]))
 			(data->i)++;
 		if (env_var[data->count_env_var])
 		{

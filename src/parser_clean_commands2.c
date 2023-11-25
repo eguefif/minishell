@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:59:51 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/24 14:21:35 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 15:44:18 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ char	**get_env_list(char *token, char **env)
 				;
 		else
 			if (token[i] == '$' && token[i + 1]
-				&& !ft_strchr("\n \t$", token[i + 1]))
+				&& !ft_strchr("\n \t|$", token[i + 1]))
 				retval[j++] = get_env_var((token + i), env);
 		if (token[i])
 			i++;
@@ -76,7 +76,7 @@ size_t	get_count_var_env(char *token)
 		}
 		else
 			if (token[i] == '$' && token[i + 1]
-				&& !ft_strchr("\n \t$", token[i + 1]))
+				&& !ft_strchr("\n \t|$", token[i + 1]))
 				size++;
 		i++;
 	}
@@ -90,14 +90,17 @@ char	*get_env_var(char *s, char **env)
 	char	*var_name;
 
 	size = 1;
-	while (s[size] && !ft_strchr("\n \t$\'\"", s[size]))
+	while (s[size] && !ft_strchr("\n \t|$\'\"", s[size]))
 		size++;
 	var_name = ft_strldup(s + 1, size - 1);
 	if (!var_name)
 		return (0);
 	retval = ms_getenv(env, var_name);
 	free(var_name);
-	return (retval);
+	if (retval)
+		return (retval);
+	else
+		return (ft_strdup(""));
 }
 
 size_t	get_env_var_len(char **env_var)
