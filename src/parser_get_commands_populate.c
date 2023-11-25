@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/17 14:22:53 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 09:49:43 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:57:14 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,8 @@ static size_t			get_argc(char **tokens);
 static t_redirections	populate_redirection(t_redirections redir,
 							char *token, char *file);
 static t_command		populate(t_command command, size_t *i, char **tokens);
+static t_redirections	handle_chevron_in(t_redirections redir,
+							char *token, char *file);
 
 void	populate_commands(t_command *commands,
 				char **tokens, size_t count)
@@ -84,24 +86,7 @@ static t_redirections	populate_redirection(t_redirections redir,
 							char *token, char *file)
 {
 	if (token[0] == '<')
-	{
-		redir.heredoc = 0;
-		if (token[1] && token[1] == '<')
-		{
-			if (file)
-			{
-				if (ft_strchr(file, '\"') || ft_strchr(file, '\''))
-					redir.heredoc = 1;
-				else
-					redir.heredoc = 2;
-			}
-		}
-		if (redir.r_stdin)
-			free(redir.r_stdin);
-		redir.r_stdin = ft_strdup(file);
-		if (!redir.r_stdin)
-			ft_error();
-	}
+		redir = handle_chevron_in(redir, token, file);
 	else if (token[0] == '>')
 	{
 		if (token[1] == '>')
@@ -112,5 +97,27 @@ static t_redirections	populate_redirection(t_redirections redir,
 		if (!redir.r_stdout)
 			ft_error();
 	}
+	return (redir);
+}
+
+static t_redirections	handle_chevron_in(t_redirections redir,
+		char *token, char *file)
+{
+	redir.heredoc = 0;
+	if (token[1] && token[1] == '<')
+	{
+		if (file)
+		{
+			if (ft_strchr(file, '\"') || ft_strchr(file, '\''))
+				redir.heredoc = 1;
+			else
+				redir.heredoc = 2;
+		}
+	}
+	if (redir.r_stdin)
+		free(redir.r_stdin);
+	redir.r_stdin = ft_strdup(file);
+	if (!redir.r_stdin)
+		ft_error();
 	return (redir);
 }

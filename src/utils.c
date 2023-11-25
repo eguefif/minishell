@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:12:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 17:58:06 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:51:08 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	ft_exit_nb(t_command *commands, int retval, char **env)
 
 int	is_dir(char *path)
 {
-	struct stat st;
+	struct stat	st;
 
 	if (stat(path, &st) == -1)
 		return (-1);

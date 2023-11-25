@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec>       +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/16 13:15:11 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/24 13:13:55 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:41:47 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ void	parser_clean_commands(t_command *commands, char **env)
 	int		i;
 	int		j;
 
-	i = 0;
-	while (!commands[i].last)
+	i = -1;
+	while (!commands[++i].last)
 	{
 		if (commands[i].args)
 		{
@@ -52,7 +52,6 @@ void	parser_clean_commands(t_command *commands, char **env)
 		if (commands[i].redirections.r_stdout)
 			commands[i].redirections.r_stdout
 				= clean_tokens(commands[i].redirections.r_stdout, env);
-		i++;
 	}
 }
 

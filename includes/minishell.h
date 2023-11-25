@@ -98,6 +98,7 @@ int			exec_builtin(t_command cmd, char ***env);
 int			is_echo_or_env(char **cmd, char **env);
 t_command	*builtin_heredoc(t_command *commands, char **env);
 void		builtin_heredoc_delete(t_command *commands);
+int			builtin_export(t_command cmd, char ***env);
 
 // Signal management
 void		ms_set_terminal_attr(void);
