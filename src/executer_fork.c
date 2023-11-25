@@ -6,7 +6,7 @@
 /*   By: maxpelle <maxpelle@student.42quebec.com>   +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/25 12:08:40 by maxpelle          #+#    #+#             */
-/*   Updated: 2023/11/25 12:15:15 by maxpelle         ###   ########.fr       */
+/*   Updated: 2023/11/25 13:36:55 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,6 +117,11 @@ static int	handle_child(t_command *commands, char **env)
 {
 	char	*path;
 
+	if (!(commands->args[0] && commands->args[0][0]))
+	{
+		ft_error_message(commands->args[0], COMMAND_NOT_FOUND);
+		return (127);
+	}
 	if (!is_echo_or_env(commands[0].args, env))
 	{
 		path = get_command_path(commands[0].args[0], env);
