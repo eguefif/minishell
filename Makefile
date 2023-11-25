@@ -25,10 +25,6 @@ SDIR = ./src/
 OBJ = $(addprefix $(ODIR), $(_OBJ))
 OBJ_LIB_STATIC = $(addprefix $(ODIR), $(_OBJ_LIB_STATIC))
 
-# BUILTIN_DIR = builtins
-# _BUILTINS = heredoc env echo
-# BUILTINS = $(addprefix $(BUILTIN_DIR)/, $(_BUILTINS))
-
 all: $(NAME)
 
 $(NAME): $(LIBFT) $(OBJ) $(READLINE) #$(BUILTINS)
@@ -53,9 +49,6 @@ $(ODIR)%.o: $(SDIR)%.c ./includes/minishell.h
 		mkdir -p $(ODIR); \
 	fi
 	$(CC) $(CFLAGS) -c $< $(INC) -o $@
-
-#$(BUILTIN_DIR)/%:
-#	make -C $(BUILTIN_DIR)/srcs_$(subst $(BUILTIN_DIR)/,,$@)
 
 build_test_env:
 	python3 -m venv ./test/venv
