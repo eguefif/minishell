@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 10:12:18 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 12:57:31 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 15:17:44 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,8 @@ int	is_dir(char *path)
 {
 	struct stat	st;
 
+	if (!path)
+		return (0);
 	if (stat(path, &st) == -1)
 		return (-1);
 	return (st.st_mode & S_IFDIR);
@@ -38,6 +40,8 @@ int	is_file(char *path)
 {
 	struct stat	st;
 
+	if (!path)
+		return (0);
 	if (stat(path, &st) == -1)
 		return (-1);
 	return (st.st_mode & S_IFREG);
