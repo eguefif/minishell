@@ -6,7 +6,7 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/23 13:07:15 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/23 13:55:46 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:49:49 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,6 @@ char	*clean_tokens_stdin(char *token)
 				ft_memmove(&token[i], &token[i + 1], len - i);
 		}
 		i++;
-	}	
+	}
 	return (token);
 }

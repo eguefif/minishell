@@ -6,13 +6,15 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/13 12:10:46 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/24 12:51:34 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:39:51 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_tokens(char **tokens);
+int			check_tokens(char **tokens);
+static int	handle_pipe_error(char **tokens, int i);
+static int	handle_chevron_error(char **tokens, int i);
 
 t_command	*ms_parser(char *line, char **env)
 {
@@ -48,31 +50,41 @@ int	check_tokens(char **tokens)
 	while (tokens[++i])
 	{
 		if (ft_strchr("<>", tokens[i][0]))
-		{
-			if (!tokens[i + 1])
-			{
-				ft_error_message(tokens[i], SYNTAX_ERROR);
+			if (!handle_chevron_error(tokens, i))
 				return (0);
-			}
-			if (ft_strchr("<>|", tokens[i + 1][0]))
-			{
-				ft_error_message(tokens[i + 1], SYNTAX_ERROR);
-				return (0);
-			}
-		}
 		if (tokens[i][0] == '|')
-		{
-			if (!tokens[i + 1])
-			{
-				ft_error_message(tokens[i], SYNTAX_ERROR);
+			if (!handle_pipe_error(tokens, i))
 				return (0);
-			}
-			if (tokens[i + 1][0] == '|')
-			{
-				ft_error_message(tokens[i + 1], SYNTAX_ERROR);
-				return (0);
-			}
-		}
+	}
+	return (1);
+}
+
+static int	handle_chevron_error(char **tokens, int i)
+{
+	if (!tokens[i + 1])
+	{
+		ft_error_message(tokens[i], SYNTAX_ERROR);
+		return (0);
+	}
+	if (ft_strchr("<>|", tokens[i + 1][0]))
+	{
+		ft_error_message(tokens[i + 1], SYNTAX_ERROR);
+		return (0);
+	}
+	return (1);
+}
+
+static int	handle_pipe_error(char **tokens, int i)
+{
+	if (!tokens[i + 1])
+	{
+		ft_error_message(tokens[i], SYNTAX_ERROR);
+		return (0);
+	}
+	if (tokens[i + 1][0] == '|')
+	{
+		ft_error_message(tokens[i + 1], SYNTAX_ERROR);
+		return (0);
 	}
 	return (1);
 }

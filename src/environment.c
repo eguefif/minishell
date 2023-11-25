@@ -6,11 +6,13 @@
 /*   By: eguefif <eguefif@student.42quebec.>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/11/20 18:40:07 by eguefif           #+#    #+#             */
-/*   Updated: 2023/11/25 09:39:21 by eguefif          ###   ########.fr       */
+/*   Updated: 2023/11/25 11:52:26 by eguefif          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	**remove_var(char **env, char *var);
 
 char	*ms_getenv(char **env, char *var)
 {
@@ -43,7 +45,7 @@ char	**init_env(char **env)
 {
 	char	**retval;
 	size_t	size;
-	int	i;
+	int		i;
 
 	size = 0;
 	while (env[size])
@@ -89,76 +91,6 @@ char	**add_var(char **env, char *name, char *content)
 	return (retval);
 }
 
-char		**remove_var(char **env, char *var)
-{
-	char	**retval;
-	size_t	size;
-	size_t	i;
-	size_t	j;
-	char	*cmp;
-
-	i = 0;
-	j = 0;
-	if (!is_var(env, var))
-		return (env);
-	size = 0;
-	while (env[size])
-		size++;
-	retval = (char **) ft_calloc(sizeof(char *), size);
-	if (!retval)
-		return (env);
-	retval[size - 1] = 0;
-	i = 0;
-	cmp = ft_strjoin(var, "=");
-	while (i < size)
-	{
-		if (ft_strstr(env[i], cmp) != env[i])
-		{
-			retval[j] = ft_strdup(env[i]);
-			j++;
-		}
-		i++;
-	}
-	free(cmp);
-	ft_cleansplits(env);
-	return (retval);
-}
-/*
-
-char		**update_var(char **env, char *var, char *new_content)
-{
-	int	i;
-	char	*tab[3];
-	char	*cmp;
-
-	i = 0;
-	if (!var || !new_content)
-		return (env);
-	cmp = ft_strjoin(var, "=");
-	if (!cmp)
-		return (env);
-	while (env[i] && ft_strnstr(env[i], cmp, ft_strlen(cmp)) != env[i])
-		i++;
-	i--;
-	free(cmp);
-	if (!env[i])
-		return (env);
-	tab[0] = var;
-	tab[1] = new_content;
-	tab[2] = 0;
-	if (env[i])
-	{
-		free(env[i]);
-		env[i] = ft_strjoin_tab(tab, "=");
-	}
-	else
-		return (0);
-	if (!env[i])
-		return (0);
-	return (env);
-}
-*/
-
 char	**update_var(char **env, char *var, char *new_content)
 {
 	env = remove_var(env, var);
@@ -168,7 +100,7 @@ char	**update_var(char **env, char *var, char *new_content)
 
 int	is_var(char **env, char *var)
 {
-	int	i;
+	int		i;
 	char	*tmp;
 
 	i = 0;
